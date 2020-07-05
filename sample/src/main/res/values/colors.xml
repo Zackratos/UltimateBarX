@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/deepSkyBlue</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">@color/deepSkyBlue</color>
+    <color name="colorHalfTran">#AAFF0000</color>
+
+    <color name="deepSkyBlue">#00BFFF</color>
+
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="alphaBlack">#66000000</color>
+    <color name="alphaGreen">#66008000</color>
+</resources>

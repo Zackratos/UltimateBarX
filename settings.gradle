@@ -1,0 +1,3 @@
+rootProject.name='UltimateBarX'
+include ':sample'
+include ':library'
