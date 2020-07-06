@@ -13,29 +13,32 @@ dependencies {
 }
 ```
 
-###### 设置状态栏
+##### 设置状态栏
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.STATUS_BAR)        // 设置状态栏
     .fitWindow(true)                                // 布局是否侵入状态栏（true 不侵入，false 侵入）  
-    .bgColor(Color.BLACK)                           // 状态栏背景颜色 
+    .bgColor(Color.BLACK)                           // 状态栏背景颜色（色值）
+    .bgColorRes(R.color.deepSkyBlue)                // 状态栏背景颜色（资源id）
     .bgRes(R.drawable.bg_gradient)                  // 状态栏背景 drawable
     .light(false)                                   // light模式（状态栏字体灰色 Android 6.0 以上支持）
     .apply(this)
 ```
 
-###### 设置导航栏
+##### 设置导航栏
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)    // 设置导航栏
     .fitWindow(true)                                // 布局是否侵入导航栏（true 不侵入，false 侵入）  
-    .bgColor(Color.BLACK)                           // 导航栏背景颜色 
+    .bgColor(Color.BLACK)                           // 导航栏背景颜色（色值）
+    .bgColorRes(R.color.deepSkyBlue)                // 导航栏背景颜色（资源id）
     .bgRes(R.drawable.bg_gradient)                  // 导航栏背景 drawable
-    .light(false)                                   // light模式（导航栏字体灰色 Android 8.0 以上支持）
+    .light(false)                                   // light模式（导航栏按钮灰色 Android 8.0 以上支持）
     .apply(this)
 ```
+> 设置背景的三个方法写一个即可，优先级 bgRes > bgColor > bgColorRes
 
-###### 快速设置状态栏透明
+##### 快速设置状态栏透明
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.STATUS_BAR)

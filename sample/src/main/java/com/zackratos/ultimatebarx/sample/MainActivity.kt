@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.sample.extension.getColorInt
 import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,11 +16,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         UltimateBarX.create(UltimateBarX.STATUS_BAR)
             .fitWindow(true)
-            .bgColor(getColorInt(R.color.deepSkyBlue))
+            .bgColorRes(R.color.deepSkyBlue)
             .apply(this)
         UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
             .fitWindow(true)
-            .bgColor(getColorInt(R.color.deepSkyBlue))
+            .bgColorRes(R.color.deepSkyBlue)
             .apply(this)
         btnTransparent.setOnClickListener { start(TransparentActivity::class.java) }
         btnSwitch.setOnClickListener { start(SwitchActivity::class.java) }

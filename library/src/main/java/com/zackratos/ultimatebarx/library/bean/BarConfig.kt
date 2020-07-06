@@ -2,6 +2,7 @@ package com.zackratos.ultimatebarx.library.bean
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.UltimateBarX
@@ -26,6 +27,8 @@ class BarConfig {
     internal var bgColor: Int = 0
     @DrawableRes
     internal var bgRes: Int = 0
+    @ColorRes
+    internal var bgColorRes: Int = 0
     // light 模式（状态栏字体颜色变灰，导航栏内部按钮颜色变灰）
     internal var light: Boolean = false
 
@@ -55,6 +58,8 @@ class BarConfig {
         this.fitWindow = config.fitWindow
         this.bgColor = config.bgColor
         this.bgRes = config.bgRes
+        this.bgColorRes = config.bgColorRes
+        this.light = config.light
     }
 
     class Builder(@Type private val type: Int) {
@@ -63,6 +68,8 @@ class BarConfig {
         private var bgColor: Int = Int.MIN_VALUE
         @DrawableRes
         private var bgRes: Int = -1
+        @ColorRes
+        private var bgColorRes: Int = -1
         private var light: Boolean = false
         private var transparent: Boolean = false
 
@@ -70,6 +77,7 @@ class BarConfig {
             fun defaultStatusBarBuilder() =
                 Builder(UltimateBarX.STATUS_BAR).apply {
                     bgColor = Int.MIN_VALUE
+                    bgColorRes = -1
                     bgRes = -1
                     fitWindow = true
                 }
@@ -77,6 +85,7 @@ class BarConfig {
             fun defaultNavigationBarBuilder() =
                 Builder(UltimateBarX.NAVIGATION_BAR).apply {
                     bgColor = Color.BLACK
+                    bgColorRes = -1
                     bgRes = -1
                     fitWindow = true
                 }
@@ -89,6 +98,11 @@ class BarConfig {
         fun bgColor(@ColorInt color: Int): Builder = apply {
             if (transparent) return@apply
             bgColor = color
+        }
+
+        fun bgColorRes(@ColorRes color: Int): Builder = apply {
+            if (transparent) return@apply
+            bgColorRes = color
         }
 
         fun fitWindow(fitWindow: Boolean): Builder = apply {
@@ -107,6 +121,7 @@ class BarConfig {
             transparent = true
             fitWindow = false
             bgColor = Color.TRANSPARENT
+            bgColorRes = -1
             bgRes = -1
         }
 
@@ -115,6 +130,7 @@ class BarConfig {
                 type = this@Builder.type
                 fitWindow = this@Builder.fitWindow
                 bgColor = this@Builder.bgColor
+                bgColorRes = this@Builder.bgColorRes
                 bgRes = this@Builder.bgRes
                 light = this@Builder.light
             }

@@ -92,6 +92,7 @@ internal fun FragmentActivity.updateStatusBarView(config: BarConfig?): View? {
     when {
         config.bgRes > 0 -> statusBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> statusBar.setBackgroundColor(config.bgColor)
+        config.bgColorRes > 0 -> statusBar.setBackgroundColor(ContextCompat.getColor(this, config.bgColorRes))
         else -> statusBar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
     }
     return statusBar
@@ -104,6 +105,7 @@ internal fun FragmentActivity.updateNavigationBarView(config: BarConfig?): View?
     when {
         config.bgRes > 0 -> navigationBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> navigationBar.setBackgroundColor(config.bgColor)
+        config.bgColorRes > 0 -> navigationBar.setBackgroundColor(ContextCompat.getColor(this, config.bgColorRes))
         else -> navigationBar.setBackgroundColor(Color.BLACK)
     }
     return navigationBar
