@@ -9,11 +9,11 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.1.0'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.1.1'
 }
 ```
 
-##### 设置状态栏
+#### 设置状态栏
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.STATUS_BAR)        // 设置状态栏
@@ -25,7 +25,7 @@ UltimateBarX.create(UltimateBarX.STATUS_BAR)        // 设置状态栏
     .apply(this)
 ```
 
-##### 设置导航栏
+#### 设置导航栏
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)    // 设置导航栏
@@ -38,7 +38,7 @@ UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)    // 设置导航栏
 ```
 > 设置背景的三个方法写一个即可，优先级 bgRes > bgColor > bgColorRes
 
-##### 快速设置状态栏透明
+#### 快速设置状态栏透明
 在 Activity 中
 ```kotlin
 UltimateBarX.create(UltimateBarX.STATUS_BAR)
@@ -61,3 +61,23 @@ UltimateBarX.create(UltimateBarX.STATUS_BAR)
 ![](screenshots/effect_1.png)　![](screenshots/effect_2.png)
 
 ![](screenshots/dynamic_1.gif)　![](screenshots/dynamic_2.gif)
+
+### Change Log
+[CHANGELOG](CHANGELOG.md)
+
+### License
+```
+Copyright 2020 Zackratos
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
