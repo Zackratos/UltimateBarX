@@ -84,7 +84,7 @@ class BarConfig {
 
             fun defaultNavigationBarBuilder() =
                 Builder(UltimateBarX.NAVIGATION_BAR).apply {
-                    bgColor = Color.BLACK
+                    bgColor = Int.MIN_VALUE
                     bgColorRes = -1
                     bgRes = -1
                     fitWindow = true
