@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = "1.8"
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -36,4 +40,5 @@ dependencies {
     implementation project(path: ':library')
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+//    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

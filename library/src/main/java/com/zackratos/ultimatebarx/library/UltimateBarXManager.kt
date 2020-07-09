@@ -3,11 +3,13 @@ package com.zackratos.ultimatebarx.library
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.collection.ArrayMap
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.library.bean.DefaultStatus
-import com.zackratos.ultimatebarx.library.extension.updateNavigationBarView
 import com.zackratos.ultimatebarx.library.extension.transparentStatusAndNavigationBar
+import com.zackratos.ultimatebarx.library.extension.updateNavigationBarView
 import com.zackratos.ultimatebarx.library.extension.updateStatusBarView
 
 /**
@@ -26,13 +28,13 @@ internal class UltimateBarXManager private constructor(){
     }
 
     // 保存 StatusBar 的 light 状态
-    private val actStaLightMap: MutableMap<FragmentActivity, Boolean> by lazy { ArrayMap<FragmentActivity, Boolean>() }
+    private val staLightMap: MutableMap<LifecycleOwner, Boolean> by lazy { ArrayMap<LifecycleOwner, Boolean>() }
     // 保存 NavigationBar 的 light 状态
-    private val actNavLightMap: MutableMap<FragmentActivity, Boolean> by lazy { ArrayMap<FragmentActivity, Boolean>() }
+    private val navLightMap: MutableMap<LifecycleOwner, Boolean> by lazy { ArrayMap<LifecycleOwner, Boolean>() }
     // 保存是否已经初始化
     private val actDefMap: MutableMap<FragmentActivity, DefaultStatus> by lazy { ArrayMap<FragmentActivity, DefaultStatus>() }
     // 保存是否已经 AddObserver
-    private val actAddObsMap: MutableMap<FragmentActivity, Boolean> by lazy { ArrayMap<FragmentActivity, Boolean>() }
+    private val addObsMap: MutableMap<LifecycleOwner, Boolean> by lazy { ArrayMap<LifecycleOwner, Boolean>() }
 
 
 
@@ -55,17 +57,44 @@ internal class UltimateBarXManager private constructor(){
         addObserver(activity)
     }
 
-    internal fun removeAllData(activity: FragmentActivity) {
-        actDefMap.remove(activity)
-        actAddObsMap.remove(activity)
-        actStaLightMap.remove(activity)
-        actNavLightMap.remove(activity)
+    internal fun applyStatusBar(fragment: Fragment, config: BarConfig) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
+        val navLight = getNavigationBarLight(fragment)
+        fragment.requireActivity().transparentStatusAndNavigationBar(config.light, navLight)
+        val transparentConfig = BarConfig.Builder(UltimateBarX.STATUS_BAR)
+            .transparent().light(config.light).build()
+        updateStatusBarView(fragment.requireActivity(), transparentConfig)
+        updateStatusBarView(fragment, config)
+        defaultNavigationBar(fragment.requireActivity())
+        addObserver(fragment)
+        addObserver(fragment.requireActivity())
     }
 
-    private fun addObserver(activity: FragmentActivity) {
-        if (getAddObserver(activity)) return
-        activity.lifecycle.addObserver(UltimateBarXObserver())
-        putAddObserver(activity)
+    internal fun applyNavigationBar(fragment: Fragment, config: BarConfig) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
+        val staLight = getStatusBarLight(fragment)
+        fragment.requireActivity().transparentStatusAndNavigationBar(staLight, config.light)
+        val transparentConfig = BarConfig.Builder(UltimateBarX.NAVIGATION_BAR)
+            .transparent().light(config.light).build()
+        updateNavigationBarView(fragment.requireActivity(), transparentConfig)
+        updateNavigationBarView(fragment, config)
+        defaultStatusBar(fragment.requireActivity())
+        addObserver(fragment)
+        addObserver(fragment.requireActivity())
+    }
+
+    internal fun removeAllData(owner: LifecycleOwner) {
+        actDefMap.remove(owner)
+        addObsMap.remove(owner)
+        staLightMap.remove(owner)
+        navLightMap.remove(owner)
+    }
+
+
+    private fun addObserver(owner: LifecycleOwner) {
+        if (getAddObserver(owner)) return
+        owner.lifecycle.addObserver(UltimateBarXObserver())
+        putAddObserver(owner)
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -83,6 +112,20 @@ internal class UltimateBarXManager private constructor(){
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun updateStatusBarView(fragment: Fragment, config: BarConfig) {
+        fragment.requireView().post { fragment.updateStatusBarView(config) }
+        putStatusBarDefault(fragment.requireActivity())
+        putStatusBarLight(fragment, config.light)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    private fun updateNavigationBarView(fragment: Fragment, config: BarConfig) {
+        fragment.requireView().post { fragment.updateNavigationBarView(config) }
+        putNavigationBarDefault(fragment.requireActivity())
+        putNavigationBarLight(fragment, config.light)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     private fun defaultStatusBar(activity: FragmentActivity) {
         if (getBarDefault(activity).statusBarDefault) return
         updateStatusBarView(activity, BarConfig.DEFAULT_STATUS_BAR_CONFIG)
@@ -94,11 +137,13 @@ internal class UltimateBarXManager private constructor(){
         updateNavigationBarView(activity, BarConfig.DEFAULT_NAVIGATION_BAR_CONFIG)
     }
 
-    private fun putAddObserver(activity: FragmentActivity) {
-        actAddObsMap[activity] = true
+
+
+    private fun putAddObserver(owner: LifecycleOwner) {
+        addObsMap[owner] = true
     }
 
-    private fun getAddObserver(activity: FragmentActivity): Boolean = actAddObsMap[activity] ?: false
+    private fun getAddObserver(owner: LifecycleOwner): Boolean = addObsMap[owner] ?: false
 
     private fun putStatusBarDefault(activity: FragmentActivity) {
         actDefMap[activity] = getBarDefault(activity).apply { statusBarDefault = true }
@@ -110,19 +155,18 @@ internal class UltimateBarXManager private constructor(){
 
     private fun getBarDefault(activity: FragmentActivity): DefaultStatus = actDefMap[activity] ?: DefaultStatus()
 
-    private fun putStatusBarLight(activity: FragmentActivity, light: Boolean) {
-        actStaLightMap[activity] = light
+    private fun putStatusBarLight(owner: LifecycleOwner, light: Boolean) {
+        staLightMap[owner] = light
     }
 
-    private fun getStatusBarLight(activity: FragmentActivity): Boolean = actStaLightMap[activity] ?: false
+    private fun getStatusBarLight(owner: LifecycleOwner): Boolean = staLightMap[owner] ?: false
 
 
-    private fun putNavigationBarLight(activity: FragmentActivity, light: Boolean) {
-        actNavLightMap[activity] = light
+    private fun putNavigationBarLight(owner: LifecycleOwner, light: Boolean) {
+        navLightMap[owner] = light
     }
 
-    private fun getNavigationBarLight(activity: FragmentActivity): Boolean = actNavLightMap[activity] ?: false
-
+    private fun getNavigationBarLight(owner: LifecycleOwner): Boolean = navLightMap[owner] ?: false
 
 
 }

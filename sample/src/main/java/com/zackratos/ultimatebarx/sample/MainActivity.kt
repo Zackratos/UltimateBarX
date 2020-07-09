@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +23,9 @@ class MainActivity : AppCompatActivity() {
             .apply(this)
         btnTransparent.setOnClickListener { start(TransparentActivity::class.java) }
         btnSwitch.setOnClickListener { start(SwitchActivity::class.java) }
+        btnSwitch2.setOnClickListener { start(SwitchFragmentActivity::class.java) }
         btnViewPager.setOnClickListener { start(ViewPagerActivity::class.java) }
+        btnViewPager2.setOnClickListener { start(ViewPagerActivity2::class.java) }
         btnScroll.setOnClickListener { start(ScrollActivity::class.java) }
     }
 

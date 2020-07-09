@@ -1,11 +1,10 @@
-package com.zackratos.ultimatebarx.sample.viewpager
+package com.zackratos.ultimatebarx.sample
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager.widget.ViewPager
 import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.sample.R
+import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : AppCompatActivity() {
@@ -13,9 +12,17 @@ class ViewPagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager)
-        viewPager.adapter = Adapter(this)
+        viewPager.adapter =
+            ViewPagerAdapter(
+                supportFragmentManager
+            )
+        UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
+            .fitWindow(true)
+            .bgColorRes(R.color.deepSkyBlue)
+            .apply(this)
         UltimateBarX.create(UltimateBarX.STATUS_BAR).transparent().apply(this)
         initViewPager()
+        setTabSelect(0)
         flAndroid.setOnClickListener { viewPager.currentItem = 0 }
         flAlbum.setOnClickListener { viewPager.currentItem = 1 }
         flCamera.setOnClickListener { viewPager.currentItem = 2 }
@@ -24,9 +31,16 @@ class ViewPagerActivity : AppCompatActivity() {
     }
 
     private fun initViewPager() {
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {}
+
             override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
                 setTabSelect(position)
                 when (position) {
                     0 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
@@ -38,15 +52,14 @@ class ViewPagerActivity : AppCompatActivity() {
                         .apply(this@ViewPagerActivity)
                     2 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
                         .transparent()
-                        .apply(this@ViewPagerActivity)
-                    3 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .transparent()
                         .light(true)
                         .apply(this@ViewPagerActivity)
+                    3 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
+                        .fitWindow(false)
+                        .bgColorRes(R.color.alphaGreen)
+                        .apply(this@ViewPagerActivity)
                 }
-
             }
-
         })
     }
 

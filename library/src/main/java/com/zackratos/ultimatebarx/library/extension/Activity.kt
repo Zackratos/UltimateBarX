@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.ContentFrameLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.R
@@ -67,22 +66,6 @@ private fun systemUiFlag(statusBarLight: Boolean, navigationBarLight: Boolean): 
         }
     }
     return flag
-}
-
-private fun FragmentActivity.fitsSystemWindows() {
-    val content: ContentFrameLayout = this.findViewById(android.R.id.content)
-    val rootView: View? = content.getChildAt(0)
-    rootView?.fitsSystemWindows = false
-}
-
-@RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.defaultStatusBar() {
-    updateStatusBarView(BarConfig.DEFAULT_STATUS_BAR_CONFIG)
-}
-
-@RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.defaultNavigationBar() {
-    updateNavigationBarView(BarConfig.DEFAULT_NAVIGATION_BAR_CONFIG)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -150,7 +133,7 @@ private fun FragmentActivity.initNavigationBarView(fitWindow: Boolean): View? {
     return navigationView
 }
 
-private fun FragmentActivity.createStatusBarView(): View =
+internal fun FragmentActivity.createStatusBarView(): View =
     View(this)
         .apply {
             layoutParams = FrameLayout.LayoutParams(
@@ -159,7 +142,7 @@ private fun FragmentActivity.createStatusBarView(): View =
             ).apply { gravity = Gravity.TOP }
         }
 
-private fun FragmentActivity.createNavigationBarView(): View =
+internal fun FragmentActivity.createNavigationBarView(): View =
     View(this)
         .apply {
             layoutParams = FrameLayout.LayoutParams(
@@ -169,7 +152,7 @@ private fun FragmentActivity.createNavigationBarView(): View =
         }
 
 // 导航栏是否存在
-private fun FragmentActivity.navigationBarExist(): Boolean {
+internal fun FragmentActivity.navigationBarExist(): Boolean {
 
     val d = windowManager.defaultDisplay
     val realDisplayMetrics = DisplayMetrics()

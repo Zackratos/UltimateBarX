@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.library.UltimateBarXManager
@@ -51,6 +52,16 @@ class BarConfig {
         }
     }
 
+    private fun apply(fragment: Fragment) {
+        when (type) {
+            UltimateBarX.STATUS_BAR ->
+                UltimateBarXManager.getInstance().applyStatusBar(fragment, this)
+
+            UltimateBarX.NAVIGATION_BAR ->
+                UltimateBarXManager.getInstance().applyNavigationBar(fragment, this)
+        }
+    }
+
 
     internal fun update(config: BarConfig?) {
         if (config == null) return
@@ -93,6 +104,10 @@ class BarConfig {
 
         fun apply(activity: FragmentActivity) {
             build().apply(activity)
+        }
+
+        fun apply(fragment: Fragment) {
+            build().apply(fragment)
         }
 
         fun bgColor(@ColorInt color: Int): Builder = apply {

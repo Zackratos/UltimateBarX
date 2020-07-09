@@ -35,11 +35,23 @@
                 android:textAllCaps="false"
                 android:text="switch"/>
             <Button
+                android:id="@+id/btnSwitch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="fragment switch"/>
+            <Button
                 android:id="@+id/btnViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="viewpager"/>
+            <Button
+                android:id="@+id/btnViewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="viewpager 2"/>
             <Button
                 android:id="@+id/btnScroll"
                 android:layout_width="match_parent"
