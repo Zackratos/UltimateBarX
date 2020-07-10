@@ -24,10 +24,10 @@ class ViewPagerAdapter2(fragmentActivity: FragmentActivity) : FragmentStateAdapt
         var fragment = fragments[position]
         if (fragment != null) return fragment
         fragment = when (position) {
-            0 -> TextFragment2.newInstance(Color.BLUE, "Android", Color.WHITE) {
+            0 -> TextFragment2.newInstance(Color.BLACK, "Android", Color.WHITE) {
                 UltimateBarX.create(UltimateBarX.STATUS_BAR)
                     .fitWindow(true)
-                    .bgColor(Color.BLUE)
+                    .bgColor(Color.BLACK)
                     .apply(it)
             }
             1 -> ImageTextFragment.newInstance(R.drawable.yurisa__005) {
@@ -35,10 +35,10 @@ class ViewPagerAdapter2(fragmentActivity: FragmentActivity) : FragmentStateAdapt
                     .transparent()
                     .apply(it)
             }
-            2 -> TextFragment2.newInstance(Color.BLACK, "Camera", Color.WHITE) {
+            2 -> TextFragment2.newInstance(Color.BLUE, "Camera", Color.WHITE) {
                 UltimateBarX.create(UltimateBarX.STATUS_BAR)
                     .fitWindow(true)
-                    .bgColor(Color.BLACK)
+                    .bgColor(Color.BLUE)
                     .apply(it)
             }
             3 -> ImageTextFragment.newInstance(R.drawable.yurisa__004) {

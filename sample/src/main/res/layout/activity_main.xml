@@ -33,25 +33,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="switch"/>
+                android:text="switch (Activity)"/>
             <Button
                 android:id="@+id/btnSwitch2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="fragment switch"/>
+                android:text="switch (Fragment)"/>
             <Button
                 android:id="@+id/btnViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="viewpager"/>
+                android:text="viewpager (apply to Activity)"/>
             <Button
                 android:id="@+id/btnViewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="viewpager 2"/>
+                android:text="viewpager (apply to Fragment)"/>
             <Button
                 android:id="@+id/btnScroll"
                 android:layout_width="match_parent"

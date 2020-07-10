@@ -29,9 +29,6 @@ public class ViewPagerActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_2);
         initView();
-//        UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                .transparent()
-//                .apply(this);
         UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
                 .fitWindow(true)
                 .bgColorRes(R.color.deepSkyBlue)
