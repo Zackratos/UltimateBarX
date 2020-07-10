@@ -55,8 +55,7 @@ class ViewPagerActivity : AppCompatActivity() {
                         .light(true)
                         .apply(this@ViewPagerActivity)
                     3 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .fitWindow(false)
-                        .bgColorRes(R.color.alphaGreen)
+                        .transparent()
                         .apply(this@ViewPagerActivity)
                 }
             }

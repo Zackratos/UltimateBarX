@@ -20,9 +20,9 @@ import com.zackratos.ultimatebarx.library.bean.BarConfig
  * @email    : zhangwenchao@soulapp.cn
  * @Describe : Activity 的扩展方法和属性
  */
-private const val TAG_PARENT = "tag_parent"
-private const val TAG_STATUS_BAR = "status_bar"
-private const val TAG_NAVIGATION_BAR = "navigation_bar"
+private const val TAG_PARENT = "activity_root_view_parent"
+private const val TAG_STATUS_BAR = "activity_status_bar"
+private const val TAG_NAVIGATION_BAR = "activity_navigation_bar"
 
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -31,8 +31,8 @@ internal fun FragmentActivity.transparentStatusAndNavigationBar(statusBarLight: 
     var parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     if (parentView == null) {
         parentView = findViewById(android.R.id.content)
-//        parentView = decorView?.getChildAt(0)
         parentView?.tag = TAG_PARENT
+        parentView?.clipToPadding = false
     }
     parentView?.getChildAt(0)?.fitsSystemWindows = false
     when {
@@ -97,19 +97,18 @@ internal fun FragmentActivity.updateNavigationBarView(config: BarConfig?): View?
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun FragmentActivity.initStatusBarView(fitWindow: Boolean): View {
     val decorView = window.decorView as FrameLayout?
-    val parentView: View? = decorView?.findViewWithTag(TAG_PARENT)
+    val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.post {
-//        parentView.layoutParams = (parentView.layoutParams as FrameLayout.LayoutParams?)?.apply {
-//            topMargin = if (fitWindow) getStatusBarHeight() else 0
-//        }
         parentView.setPadding(0, if (fitWindow) getStatusBarHeight() else 0, 0, parentView.paddingBottom)
     }
-    var statusBar: View? = decorView?.findViewWithTag(TAG_STATUS_BAR)
+    var statusBar: View? = parentView?.findViewWithTag(TAG_STATUS_BAR)
     if (statusBar == null) {
         statusBar = createStatusBarView()
         statusBar.tag = TAG_STATUS_BAR
-        decorView?.addView(statusBar)
+        parentView?.addView(statusBar)
     }
+    statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
+        .apply { topMargin = if (fitWindow) -getStatusBarHeight() else 0 }
     return statusBar
 }
 
@@ -117,20 +116,19 @@ private fun FragmentActivity.initStatusBarView(fitWindow: Boolean): View {
 private fun FragmentActivity.initNavigationBarView(fitWindow: Boolean): View? {
     if (!navigationBarExist()) return null
     val decorView = window.decorView as FrameLayout?
-    val parentView: View? = decorView?.findViewWithTag(TAG_PARENT)
+    val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.post {
-//        parentView.layoutParams = (parentView.layoutParams as FrameLayout.LayoutParams?)?.apply {
-//            bottomMargin = if (fitWindow) getNavigationBarHeight() else 0
-//        }
         parentView.setPadding(0,  parentView.paddingTop, 0, if (fitWindow) getNavigationBarHeight() else 0)
     }
-    var navigationView: View? = decorView?.findViewWithTag(TAG_NAVIGATION_BAR)
-    if (navigationView == null) {
-        navigationView = createNavigationBarView()
-        navigationView.tag = TAG_NAVIGATION_BAR
-        decorView?.addView(navigationView)
+    var navigationBar: View? = parentView?.findViewWithTag(TAG_NAVIGATION_BAR)
+    if (navigationBar == null) {
+        navigationBar = createNavigationBarView()
+        navigationBar.tag = TAG_NAVIGATION_BAR
+        parentView?.addView(navigationBar)
     }
-    return navigationView
+    navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
+        .apply { bottomMargin = if (fitWindow) -getNavigationBarHeight() else 0 }
+    return navigationBar
 }
 
 internal fun FragmentActivity.createStatusBarView(): View =

@@ -10,12 +10,7 @@ class UltimateBarX {
         const val NAVIGATION_BAR = 1
 
         @JvmStatic
-        fun create(@Type type: Int): BarConfig.Builder =
-            when (type) {
-                STATUS_BAR -> BarConfig.Builder.defaultStatusBarBuilder()
-                NAVIGATION_BAR -> BarConfig.Builder.defaultNavigationBarBuilder()
-                else -> BarConfig.Builder(type)
-            }
+        fun create(@Type type: Int): BarConfig.Builder = BarConfig.Builder.newDefaultBuilder(type)
     }
 
 }

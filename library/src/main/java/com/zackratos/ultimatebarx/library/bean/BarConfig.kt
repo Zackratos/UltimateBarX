@@ -37,8 +37,8 @@ class BarConfig {
     private var type: Int = UltimateBarX.STATUS_BAR
 
     companion object {
-        internal val DEFAULT_STATUS_BAR_CONFIG = Builder.defaultStatusBarBuilder().build()
-        internal val DEFAULT_NAVIGATION_BAR_CONFIG = Builder.defaultNavigationBarBuilder().build()
+        internal val DEFAULT_STATUS_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.STATUS_BAR).build()
+        internal val DEFAULT_NAVIGATION_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.NAVIGATION_BAR).build()
     }
 
     private fun apply(activity: FragmentActivity) {
@@ -85,16 +85,8 @@ class BarConfig {
         private var transparent: Boolean = false
 
         companion object {
-            fun defaultStatusBarBuilder() =
-                Builder(UltimateBarX.STATUS_BAR).apply {
-                    bgColor = Int.MIN_VALUE
-                    bgColorRes = -1
-                    bgRes = -1
-                    fitWindow = true
-                }
-
-            fun defaultNavigationBarBuilder() =
-                Builder(UltimateBarX.NAVIGATION_BAR).apply {
+            fun newDefaultBuilder(@Type type: Int) =
+                Builder(type).apply {
                     bgColor = Int.MIN_VALUE
                     bgColorRes = -1
                     bgRes = -1
