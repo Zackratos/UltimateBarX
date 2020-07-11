@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.sample.R
+import com.zackratos.ultimatebarx.sample.TextFragment2
 
 /**
  * @Author   : zhangwenchao

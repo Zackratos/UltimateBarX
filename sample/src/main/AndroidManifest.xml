@@ -22,6 +22,7 @@
         <activity android:name=".ScrollActivity" />
         <activity android:name=".ViewPagerActivity2" />
         <activity android:name=".SwitchFragmentActivity" />
+        <activity android:name=".DrawerActivity" />
     </application>
 
 </manifest>

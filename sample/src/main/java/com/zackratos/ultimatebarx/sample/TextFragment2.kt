@@ -1,12 +1,10 @@
-package com.zackratos.ultimatebarx.sample.viewpager
+package com.zackratos.ultimatebarx.sample
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.sample.R
+import com.zackratos.ultimatebarx.sample.viewpager.TextFragment
 import kotlinx.android.synthetic.main.fragment_text.*
 
 /**

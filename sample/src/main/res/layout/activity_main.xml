@@ -58,6 +58,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="scroll"/>
+            <Button
+                android:id="@+id/btnDrawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="drawerlayout"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
