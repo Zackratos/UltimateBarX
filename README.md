@@ -10,7 +10,7 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.2.0'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.2.1'
 }
 ```
 
@@ -39,7 +39,7 @@ UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)    // 设置导航栏
 ```
 
 > * 设置背景的三个方法写一个即可，优先级 `bgRes` > `bgColor` > `bgColorRes`
-> * 仅支持父布局为 FrameLayout 的 Fragment，如果不是，可以通过设置 Activity 达到需要的效果
+> * 如果要在 Fragment 中使用，Fragment 的根布局必须是 ViewGroup
 
 #### 快速设置状态栏透明
 在 Activity 或 Fragment 中
@@ -53,7 +53,6 @@ UltimateBarX.create(UltimateBarX.STATUS_BAR)
 UltimateBarX.create(UltimateBarX.STATUS_BAR)
     .fitWindow(false)
     .bgColor(Color.TRANSLUCENT)
-    .light(false)
     .apply(this)
 ```
 快速设置导航栏透明的方法也类似，把 `UltimateBarX.STATUS_BAR` 改成 `UltimateBarX.NAVIGATION_BAR` 即可

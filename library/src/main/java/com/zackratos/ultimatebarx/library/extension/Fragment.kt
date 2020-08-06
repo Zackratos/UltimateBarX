@@ -3,8 +3,7 @@ package com.zackratos.ultimatebarx.library.extension
 import android.graphics.Color
 import android.os.Build
 import android.view.View
-import android.view.ViewParent
-import android.widget.FrameLayout
+import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,8 +19,7 @@ import com.zackratos.ultimatebarx.library.bean.BarConfig
 
 private const val TAG_STATUS_BAR = "fragment_status_bar"
 private const val TAG_NAVIGATION_BAR = "fragment_navigation_bar"
-private const val NOT_FRAMELAYOUT_MESSAGE = "Use UltimateBarX on Fragment must ensure the Fragment parent View is a FrameLayout, " +
-        "You can Use UltimateBarX on Activity instead of it."
+private const val NO_VIEW_GROUP_MESSAGE = "Use UltimateBarX on Fragment must ensure the Fragment root View is a ViewGroup."
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun Fragment.updateStatusBarView(config: BarConfig?): View? {
@@ -51,40 +49,44 @@ internal fun Fragment.updateNavigationBarView(config: BarConfig?): View? {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.initStatusBarView(fitWindow: Boolean): View {
-    val parentView: ViewParent? = requireView().parent
-    if (parentView !is FrameLayout) {
-        throw IllegalStateException(NOT_FRAMELAYOUT_MESSAGE)
-    }
-    parentView.clipToPadding = false
-    parentView.setPadding(0, if (fitWindow) getStatusBarHeight() else 0, 0, parentView.paddingBottom)
-    var statusBar: View? = parentView.findViewWithTag(TAG_STATUS_BAR)
+    val rootView = requireView()
+    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
+    rootView.clipToPadding = false
+    rootView.setPadding(
+        rootView.paddingLeft,
+        (if (fitWindow) getStatusBarHeight() else 0),
+        rootView.paddingRight,
+        rootView.paddingBottom
+    )
+    var statusBar: View? = rootView.findViewWithTag(TAG_STATUS_BAR)
     if (statusBar == null) {
-        statusBar = requireActivity().createStatusBarView()
+        statusBar = View(requireContext())
         statusBar.tag = TAG_STATUS_BAR
-        parentView.addView(statusBar)
+        rootView.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight())
     }
-    statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
-        .apply { topMargin = if (fitWindow) -getStatusBarHeight() else 0 }
+    statusBar.post { statusBar.translationY = -statusBar.top.toFloat() }
     return statusBar
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.initNavigationBarView(fitWindow: Boolean): View? {
     if (!requireActivity().navigationBarExist()) return null
-    val parentView: ViewParent? = requireView().parent
-    if (parentView !is FrameLayout) {
-        throw IllegalStateException(NOT_FRAMELAYOUT_MESSAGE)
-    }
-    parentView.clipToPadding = false
-    parentView.setPadding(0, parentView.paddingTop, 0, if (fitWindow) getNavigationBarHeight() else 0)
-    var navigationBar: View? = parentView.findViewWithTag(TAG_NAVIGATION_BAR)
+    val rootView = requireView()
+    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
+    rootView.clipToPadding = false
+    rootView.setPadding(
+        rootView.paddingLeft,
+        rootView.paddingTop,
+        rootView.paddingRight,
+        (if (fitWindow) getNavigationBarHeight() else 0)
+    )
+    var navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
     if (navigationBar == null) {
-        navigationBar = requireActivity().createNavigationBarView()
+        navigationBar = View(requireContext())
         navigationBar.tag = TAG_NAVIGATION_BAR
-        parentView.addView(navigationBar)
+        rootView.addView(navigationBar, ViewGroup.LayoutParams.MATCH_PARENT, getNavigationBarHeight())
     }
-    navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
-        .apply { bottomMargin = if (fitWindow) -getNavigationBarHeight() else 0 }
+    navigationBar.post { navigationBar.translationY = (rootView.height - navigationBar.bottom).toFloat() }
     return navigationBar
 }
 

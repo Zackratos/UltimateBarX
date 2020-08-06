@@ -1,5 +1,8 @@
 # Change Log
 
+#### version 0.2.1 (2020.08.06)
+* 修改 Fragment 的实现方式（在父布局中实现改为在根布局中实现），Fragment 的根布局是 ViewGroup 即可
+
 #### version 0.2.0 (2020.07.11)
 * 增加 Fragment 支持
 * 优化代码细节
