@@ -65,6 +65,9 @@ private fun Fragment.initStatusBarView(fitWindow: Boolean): View {
         rootView.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight())
     }
     statusBar.post { statusBar.translationY = -statusBar.top.toFloat() }
+    // 防止因为 setPadding 导致 navigationBar 的 bottom 变化
+    val navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
+    navigationBar?.post { navigationBar.translationY = (rootView.height - navigationBar.bottom).toFloat() }
     return statusBar
 }
 

@@ -1,5 +1,8 @@
 # Change Log
 
+#### version 0.2.2 (2020.08.06)
+* 修复多次设置 statusbar 时 navigationbar 错乱的 bug
+
 #### version 0.2.1 (2020.08.06)
 * 修改 Fragment 的实现方式（在父布局中实现改为在根布局中实现），Fragment 的根布局是 ViewGroup 即可
 
