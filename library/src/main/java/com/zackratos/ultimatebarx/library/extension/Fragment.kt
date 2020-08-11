@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,8 +30,8 @@ internal fun Fragment.updateStatusBarView(config: BarConfig?): View? {
     when {
         config.bgRes > 0 -> statusBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> statusBar.setBackgroundColor(config.bgColor)
-        config.bgColorRes > 0 -> statusBar.setBackgroundColor(ContextCompat.getColor(requireActivity(), config.bgColorRes))
-        else -> statusBar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.colorPrimaryDark))
+        config.bgColorRes > 0 -> statusBar.setBackgroundColor(ContextCompat.getColor(requireContext(), config.bgColorRes))
+        else -> statusBar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark))
     }
     return statusBar
 }
@@ -41,7 +43,7 @@ internal fun Fragment.updateNavigationBarView(config: BarConfig?): View? {
     when {
         config.bgRes > 0 -> navigationBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> navigationBar.setBackgroundColor(config.bgColor)
-        config.bgColorRes > 0 -> navigationBar.setBackgroundColor(ContextCompat.getColor(requireActivity(), config.bgColorRes))
+        config.bgColorRes > 0 -> navigationBar.setBackgroundColor(ContextCompat.getColor(requireContext(), config.bgColorRes))
         else -> navigationBar.setBackgroundColor(Color.BLACK)
     }
     return navigationBar
@@ -58,17 +60,11 @@ private fun Fragment.initStatusBarView(fitWindow: Boolean): View {
         rootView.paddingRight,
         rootView.paddingBottom
     )
-    var statusBar: View? = rootView.findViewWithTag(TAG_STATUS_BAR)
-    if (statusBar == null) {
-        statusBar = View(requireContext())
-        statusBar.tag = TAG_STATUS_BAR
-        rootView.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight())
+    return when (rootView) {
+        is FrameLayout -> getStatusBarViewFl(rootView, fitWindow)
+        is RelativeLayout -> getStatusBarViewRl(rootView, fitWindow)
+        else -> getStatusBarView(rootView)
     }
-    statusBar.post { statusBar.translationY = -statusBar.top.toFloat() }
-    // 防止因为 setPadding 导致 navigationBar 的 bottom 变化
-    val navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
-    navigationBar?.post { navigationBar.translationY = (rootView.height - navigationBar.bottom).toFloat() }
-    return statusBar
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -83,6 +79,76 @@ private fun Fragment.initNavigationBarView(fitWindow: Boolean): View? {
         rootView.paddingRight,
         (if (fitWindow) getNavigationBarHeight() else 0)
     )
+    return when (rootView) {
+        is FrameLayout -> getNavigationBarViewFl(rootView, fitWindow)
+        is RelativeLayout -> getNavigationBarViewRl(rootView, fitWindow)
+        else -> getNavigationBarView(rootView)
+    }
+}
+
+private fun Fragment.getStatusBarViewFl(rootView: ViewGroup, fitWindow: Boolean): View {
+    var statusBar: View? = rootView.findViewWithTag(TAG_STATUS_BAR)
+    if (statusBar == null) {
+        statusBar = createStatusBarViewForFrameLayout()
+        statusBar.tag = TAG_STATUS_BAR
+        rootView.addView(statusBar)
+    }
+    statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
+        .apply { topMargin = if (fitWindow) -getStatusBarHeight() else 0 }
+    return statusBar
+}
+
+private fun Fragment.getNavigationBarViewFl(rootView: ViewGroup, fitWindow: Boolean): View {
+    var navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
+    if (navigationBar == null) {
+        navigationBar = createNavigationBarViewForFrameLayout()
+        navigationBar.tag = TAG_NAVIGATION_BAR
+        rootView.addView(navigationBar)
+    }
+    navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
+        .apply { bottomMargin = if (fitWindow) -getNavigationBarHeight() else 0 }
+    return navigationBar
+}
+
+private fun Fragment.getStatusBarViewRl(rootView: ViewGroup, fitWindow: Boolean): View {
+    var statusBar: View? = rootView.findViewWithTag(TAG_STATUS_BAR)
+    if (statusBar == null) {
+        statusBar = createStatusBarViewForRelativeLayout()
+        statusBar.tag = TAG_STATUS_BAR
+        rootView.addView(statusBar)
+    }
+    statusBar.layoutParams = (statusBar.layoutParams as RelativeLayout.LayoutParams)
+        .apply { topMargin = if (fitWindow) -getStatusBarHeight() else 0 }
+    return statusBar
+}
+
+private fun Fragment.getNavigationBarViewRl(rootView: ViewGroup, fitWindow: Boolean): View {
+    var navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
+    if (navigationBar == null) {
+        navigationBar = createNavigationBarViewForRelativeLayout()
+        navigationBar.tag = TAG_NAVIGATION_BAR
+        rootView.addView(navigationBar)
+    }
+    navigationBar.layoutParams = (navigationBar.layoutParams as RelativeLayout.LayoutParams)
+        .apply { bottomMargin = if (fitWindow) -getNavigationBarHeight() else 0 }
+    return navigationBar
+}
+
+private fun Fragment.getStatusBarView(rootView: ViewGroup): View {
+    var statusBar: View? = rootView.findViewWithTag(TAG_STATUS_BAR)
+    if (statusBar == null) {
+        statusBar = View(requireContext())
+        statusBar.tag = TAG_STATUS_BAR
+        rootView.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight())
+    }
+    statusBar.post { statusBar.translationY = -statusBar.top.toFloat() }
+    // 防止因为 setPadding 导致 navigationBar 的 bottom 变化
+    val navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
+    navigationBar?.post { navigationBar.translationY = (rootView.height - navigationBar.bottom).toFloat() }
+    return statusBar
+}
+
+private fun Fragment.getNavigationBarView(rootView: ViewGroup): View {
     var navigationBar: View? = rootView.findViewWithTag(TAG_NAVIGATION_BAR)
     if (navigationBar == null) {
         navigationBar = View(requireContext())
@@ -96,3 +162,23 @@ private fun Fragment.initNavigationBarView(fitWindow: Boolean): View? {
 private fun Fragment.getStatusBarHeight() = requireActivity().getStatusBarHeight()
 
 private fun Fragment.getNavigationBarHeight() = requireActivity().getNavigationBarHeight()
+
+private fun Fragment.createStatusBarViewForFrameLayout(): View = requireActivity().createStatusBarView()
+
+private fun Fragment.createNavigationBarViewForFrameLayout(): View = requireActivity().createNavigationBarView()
+
+private fun Fragment.createStatusBarViewForRelativeLayout(): View =
+    View(requireContext()).apply {
+        layoutParams = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            getStatusBarHeight()
+        ).apply { addRule(RelativeLayout.ALIGN_PARENT_TOP) }
+    }
+
+private fun Fragment.createNavigationBarViewForRelativeLayout(): View =
+    View(requireContext()).apply {
+        layoutParams = RelativeLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            getNavigationBarHeight()
+        ).apply { addRule(RelativeLayout.ALIGN_PARENT_BOTTOM) }
+    }

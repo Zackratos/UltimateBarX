@@ -132,22 +132,20 @@ private fun FragmentActivity.initNavigationBarView(fitWindow: Boolean): View? {
 }
 
 internal fun FragmentActivity.createStatusBarView(): View =
-    View(this)
-        .apply {
-            layoutParams = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                getStatusBarHeight()
-            ).apply { gravity = Gravity.TOP }
-        }
+    View(this).apply {
+        layoutParams = FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            getStatusBarHeight()
+        ).apply { gravity = Gravity.TOP }
+    }
 
 internal fun FragmentActivity.createNavigationBarView(): View =
-    View(this)
-        .apply {
-            layoutParams = FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                getNavigationBarHeight()
-            ).apply { gravity = Gravity.BOTTOM }
-        }
+    View(this).apply {
+        layoutParams = FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            getNavigationBarHeight()
+        ).apply { gravity = Gravity.BOTTOM }
+    }
 
 // 导航栏是否存在
 internal fun FragmentActivity.navigationBarExist(): Boolean {
