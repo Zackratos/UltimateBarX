@@ -2,7 +2,6 @@ package com.zackratos.ultimatebarx.library.extension
 
 import android.graphics.Color
 import android.os.Build
-import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.R
 import com.zackratos.ultimatebarx.library.bean.BarConfig
+import com.zackratos.ultimatebarx.library.rom.Rom
 
 /**
  * @Author   : zhangwenchao
@@ -24,9 +24,8 @@ private const val TAG_PARENT = "activity_root_view_parent"
 private const val TAG_STATUS_BAR = "activity_status_bar"
 private const val TAG_NAVIGATION_BAR = "activity_navigation_bar"
 
-
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.transparentStatusAndNavigationBar(statusBarLight: Boolean, navigationBarLight: Boolean) {
+internal fun FragmentActivity.barInitialization() {
     val decorView = window?.decorView
     var parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     if (parentView == null) {
@@ -37,7 +36,6 @@ internal fun FragmentActivity.transparentStatusAndNavigationBar(statusBarLight: 
     parentView?.getChildAt(0)?.fitsSystemWindows = false
     when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-            decorView?.systemUiVisibility = systemUiFlag(statusBarLight, navigationBarLight)
             window.statusBarColor = Color.TRANSPARENT
             window.navigationBarColor = Color.TRANSPARENT
         }
@@ -48,6 +46,12 @@ internal fun FragmentActivity.transparentStatusAndNavigationBar(statusBarLight: 
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         }
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.barLight(statusBarLight: Boolean, navigationBarLight: Boolean) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
+    window?.decorView?.systemUiVisibility = systemUiFlag(statusBarLight, navigationBarLight)
 }
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -82,9 +86,9 @@ internal fun FragmentActivity.updateStatusBarView(config: BarConfig?): View? {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.updateNavigationBarView(config: BarConfig?): View? {
+internal fun FragmentActivity.updateNavigationBarView(config: BarConfig?, rom: Rom): View? {
     if (config == null) return null
-    val navigationBar = initNavigationBarView(config.fitWindow) ?: return null
+    val navigationBar = initNavigationBarView(config.fitWindow, rom) ?: return null
     when {
         config.bgRes > 0 -> navigationBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> navigationBar.setBackgroundColor(config.bgColor)
@@ -113,8 +117,8 @@ private fun FragmentActivity.initStatusBarView(fitWindow: Boolean): View {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun FragmentActivity.initNavigationBarView(fitWindow: Boolean): View? {
-    if (!navigationBarExist()) return null
+private fun FragmentActivity.initNavigationBarView(fitWindow: Boolean, rom: Rom): View? {
+    if (!navigationBarExist(rom)) return null
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.post {
@@ -148,22 +152,5 @@ internal fun FragmentActivity.createNavigationBarView(): View =
     }
 
 // 导航栏是否存在
-internal fun FragmentActivity.navigationBarExist(): Boolean {
-
-    val d = windowManager.defaultDisplay
-    val realDisplayMetrics = DisplayMetrics()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        d.getRealMetrics(realDisplayMetrics)
-    }
-
-    val realHeight = realDisplayMetrics.heightPixels
-    val realWidth = realDisplayMetrics.widthPixels
-
-    val displayMetrics = DisplayMetrics()
-    d.getMetrics(displayMetrics)
-
-    val displayHeight = displayMetrics.heightPixels
-    val displayWidth = displayMetrics.widthPixels
-
-    return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
-}
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.navigationBarExist(rom: Rom): Boolean = rom.navigationBarExist(this)

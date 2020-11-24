@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.zackratos.ultimatebarx.library.R
 import com.zackratos.ultimatebarx.library.bean.BarConfig
+import com.zackratos.ultimatebarx.library.rom.Rom
 
 /**
  * @Author   : zhangwenchao
@@ -37,9 +38,9 @@ internal fun Fragment.updateStatusBarView(config: BarConfig?): View? {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun Fragment.updateNavigationBarView(config: BarConfig?): View? {
+internal fun Fragment.updateNavigationBarView(config: BarConfig?, rom: Rom): View? {
     if (config == null) return null
-    val navigationBar = initNavigationBarView(config.fitWindow) ?: return null
+    val navigationBar = initNavigationBarView(config.fitWindow, rom) ?: return null
     when {
         config.bgRes > 0 -> navigationBar.setBackgroundResource(config.bgRes)
         config.bgColor > Int.MIN_VALUE -> navigationBar.setBackgroundColor(config.bgColor)
@@ -68,8 +69,8 @@ private fun Fragment.initStatusBarView(fitWindow: Boolean): View {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun Fragment.initNavigationBarView(fitWindow: Boolean): View? {
-    if (!requireActivity().navigationBarExist()) return null
+private fun Fragment.initNavigationBarView(fitWindow: Boolean, rom: Rom): View? {
+    if (!requireActivity().navigationBarExist(rom)) return null
     val rootView = requireView()
     if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
     rootView.clipToPadding = false
