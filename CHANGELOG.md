@@ -1,4 +1,8 @@
 # Change Log
+#### version 0.2.3 (2020.11.24)
+* 修复全面屏手机设置 statusbar 时 navigationbar 变黑的 bug
+* 修复全面屏手机不显示导航栏时屏幕下方出现 navigationbar 的 bug
+* 优化代码细节
 
 #### version 0.2.2 (2020.08.06)
 * 修复多次设置 statusbar 时 navigationbar 错乱的 bug

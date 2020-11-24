@@ -10,7 +10,7 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.2.2'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.2.3'
 }
 ```
 

@@ -10,8 +10,8 @@ android {
         applicationId "com.zackratos.ultimatebarx.sample"
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 6
-        versionName "0.2.2"
+        versionCode 7
+        versionName "0.2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,6 +25,10 @@ android {
     compileOptions {
         sourceCompatibility = "1.8"
         targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
 }
