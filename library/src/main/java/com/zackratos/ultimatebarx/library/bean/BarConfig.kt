@@ -7,8 +7,8 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.annotation.Type
+import com.zackratos.ultimatebarx.library.operator.Operator
 
 /**
  * @Author   : zhangwenchao
@@ -44,10 +44,10 @@ class BarConfig {
     private fun apply(activity: FragmentActivity) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                UltimateBarXManager.getInstance().applyStatusBar(activity, this)
+                Operator.get(activity).applyStatusBar(this)
 
             UltimateBarX.NAVIGATION_BAR ->
-                UltimateBarXManager.getInstance().applyNavigationBar(activity, this)
+                Operator.get(activity).applyNavigationBar(this)
 
         }
     }
@@ -55,10 +55,10 @@ class BarConfig {
     private fun apply(fragment: Fragment) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                UltimateBarXManager.getInstance().applyStatusBar(fragment, this)
+                Operator.get(fragment).applyStatusBar(this)
 
             UltimateBarX.NAVIGATION_BAR ->
-                UltimateBarXManager.getInstance().applyNavigationBar(fragment, this)
+                Operator.get(fragment).applyNavigationBar(this)
         }
     }
 
