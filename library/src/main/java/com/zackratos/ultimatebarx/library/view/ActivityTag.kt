@@ -6,7 +6,7 @@ package com.zackratos.ultimatebarx.library.view
  * @email    : 869649338@qq.com
  * @Describe :
  */
-class ActivityTag private constructor(): Tag {
+internal class ActivityTag private constructor(): Tag {
 
     companion object {
         fun getInstance() = Holder.INSTANCE

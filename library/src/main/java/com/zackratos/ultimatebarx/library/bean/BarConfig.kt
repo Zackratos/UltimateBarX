@@ -25,12 +25,17 @@ class BarConfig {
      */
     internal var fitWindow: Boolean = false
     @ColorInt
-    internal var bgColor: Int = 0
+    internal var colorInt: Int = 0
     @DrawableRes
-    internal var bgRes: Int = 0
+    internal var drawableRes: Int = 0
     @ColorRes
-    internal var bgColorRes: Int = 0
-    // light 模式（状态栏字体颜色变灰，导航栏内部按钮颜色变灰）
+    internal var colorRes: Int = 0
+
+    /**
+     *  light 模式（状态栏字体颜色变灰，导航栏内部按钮颜色变灰）
+     *  true  : 状态栏字体灰色，导航栏按钮灰色
+     *  false : 状态栏字体白色，导航栏按钮白色
+     */
     internal var light: Boolean = false
 
     @Type
@@ -39,26 +44,35 @@ class BarConfig {
     companion object {
         internal val DEFAULT_STATUS_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.STATUS_BAR).build()
         internal val DEFAULT_NAVIGATION_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.NAVIGATION_BAR).build()
+
+        internal fun newInstance(): BarConfig =
+            BarConfig().apply {
+                colorInt = Int.MIN_VALUE
+                colorRes = -1
+                drawableRes = -1
+                fitWindow = true
+            }
     }
 
     private fun apply(activity: FragmentActivity) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                Operator.get(activity).applyStatusBar(this)
+                Operator.get(activity).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                Operator.get(activity).applyNavigationBar(this)
+                Operator.get(activity).config(this).applyNavigationBar()
 
         }
     }
 
+    @Deprecated("")
     private fun apply(fragment: Fragment) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                Operator.get(fragment).applyStatusBar(this)
+                Operator.get(fragment).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                Operator.get(fragment).applyNavigationBar(this)
+                Operator.get(fragment).config(this).applyNavigationBar()
         }
     }
 
@@ -67,78 +81,102 @@ class BarConfig {
         if (config == null) return
         if (config == this) return
         this.fitWindow = config.fitWindow
-        this.bgColor = config.bgColor
-        this.bgRes = config.bgRes
-        this.bgColorRes = config.bgColorRes
+        this.colorInt = config.colorInt
+        this.drawableRes = config.drawableRes
+        this.colorRes = config.colorRes
         this.light = config.light
     }
 
     class Builder(@Type private val type: Int) {
         private var fitWindow: Boolean = true
         @ColorInt
-        private var bgColor: Int = Int.MIN_VALUE
+        private var colorInt: Int = Int.MIN_VALUE
         @DrawableRes
-        private var bgRes: Int = -1
+        private var drawableRes: Int = -1
         @ColorRes
-        private var bgColorRes: Int = -1
+        private var colorRes: Int = -1
         private var light: Boolean = false
         private var transparent: Boolean = false
 
         companion object {
             fun newDefaultBuilder(@Type type: Int) =
                 Builder(type).apply {
-                    bgColor = Int.MIN_VALUE
-                    bgColorRes = -1
-                    bgRes = -1
+                    colorInt = Int.MIN_VALUE
+                    colorRes = -1
+                    drawableRes = -1
                     fitWindow = true
                 }
         }
 
+        /**
+         *  use [com.zackratos.ultimatebarx.library.UltimateBarX.with]
+         *  and [com.zackratos.ultimatebarx.library.operator.Operator.applyStatusBar]
+         *  and [com.zackratos.ultimatebarx.library.operator.Operator.applyNavigationBar]
+         */
+        @Deprecated("")
         fun apply(activity: FragmentActivity) {
             build().apply(activity)
         }
 
+        /**
+         *  use [com.zackratos.ultimatebarx.library.UltimateBarX.with]
+         *  and [com.zackratos.ultimatebarx.library.operator.Operator.applyStatusBar]
+         *  and [com.zackratos.ultimatebarx.library.operator.Operator.applyNavigationBar]
+         */
+        @Deprecated("")
         fun apply(fragment: Fragment) {
             build().apply(fragment)
         }
 
-        fun bgColor(@ColorInt color: Int): Builder = apply {
-            if (transparent) return@apply
-            bgColor = color
-        }
+        @Deprecated("", ReplaceWith("colorInt(colorInt)"))
+        fun bgColor(@ColorInt colorInt: Int): Builder = colorInt(colorInt)
 
-        fun bgColorRes(@ColorRes color: Int): Builder = apply {
-            if (transparent) return@apply
-            bgColorRes = color
-        }
+        fun colorInt(@ColorInt colorInt: Int): Builder =
+            apply {
+                if (transparent) return@apply
+                this.colorInt = colorInt
+            }
+
+        @Deprecated("", ReplaceWith("colorRes(colorRes)"))
+        fun bgColorRes(@ColorRes colorRes: Int): Builder = colorRes(colorRes)
+
+        fun colorRes(@ColorRes colorRes: Int): Builder =
+            apply {
+                if (transparent) return@apply
+                this.colorRes = colorRes
+            }
 
         fun fitWindow(fitWindow: Boolean): Builder = apply {
             if (transparent) return@apply
             this@Builder.fitWindow = fitWindow
         }
 
-        fun bgRes(@DrawableRes bgRes: Int): Builder = apply {
-            if (transparent) return@apply
-            this@Builder.bgRes = bgRes
-        }
+        @Deprecated("", ReplaceWith("drawableRes(drawableRes)"))
+        fun bgRes(@DrawableRes drawableRes: Int): Builder = drawableRes(drawableRes)
+
+        fun drawableRes(@DrawableRes drawableRes: Int): Builder =
+            apply {
+                if (transparent) return@apply
+                this@Builder.drawableRes = drawableRes
+            }
 
         fun light(light: Boolean): Builder = apply { this@Builder.light = light }
 
         fun transparent(): Builder = apply {
             transparent = true
             fitWindow = false
-            bgColor = Color.TRANSPARENT
-            bgColorRes = -1
-            bgRes = -1
+            colorInt = Color.TRANSPARENT
+            colorRes = -1
+            drawableRes = -1
         }
 
         internal fun build(): BarConfig =
             BarConfig().apply {
                 type = this@Builder.type
                 fitWindow = this@Builder.fitWindow
-                bgColor = this@Builder.bgColor
-                bgColorRes = this@Builder.bgColorRes
-                bgRes = this@Builder.bgRes
+                colorInt = this@Builder.colorInt
+                colorRes = this@Builder.colorRes
+                drawableRes = this@Builder.drawableRes
                 light = this@Builder.light
             }
     }

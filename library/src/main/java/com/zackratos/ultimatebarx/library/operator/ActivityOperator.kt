@@ -11,9 +11,13 @@ import com.zackratos.ultimatebarx.library.extension.*
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal class ActivityOperator(val activity: FragmentActivity): BaseOperator() {
+internal class ActivityOperator private constructor(val activity: FragmentActivity): BaseOperator() {
 
-    override fun applyStatusBar(config: BarConfig) {
+    companion object {
+        internal fun newInstance(activity: FragmentActivity) = ActivityOperator(activity)
+    }
+
+    override fun applyStatusBar() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         activity.ultimateBarXInitialization()
         val navLight = manager.getNavigationBarLight(activity)
@@ -23,7 +27,7 @@ internal class ActivityOperator(val activity: FragmentActivity): BaseOperator() 
         activity.addObserver()
     }
 
-    override fun applyNavigationBar(config: BarConfig) {
+    override fun applyNavigationBar() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         activity.ultimateBarXInitialization()
         val staLight = manager.getStatusBarLight(activity)

@@ -190,9 +190,9 @@ private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boole
 
 private fun View.updateBackground(config: BarConfig) {
     when {
-        config.bgRes > 0 -> setBackgroundResource(config.bgRes)
-        config.bgColor > Int.MIN_VALUE -> setBackgroundColor(config.bgColor)
-        config.bgColorRes > 0 -> setBackgroundColor(ContextCompat.getColor(context, config.bgColorRes))
+        config.drawableRes > 0 -> setBackgroundResource(config.drawableRes)
+        config.colorInt > Int.MIN_VALUE -> setBackgroundColor(config.colorInt)
+        config.colorRes > 0 -> setBackgroundColor(ContextCompat.getColor(context, config.colorRes))
         else -> setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
     }
 }
