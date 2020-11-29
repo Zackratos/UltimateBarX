@@ -16,7 +16,7 @@ import com.zackratos.ultimatebarx.library.operator.Operator
  * @email    : zhangwenchao@soulapp.cn
  * @Describe :
  */
-class BarConfig {
+class BarConfig private constructor() {
 
     /**
      * 是否忽略状态栏或导航栏的占位高度（相当于 [android.view.View.setFitsSystemWindows]）
@@ -54,6 +54,17 @@ class BarConfig {
             }
     }
 
+    fun fitWindow(fitWindow: Boolean): BarConfig = apply { this.fitWindow = fitWindow }
+
+    fun colorInt(@ColorInt colorInt: Int): BarConfig = apply { this.colorInt = colorInt }
+
+    fun colorRes(@ColorRes colorRes: Int): BarConfig = apply { this.colorRes = colorRes }
+
+    fun drawableRes(@DrawableRes drawableRes: Int): BarConfig = apply { this.drawableRes = drawableRes }
+
+    fun light(light: Boolean): BarConfig = apply { this.light = light }
+
+    @Deprecated("")
     private fun apply(activity: FragmentActivity) {
         when (type) {
             UltimateBarX.STATUS_BAR ->

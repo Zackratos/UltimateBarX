@@ -85,16 +85,15 @@ internal fun Fragment.updateNavigationBar(config: BarConfig) {
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultStatusBar() {
     if (manager.getStatusBarDefault(this)) return
-    updateStatusBar(BarConfig.DEFAULT_STATUS_BAR_CONFIG)
+    updateStatusBar(BarConfig.newInstance())
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultNavigationBar() {
     if (manager.getNavigationBarDefault(this)) return
-    val config = BarConfig.Builder(UltimateBarX.NAVIGATION_BAR)
-        .bgColor(manager.getOriginColor(this).navigationBarColor)
+    val config = BarConfig.newInstance()
+        .colorInt(manager.getOriginColor(this).navigationBarColor)
         .light(manager.getNavigationBarLight(this))
-        .build()
     updateNavigationBar(config)
 }
 

@@ -5,7 +5,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 
 /**
@@ -36,21 +35,11 @@ interface Operator {
 
     companion object {
         internal fun get(activity: FragmentActivity): Operator {
-            var operator = UltimateBarXManager.getInstance().getOperator(activity)
-            if (operator == null) {
-                operator = ActivityOperator.newInstance(activity)
-                UltimateBarXManager.getInstance().putOperator(activity, operator)
-            }
-            return operator
+            return ActivityOperator.newInstance(activity)
         }
 
         internal fun get(fragment: Fragment): Operator {
-            var operator = UltimateBarXManager.getInstance().getOperator(fragment)
-            if (operator == null) {
-                operator = FragmentOperator.newInstance(fragment)
-                UltimateBarXManager.getInstance().putOperator(fragment, operator)
-            }
-            return operator
+            return FragmentOperator.newInstance(fragment)
         }
     }
 }

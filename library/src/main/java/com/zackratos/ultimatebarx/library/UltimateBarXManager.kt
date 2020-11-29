@@ -44,7 +44,6 @@ internal class UltimateBarXManager private constructor(){
     // 保存初始 StatusBar 和 NavigationBar 颜色
     private val originColorMap: MutableMap<String, BarColor> by lazy { ArrayMap<String, BarColor>() }
 
-    private val operatorMap: MutableMap<String, Operator> by lazy { ArrayMap<String, Operator>() }
 
 
 
@@ -57,7 +56,6 @@ internal class UltimateBarXManager private constructor(){
         navLightMap.remove(key)
         initializationMap.remove(key)
         originColorMap.remove(key)
-        operatorMap.remove(key)
     }
 
 
@@ -111,10 +109,4 @@ internal class UltimateBarXManager private constructor(){
     }
 
     private fun calculateLight(@ColorInt color: Int) = color > (Color.BLACK + Color.WHITE / 2)
-
-    internal fun getOperator(owner: LifecycleOwner): Operator? = operatorMap[owner.hashCode().toString()]
-
-    internal fun putOperator(owner: LifecycleOwner, operator: Operator) {
-        operatorMap[owner.hashCode().toString()] = operator
-    }
 }
