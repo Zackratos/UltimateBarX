@@ -1,4 +1,8 @@
 # Change Log
+#### version 0.2.4 (2020.11.29)
+* 优化代码，业务分离
+* 修复 Android 4.4 上导航栏默认颜色透明的 bug
+
 #### version 0.2.3 (2020.11.24)
 * 修复全面屏手机设置 statusbar 时 navigationbar 变黑的 bug
 * 修复全面屏手机不显示导航栏时屏幕下方出现 navigationbar 的 bug
