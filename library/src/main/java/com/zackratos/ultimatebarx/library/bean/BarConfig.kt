@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.library.annotation.Type
 import com.zackratos.ultimatebarx.library.operator.Operator
+import com.zackratos.ultimatebarx.library.operator.OperatorProvider
 
 /**
  * @Author   : zhangwenchao
@@ -68,10 +69,10 @@ class BarConfig private constructor() {
     private fun apply(activity: FragmentActivity) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                Operator.get(activity).config(this).applyStatusBar()
+                OperatorProvider.get(activity).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                Operator.get(activity).config(this).applyNavigationBar()
+                OperatorProvider.get(activity).config(this).applyNavigationBar()
 
         }
     }
@@ -80,10 +81,10 @@ class BarConfig private constructor() {
     private fun apply(fragment: Fragment) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                Operator.get(fragment).config(this).applyStatusBar()
+                OperatorProvider.get(fragment).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                Operator.get(fragment).config(this).applyNavigationBar()
+                OperatorProvider.get(fragment).config(this).applyNavigationBar()
         }
     }
 

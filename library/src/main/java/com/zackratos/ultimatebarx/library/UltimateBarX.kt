@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.annotation.Type
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.library.operator.Operator
+import com.zackratos.ultimatebarx.library.operator.OperatorProvider
 
 class UltimateBarX {
     companion object {
@@ -31,10 +32,10 @@ class UltimateBarX {
         fun create(@Type type: Int): BarConfig.Builder = BarConfig.Builder.newDefaultBuilder(type)
 
         @JvmStatic
-        fun with(activity: FragmentActivity): Operator = Operator.get(activity)
+        fun with(activity: FragmentActivity): Operator = OperatorProvider.get(activity)
 
         @JvmStatic
-        fun with(fragment: Fragment): Operator = Operator.get(fragment)
+        fun with(fragment: Fragment): Operator = OperatorProvider.get(fragment)
     }
 
 }
