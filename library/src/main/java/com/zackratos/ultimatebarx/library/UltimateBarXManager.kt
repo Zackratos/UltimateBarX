@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.bean.BarColor
 import com.zackratos.ultimatebarx.library.extension.getRom
-import com.zackratos.ultimatebarx.library.operator.Operator
 import com.zackratos.ultimatebarx.library.rom.Rom
 
 /**
@@ -96,7 +95,7 @@ internal class UltimateBarXManager private constructor(){
         initializationMap[owner.hashCode().toString()] = true
     }
 
-    internal fun getOriginColor(activity: FragmentActivity): BarColor = originColorMap[activity.hashCode().toString()] ?: BarColor(Color.BLACK, Color.BLACK)
+    internal fun getOriginColor(activity: FragmentActivity): BarColor = originColorMap[activity.hashCode().toString()] ?: BarColor()
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     internal fun putOriginColor(activity: FragmentActivity) {

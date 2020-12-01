@@ -29,6 +29,6 @@ interface Operator {
 
     fun colorRes(@ColorRes colorRes: Int): Operator
 
-    fun colorInt(@ColorInt colorInt: Int): Operator
+    fun color(@ColorInt color: Int): Operator
 
 }

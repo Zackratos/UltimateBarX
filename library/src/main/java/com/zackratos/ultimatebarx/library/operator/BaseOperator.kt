@@ -15,17 +15,17 @@ internal abstract class BaseOperator: Operator {
 
     protected val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
 
-    protected var config: BarConfig = BarConfig.newInstance()
+    protected val config: BarConfig by lazy { BarConfig.newInstance() }
 
     override fun config(config: BarConfig): Operator {
-        this.config = config
+        this.config.update(config)
         return this
     }
 
     override fun transparent(): Operator {
         with(config) {
             fitWindow = false
-            colorInt = Color.TRANSPARENT
+            color = Color.TRANSPARENT
             colorRes = -1
             drawableRes = -1
         }
@@ -33,27 +33,27 @@ internal abstract class BaseOperator: Operator {
     }
 
     override fun light(light: Boolean): Operator {
-        config.light = light
+        config.light(light)
         return this
     }
 
     override fun fitWindow(fitWindow: Boolean): Operator {
-        config.fitWindow = fitWindow
+        config.fitWindow(fitWindow)
         return this
     }
 
     override fun drawableRes(drawableRes: Int): Operator {
-        config.drawableRes = drawableRes
+        config.drawableRes(drawableRes)
         return this
     }
 
     override fun colorRes(colorRes: Int): Operator {
-        config.colorRes = colorRes
+        config.colorRes(colorRes)
         return this
     }
 
-    override fun colorInt(colorInt: Int): Operator {
-        config.colorInt = colorInt
+    override fun color(color: Int): Operator {
+        config.color(color)
         return this
     }
 

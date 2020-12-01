@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.library.annotation.Type
-import com.zackratos.ultimatebarx.library.operator.Operator
 import com.zackratos.ultimatebarx.library.operator.OperatorProvider
 
 /**
@@ -26,7 +25,7 @@ class BarConfig private constructor() {
      */
     internal var fitWindow: Boolean = false
     @ColorInt
-    internal var colorInt: Int = 0
+    internal var color: Int = 0
     @DrawableRes
     internal var drawableRes: Int = 0
     @ColorRes
@@ -48,7 +47,7 @@ class BarConfig private constructor() {
 
         internal fun newInstance(): BarConfig =
             BarConfig().apply {
-                colorInt = Int.MIN_VALUE
+                color = Int.MIN_VALUE
                 colorRes = -1
                 drawableRes = -1
                 fitWindow = true
@@ -57,13 +56,36 @@ class BarConfig private constructor() {
 
     fun fitWindow(fitWindow: Boolean): BarConfig = apply { this.fitWindow = fitWindow }
 
-    fun colorInt(@ColorInt colorInt: Int): BarConfig = apply { this.colorInt = colorInt }
+    fun color(@ColorInt color: Int): BarConfig =
+        apply {
+            drawableRes = -1
+            colorRes = -1
+            this.color = color
+        }
 
-    fun colorRes(@ColorRes colorRes: Int): BarConfig = apply { this.colorRes = colorRes }
+    fun colorRes(@ColorRes colorRes: Int): BarConfig =
+        apply {
+            drawableRes = -1
+            color = Int.MIN_VALUE
+            this.colorRes = colorRes
+        }
 
-    fun drawableRes(@DrawableRes drawableRes: Int): BarConfig = apply { this.drawableRes = drawableRes }
+    fun drawableRes(@DrawableRes drawableRes: Int): BarConfig =
+        apply {
+            color = Int.MIN_VALUE
+            colorRes = -1
+            this.drawableRes = drawableRes
+        }
 
     fun light(light: Boolean): BarConfig = apply { this.light = light }
+
+    fun transparent(): BarConfig =
+        apply {
+            fitWindow = false
+            color = Color.TRANSPARENT
+            colorRes = -1
+            drawableRes = -1
+        }
 
     @Deprecated("")
     private fun apply(activity: FragmentActivity) {
@@ -89,20 +111,20 @@ class BarConfig private constructor() {
     }
 
 
-    internal fun update(config: BarConfig?) {
-        if (config == null) return
+    internal fun update(config: BarConfig) {
         if (config == this) return
         this.fitWindow = config.fitWindow
-        this.colorInt = config.colorInt
+        this.color = config.color
         this.drawableRes = config.drawableRes
         this.colorRes = config.colorRes
         this.light = config.light
     }
 
+    @Deprecated("")
     class Builder(@Type private val type: Int) {
         private var fitWindow: Boolean = true
         @ColorInt
-        private var colorInt: Int = Int.MIN_VALUE
+        private var color: Int = Int.MIN_VALUE
         @DrawableRes
         private var drawableRes: Int = -1
         @ColorRes
@@ -113,7 +135,7 @@ class BarConfig private constructor() {
         companion object {
             fun newDefaultBuilder(@Type type: Int) =
                 Builder(type).apply {
-                    colorInt = Int.MIN_VALUE
+                    color = Int.MIN_VALUE
                     colorRes = -1
                     drawableRes = -1
                     fitWindow = true
@@ -141,12 +163,12 @@ class BarConfig private constructor() {
         }
 
         @Deprecated("", ReplaceWith("colorInt(colorInt)"))
-        fun bgColor(@ColorInt colorInt: Int): Builder = colorInt(colorInt)
+        fun bgColor(@ColorInt colorInt: Int): Builder = color(colorInt)
 
-        fun colorInt(@ColorInt colorInt: Int): Builder =
+        fun color(@ColorInt colorInt: Int): Builder =
             apply {
                 if (transparent) return@apply
-                this.colorInt = colorInt
+                this.color = colorInt
             }
 
         @Deprecated("", ReplaceWith("colorRes(colorRes)"))
@@ -177,7 +199,7 @@ class BarConfig private constructor() {
         fun transparent(): Builder = apply {
             transparent = true
             fitWindow = false
-            colorInt = Color.TRANSPARENT
+            color = Color.TRANSPARENT
             colorRes = -1
             drawableRes = -1
         }
@@ -186,7 +208,7 @@ class BarConfig private constructor() {
             BarConfig().apply {
                 type = this@Builder.type
                 fitWindow = this@Builder.fitWindow
-                colorInt = this@Builder.colorInt
+                color = this@Builder.color
                 colorRes = this@Builder.colorRes
                 drawableRes = this@Builder.drawableRes
                 light = this@Builder.light
