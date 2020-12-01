@@ -29,6 +29,11 @@ public class ViewPagerActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager_2);
         initView();
         setStatusBar(0);
+        UltimateBarX.with(this)
+                .fitWindow(true)
+                .colorRes(R.color.deepSkyBlue)
+                .light(false)
+                .applyNavigationBar();
     }
 
     private void initView() {
