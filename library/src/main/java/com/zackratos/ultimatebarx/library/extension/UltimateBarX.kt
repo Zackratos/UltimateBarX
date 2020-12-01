@@ -164,25 +164,25 @@ private fun ViewGroup.getCreator(tag: Tag): Creator {
 }
 
 private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) {
-    post {
-        setPadding(
-            paddingLeft,
-            if (fitWindow) context.getStatusBarHeight() else 0,
-            paddingRight,
-            paddingBottom
-        )
-    }
+//    post {
+    setPadding(
+        paddingLeft,
+        if (fitWindow) context.getStatusBarHeight() else 0,
+        paddingRight,
+        paddingBottom
+    )
+//    }
 }
 
 private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boolean) {
-    post {
-        setPadding(
-            paddingLeft,
-            paddingTop,
-            paddingRight,
-            if (fitWindow) context.getNavigationBarHeight() else 0
-        )
-    }
+//    post {
+    setPadding(
+        paddingLeft,
+        paddingTop,
+        paddingRight,
+        if (fitWindow) context.getNavigationBarHeight() else 0
+    )
+//    }
 }
 
 private fun View.updateBackground(config: BarConfig, @ColorInt defaultColor: Int = Color.BLACK) {

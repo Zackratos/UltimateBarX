@@ -41,9 +41,9 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewStatus.post {
-            viewStatus.layoutParams = viewStatus.layoutParams.apply { height = activity?.getStatusBarHeight() ?: 0 }
-        }
+//        viewStatus.post {
+//            viewStatus.layoutParams = viewStatus.layoutParams.apply { height = activity?.getStatusBarHeight() ?: 0 }
+//        }
         initView()
     }
 
@@ -51,7 +51,7 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
         toolbar.setBackgroundColor(color)
         toolbar.title = title
         toolbar.setTitleTextColor(titleColor)
-        viewStatus.setBackgroundColor(color)
+//        viewStatus.setBackgroundColor(color)
     }
 
 }

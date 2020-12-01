@@ -1,7 +1,6 @@
 package com.zackratos.ultimatebarx.sample;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -29,10 +28,7 @@ public class ViewPagerActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_2);
         initView();
-        UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
-                .fitWindow(true)
-                .bgColorRes(R.color.deepSkyBlue)
-                .apply(this);
+        setStatusBar(0);
     }
 
     private void initView() {
@@ -53,6 +49,7 @@ public class ViewPagerActivity2 extends AppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                setStatusBar(position);
                 setTabSelect(position);
             }
         });
@@ -76,6 +73,37 @@ public class ViewPagerActivity2 extends AppCompatActivity {
                 break;
             case 3:
                 ivGames.setImageResource(R.drawable.ic_games_deep_sky_blue_24dp);
+                break;
+        }
+    }
+
+    private void setStatusBar(int index) {
+        switch (index) {
+            case 0:
+                UltimateBarX.with(this)
+                        .transparent()
+                        .light(false)
+                        .applyStatusBar();
+                break;
+            case 1:
+                UltimateBarX.with(this)
+                        .fitWindow(false)
+                        .colorRes(R.color.alphaWhite)
+                        .light(true)
+                        .applyStatusBar();
+                break;
+            case 2:
+                UltimateBarX.with(this)
+                        .fitWindow(false)
+                        .colorRes(R.color.alphaBlack)
+                        .light(false)
+                        .applyStatusBar();
+                break;
+            case 3:
+                UltimateBarX.with(this)
+                        .transparent()
+                        .light(true)
+                        .applyStatusBar();
                 break;
         }
     }

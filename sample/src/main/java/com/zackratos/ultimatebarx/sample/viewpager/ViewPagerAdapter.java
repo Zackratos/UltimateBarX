@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.zackratos.ultimatebarx.library.UltimateBarX;
 import com.zackratos.ultimatebarx.sample.R;
+import com.zackratos.ultimatebarx.sample.TextFragment2;
 
 /**
  * @Author : zhangwenchao
@@ -34,19 +36,53 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         }
         switch (position) {
             case 0:
-                fragment = TextFragment.Companion.newInstance(Color.RED, "Android", Color.WHITE);
+                fragment = TextFragment2
+                        .Companion
+                        .newInstance(Color.RED, "Android", Color.WHITE, f -> {
+                            UltimateBarX.with(f)
+                                    .fitWindow(true)
+                                    .color(Color.RED)
+                                    .applyStatusBar();
+                            return null;
+                        });
                 break;
             case 1:
-                fragment = ImageTextFragment.Companion.newInstance(R.drawable.yurisa__001, null);
+                fragment = ImageTextFragment
+                        .Companion
+                        .newInstance(R.drawable.yurisa__001, f -> {
+                            UltimateBarX.with(f)
+                                    .fitWindow(false)
+                                    .colorRes(R.color.alphaBlack)
+                                    .applyStatusBar();
+                            return null;
+                        });
                 break;
             case 2:
-                fragment = TextFragment.Companion.newInstance(Color.YELLOW, "Camera", Color.BLACK);
+                fragment = TextFragment2
+                        .Companion
+//                        .newInstance(Color.YELLOW, "Camera", Color.BLACK, f -> {
+//                            return null;
+//                        });
+                        .newInstance(Color.BLUE, "Camera", Color.WHITE, f -> {
+                            UltimateBarX.with(f)
+                                    .fitWindow(true)
+                                    .color(Color.BLUE)
+                                    .applyStatusBar();
+                            return null;
+                        });
                 break;
             case 3:
-                fragment = ImageTextFragment.Companion.newInstance(R.drawable.yurisa__002, null);
+                fragment = ImageTextFragment
+                        .Companion
+                        .newInstance(R.drawable.yurisa__006, f -> {
+                            UltimateBarX.with(f)
+                                    .transparent()
+                                    .applyStatusBar();
+                            return null;
+                        });
                 break;
             default:
-                fragment = TextFragment.Companion.newInstance(Color.TRANSPARENT, "", Color.TRANSPARENT);
+                fragment = new Fragment();
                 break;
         }
         fragments.put(position, fragment);

@@ -17,7 +17,7 @@ class ImageTextFragment: Fragment(R.layout.fragment_image_text) {
 
     companion object {
         private const val IMAGE = "image"
-        fun newInstance(@DrawableRes imageRes: Int, block: ((Fragment) -> Unit)?) =
+        fun newInstance(@DrawableRes imageRes: Int, block: ((Fragment) -> Unit)? = null) =
             ImageTextFragment().apply {
                 arguments = Bundle().apply { putInt(IMAGE, imageRes) }
                 statusBarBlock = block

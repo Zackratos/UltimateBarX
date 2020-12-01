@@ -41,13 +41,13 @@
                 android:textAllCaps="false"
                 android:text="switch (Fragment)"/>
             <Button
-                android:id="@+id/btnViewPager"
+                android:id="@+id/btnViewPager2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="viewpager (apply to Activity)"/>
             <Button
-                android:id="@+id/btnViewPager2"
+                android:id="@+id/btnViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
