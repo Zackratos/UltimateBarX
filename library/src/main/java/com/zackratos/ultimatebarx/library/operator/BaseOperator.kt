@@ -1,6 +1,5 @@
 package com.zackratos.ultimatebarx.library.operator
 
-import android.graphics.Color
 import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 
@@ -23,12 +22,7 @@ internal abstract class BaseOperator: Operator {
     }
 
     override fun transparent(): Operator {
-        with(config) {
-            fitWindow = false
-            color = Color.TRANSPARENT
-            colorRes = -1
-            drawableRes = -1
-        }
+        config.transparent()
         return this
     }
 
