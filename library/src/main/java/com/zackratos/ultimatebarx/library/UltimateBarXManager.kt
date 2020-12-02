@@ -5,11 +5,13 @@ import android.os.Build
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.collection.ArrayMap
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.bean.BarColor
 import com.zackratos.ultimatebarx.library.extension.getRom
 import com.zackratos.ultimatebarx.library.rom.Rom
+import java.lang.reflect.Field
 
 /**
  * @Author   : zhangwenchao
@@ -27,6 +29,8 @@ internal class UltimateBarXManager private constructor(){
     }
 
     internal val rom: Rom by lazy { getRom() }
+
+    internal val fragmentViewFiled: Field by lazy { Fragment::class.java.getDeclaredField("mView").apply { isAccessible = true } }
 
     // 保存 StatusBar 的 light 状态
     private val staLightMap: MutableMap<String, Boolean> by lazy { ArrayMap<String, Boolean>() }

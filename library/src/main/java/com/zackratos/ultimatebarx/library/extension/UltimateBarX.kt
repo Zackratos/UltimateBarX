@@ -25,7 +25,7 @@ import com.zackratos.ultimatebarx.library.view.*
  * @Describe :
  */
 private const val TAG_PARENT = "activity_root_view_parent"
-private const val NO_VIEW_GROUP_MESSAGE = "Use UltimateBarX on Fragment must ensure the Fragment root View is a ViewGroup."
+//private const val NO_VIEW_GROUP_MESSAGE = "Use UltimateBarX on Fragment must ensure the Fragment root View is a ViewGroup."
 
 private val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
 
@@ -40,8 +40,8 @@ internal fun FragmentActivity.ultimateBarXInitialization() {
 
 internal fun Fragment.ultimateBarXInitialization() {
     if (manager.getInitialization(this)) return
-    val rootView = requireView()
-    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
+    val rootView = addFrameLayoutWrapper()
+//    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
     rootView.clipToPadding = false
 //        putStatusBarLight(fragment, getStatusBarLight(fragment.requireActivity()))
     // 取 Activity 的 NavigationBarLight
@@ -153,6 +153,23 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
     rootView.setNavigationBarPadding(requireContext(), config.fitWindow)
     val navigationBar = rootView.getCreator(FragmentTag.getInstance()).getNavigationBarView(requireContext(), config.fitWindow)
     navigationBar.updateBackground(config)
+}
+
+// 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
+private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
+    val view = requireView()
+    if (view is FrameLayout || view is RelativeLayout) return view as ViewGroup
+
+    val flWrapper = FrameLayout(requireContext())
+    val parent = view.parent
+    if (parent is ViewGroup) {
+        val index = parent.indexOfChild(view)
+        parent.removeViewAt(index)
+        parent.addView(flWrapper, index)
+    }
+    flWrapper.addView(view)
+    manager.fragmentViewFiled.set(this, flWrapper)
+    return flWrapper
 }
 
 private fun ViewGroup.getCreator(tag: Tag): Creator {

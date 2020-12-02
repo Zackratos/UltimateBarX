@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         btnViewPager2.setOnClickListener { start(ViewPagerActivity2::class.java) }
         btnScroll.setOnClickListener { start(ScrollActivity::class.java) }
         btnDrawer.setOnClickListener { start(DrawerActivity::class.java) }
+        btnRecyclerFragment.setOnClickListener { start(RecyclerFragmentActivity::class.java) }
     }
 
     private fun start(clazz: Class<out Activity>) {
