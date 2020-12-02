@@ -22,7 +22,6 @@ internal class ViewGroupCreator(private val viewGroup: ViewGroup?, tag: Tag): Ba
             statusBar.tag = tag.statusBarViewTag()
             viewGroup?.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, context.getStatusBarHeight())
         }
-//        statusBar.post { statusBar.translationY = -statusBar.top.toFloat() }
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 statusBar.translationY = -statusBar.top.toFloat()
@@ -31,10 +30,9 @@ internal class ViewGroupCreator(private val viewGroup: ViewGroup?, tag: Tag): Ba
         })
         // 防止因为 setPadding 导致 navigationBar 的 bottom 变化
         val navigationBar: View? = viewGroup?.findViewWithTag(tag.navigationBarViewTag())
-        val height = viewGroup?.height ?: 0
-//        navigationBar?.post { navigationBar.translationY = (height - navigationBar.bottom).toFloat() }
         navigationBar?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
+                val height = viewGroup?.height ?: 0
                 navigationBar.translationY = (height - navigationBar.bottom).toFloat()
                 navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }
@@ -49,10 +47,9 @@ internal class ViewGroupCreator(private val viewGroup: ViewGroup?, tag: Tag): Ba
             navigationBar.tag = tag.navigationBarViewTag()
             viewGroup?.addView(navigationBar, ViewGroup.LayoutParams.MATCH_PARENT, context.getNavigationBarHeight())
         }
-        val height = viewGroup?.height ?: 0
-//        navigationBar.post { navigationBar.translationY = (height - navigationBar.bottom).toFloat() }
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
+                val height = viewGroup?.height ?: 0
                 navigationBar.translationY = (height - navigationBar.bottom).toFloat()
                 navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }

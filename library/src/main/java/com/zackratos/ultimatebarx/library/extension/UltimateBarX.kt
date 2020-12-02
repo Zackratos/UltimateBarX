@@ -70,7 +70,7 @@ internal fun Fragment.updateStatusBar(config: BarConfig) {
         .transparent()
         .light(config.light)
     requireActivity().updateStatusBar(transparentConfig)
-    requireView().post { updateStatusBarView(config) }
+    updateStatusBarView(config)
     manager.putStatusBarLight(this, config.light)
 }
 
@@ -80,7 +80,7 @@ internal fun Fragment.updateNavigationBar(config: BarConfig) {
         .transparent()
         .light(config.light)
     requireActivity().updateNavigationBar(transparentConfig)
-    requireView().post { updateNavigationBarView(config) }
+    updateNavigationBarView(config)
     manager.putNavigationBarLight(this, config.light)
 }
 
