@@ -22,29 +22,6 @@ class ViewPagerAdapter2(fragmentActivity: FragmentActivity) : FragmentStateAdapt
         var fragment = fragments[position]
         if (fragment != null) return fragment
         fragment = when (position) {
-//            0 -> TextFragment2.newInstance(Color.BLACK, "Android", Color.WHITE) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .fitWindow(true)
-//                    .bgColor(Color.BLACK)
-//                    .apply(it)
-//            }
-//            1 -> ImageTextFragment.newInstance(R.drawable.yurisa__005) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .transparent()
-//                    .apply(it)
-//            }
-//            2 -> TextFragment2.newInstance(Color.BLUE, "Camera", Color.WHITE) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .fitWindow(true)
-//                    .bgColor(Color.BLUE)
-//                    .apply(it)
-//            }
-//            3 -> ImageTextFragment.newInstance(R.drawable.yurisa__004) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .fitWindow(false)
-//                    .bgColorRes(R.color.alphaBlack)
-//                    .apply(it)
-//            }
             0 -> ImageTextFragment.newInstance(R.drawable.yurisa__005)
             1 -> ImageTextFragment.newInstance(R.drawable.yurisa__002)
             2 -> ImageTextFragment.newInstance(R.drawable.yurisa__003)

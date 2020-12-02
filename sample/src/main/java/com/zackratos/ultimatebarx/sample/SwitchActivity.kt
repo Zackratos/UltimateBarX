@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
 import com.zackratos.ultimatebarx.library.UltimateBarX
+import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.sample.extension.getColorInt
 import kotlinx.android.synthetic.main.activity_switch.*
 
@@ -36,18 +37,22 @@ class SwitchActivity : AppCompatActivity() {
 
     private fun setApply() {
         tvApply.setOnClickListener {
-            if (rgColor.checkedRadioButtonId == R.id.rbGradient) {
-                UltimateBarX.create(getType())
-                    .fitWindow(getFitWindow())
-                    .bgRes(R.drawable.bg_gradient)
-                    .light(getLight())
-                    .apply(this)
-            } else {
-                UltimateBarX.create(getType())
-                    .fitWindow(getFitWindow())
-                    .bgColor(getColor())
-                    .light(getLight())
-                    .apply(this)
+            val config = when (rgColor.checkedRadioButtonId) {
+                R.id.rbGradient ->
+                    BarConfig.newInstance()
+                        .fitWindow(getFitWindow())
+                        .drawableRes(R.drawable.bg_gradient)
+                        .light(getLight())
+                else ->
+                    BarConfig.newInstance()
+                        .fitWindow(getFitWindow())
+                        .color(getColor())
+                        .light(getLight())
+            }
+            val operator = UltimateBarX.with(this).config(config)
+            when (rgType.checkedRadioButtonId) {
+                R.id.rbStatus -> operator.applyStatusBar()
+                R.id.rbNavigation -> operator.applyNavigationBar()
             }
         }
     }
@@ -58,12 +63,6 @@ class SwitchActivity : AppCompatActivity() {
         rgLight.visibility = visibility
         rgColor.visibility = visibility
         tvApply.visibility = visibility
-    }
-
-    private fun getType(): Int = when (rgType.checkedRadioButtonId) {
-        R.id.rbStatus -> UltimateBarX.STATUS_BAR
-        R.id.rbNavigation -> UltimateBarX.NAVIGATION_BAR
-        else -> -1
     }
 
     private fun getLight(): Boolean = when (rgLight.checkedRadioButtonId) {

@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zackratos.ultimatebarx.library.UltimateBarX
+import com.zackratos.ultimatebarx.library.bean.BarConfig
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,14 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        UltimateBarX.create(UltimateBarX.STATUS_BAR)
+        val config = BarConfig.newInstance()
             .fitWindow(true)
-            .bgColorRes(R.color.deepSkyBlue)
-            .apply(this)
-        UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
-            .fitWindow(true)
-            .bgColorRes(R.color.deepSkyBlue)
-            .apply(this)
+            .colorRes(R.color.deepSkyBlue)
+        UltimateBarX.with(this)
+            .config(config)
+            .apply {
+                applyStatusBar()
+                applyNavigationBar()
+            }
+
         btnTransparent.setOnClickListener { start(TransparentActivity::class.java) }
         btnSwitch.setOnClickListener { start(SwitchActivity::class.java) }
         btnSwitch2.setOnClickListener { start(SwitchFragmentActivity::class.java) }

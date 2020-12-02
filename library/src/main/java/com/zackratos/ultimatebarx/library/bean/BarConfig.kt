@@ -42,10 +42,7 @@ class BarConfig private constructor() {
     private var type: Int = UltimateBarX.STATUS_BAR
 
     companion object {
-        internal val DEFAULT_STATUS_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.STATUS_BAR).build()
-        internal val DEFAULT_NAVIGATION_BAR_CONFIG = Builder.newDefaultBuilder(UltimateBarX.NAVIGATION_BAR).build()
-
-        internal fun newInstance(): BarConfig =
+        fun newInstance(): BarConfig =
             BarConfig().apply {
                 color = Int.MIN_VALUE
                 colorRes = -1
@@ -130,9 +127,11 @@ class BarConfig private constructor() {
         @ColorRes
         private var colorRes: Int = -1
         private var light: Boolean = false
+        @Deprecated("")
         private var transparent: Boolean = false
 
         companion object {
+            @Deprecated("")
             fun newDefaultBuilder(@Type type: Int) =
                 Builder(type).apply {
                     color = Int.MIN_VALUE
@@ -165,6 +164,7 @@ class BarConfig private constructor() {
         @Deprecated("", ReplaceWith("colorInt(colorInt)"))
         fun bgColor(@ColorInt colorInt: Int): Builder = color(colorInt)
 
+        @Deprecated("")
         fun color(@ColorInt colorInt: Int): Builder =
             apply {
                 if (transparent) return@apply
@@ -174,12 +174,14 @@ class BarConfig private constructor() {
         @Deprecated("", ReplaceWith("colorRes(colorRes)"))
         fun bgColorRes(@ColorRes colorRes: Int): Builder = colorRes(colorRes)
 
+        @Deprecated("")
         fun colorRes(@ColorRes colorRes: Int): Builder =
             apply {
                 if (transparent) return@apply
                 this.colorRes = colorRes
             }
 
+        @Deprecated("")
         fun fitWindow(fitWindow: Boolean): Builder = apply {
             if (transparent) return@apply
             this@Builder.fitWindow = fitWindow
@@ -188,14 +190,17 @@ class BarConfig private constructor() {
         @Deprecated("", ReplaceWith("drawableRes(drawableRes)"))
         fun bgRes(@DrawableRes drawableRes: Int): Builder = drawableRes(drawableRes)
 
+        @Deprecated("")
         fun drawableRes(@DrawableRes drawableRes: Int): Builder =
             apply {
                 if (transparent) return@apply
                 this@Builder.drawableRes = drawableRes
             }
 
+        @Deprecated("")
         fun light(light: Boolean): Builder = apply { this@Builder.light = light }
 
+        @Deprecated("")
         fun transparent(): Builder = apply {
             transparent = true
             fitWindow = false
@@ -204,6 +209,7 @@ class BarConfig private constructor() {
             drawableRes = -1
         }
 
+        @Deprecated("")
         internal fun build(): BarConfig =
             BarConfig().apply {
                 type = this@Builder.type

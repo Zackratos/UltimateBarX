@@ -6,7 +6,6 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import com.zackratos.ultimatebarx.sample.R
-import com.zackratos.ultimatebarx.sample.extension.getStatusBarHeight
 import kotlinx.android.synthetic.main.fragment_text.*
 
 /**
@@ -41,9 +40,6 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewStatus.post {
-//            viewStatus.layoutParams = viewStatus.layoutParams.apply { height = activity?.getStatusBarHeight() ?: 0 }
-//        }
         initView()
     }
 
@@ -51,7 +47,6 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
         toolbar.setBackgroundColor(color)
         toolbar.title = title
         toolbar.setTitleTextColor(titleColor)
-//        viewStatus.setBackgroundColor(color)
     }
 
 }

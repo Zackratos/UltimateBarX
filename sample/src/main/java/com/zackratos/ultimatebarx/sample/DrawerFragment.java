@@ -28,8 +28,11 @@ public class DrawerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UltimateBarX.create(UltimateBarX.STATUS_BAR)
+//        UltimateBarX.create(UltimateBarX.STATUS_BAR)
+//                .transparent()
+//                .apply(this);
+        UltimateBarX.with(this)
                 .transparent()
-                .apply(this);
+                .applyStatusBar();
     }
 }

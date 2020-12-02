@@ -27,10 +27,10 @@ public class DrawerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
+        UltimateBarX.with(this)
                 .fitWindow(true)
-                .bgColor(Color.RED)
-                .apply(this);
+                .color(Color.RED)
+                .applyNavigationBar();
         initMainFragment();
         addFragment();
     }
@@ -38,10 +38,10 @@ public class DrawerActivity extends AppCompatActivity {
     private void initMainFragment() {
         mainFragment = TextFragment2.Companion.newInstance(Color.RED, "九阴真经", Color.WHITE,
                 fragment -> {
-                    UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                            .bgColor(Color.RED)
+                    UltimateBarX.with(fragment)
+                            .color(Color.RED)
                             .fitWindow(true)
-                            .apply(fragment);
+                            .applyStatusBar();
                     initToolbar(fragment);
                     return null;
                 });
