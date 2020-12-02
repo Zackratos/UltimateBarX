@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.bean.BarColor
 import com.zackratos.ultimatebarx.library.extension.getRom
-import com.zackratos.ultimatebarx.library.operator.Operator
 import com.zackratos.ultimatebarx.library.rom.Rom
 
 /**
@@ -44,7 +43,6 @@ internal class UltimateBarXManager private constructor(){
     // 保存初始 StatusBar 和 NavigationBar 颜色
     private val originColorMap: MutableMap<String, BarColor> by lazy { ArrayMap<String, BarColor>() }
 
-    private val operatorMap: MutableMap<String, Operator> by lazy { ArrayMap<String, Operator>() }
 
 
 
@@ -57,7 +55,6 @@ internal class UltimateBarXManager private constructor(){
         navLightMap.remove(key)
         initializationMap.remove(key)
         originColorMap.remove(key)
-        operatorMap.remove(key)
     }
 
 
@@ -98,7 +95,7 @@ internal class UltimateBarXManager private constructor(){
         initializationMap[owner.hashCode().toString()] = true
     }
 
-    internal fun getOriginColor(activity: FragmentActivity): BarColor = originColorMap[activity.hashCode().toString()] ?: BarColor(Color.BLACK, Color.BLACK)
+    internal fun getOriginColor(activity: FragmentActivity): BarColor = originColorMap[activity.hashCode().toString()] ?: BarColor()
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     internal fun putOriginColor(activity: FragmentActivity) {
@@ -111,10 +108,4 @@ internal class UltimateBarXManager private constructor(){
     }
 
     private fun calculateLight(@ColorInt color: Int) = color > (Color.BLACK + Color.WHITE / 2)
-
-    internal fun getOperator(owner: LifecycleOwner): Operator? = operatorMap[owner.hashCode().toString()]
-
-    internal fun putOperator(owner: LifecycleOwner, operator: Operator) {
-        operatorMap[owner.hashCode().toString()] = operator
-    }
 }

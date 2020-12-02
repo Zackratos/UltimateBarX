@@ -6,8 +6,4 @@ package com.zackratos.ultimatebarx.library.view
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal abstract class BaseCreator(protected val tag: Tag): Creator {
-
-
-
-}
+internal abstract class BaseCreator(protected val tag: Tag): Creator

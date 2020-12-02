@@ -1,7 +1,7 @@
 package com.zackratos.ultimatebarx.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerAdapter
@@ -16,21 +16,22 @@ class ViewPagerActivity : AppCompatActivity() {
             ViewPagerAdapter(
                 supportFragmentManager
             )
-        UltimateBarX.create(UltimateBarX.NAVIGATION_BAR)
-            .fitWindow(true)
-            .bgColorRes(R.color.deepSkyBlue)
-            .apply(this)
-        UltimateBarX.create(UltimateBarX.STATUS_BAR).transparent().apply(this)
         initViewPager()
         setTabSelect(0)
         flAndroid.setOnClickListener { viewPager.currentItem = 0 }
         flAlbum.setOnClickListener { viewPager.currentItem = 1 }
         flCamera.setOnClickListener { viewPager.currentItem = 2 }
         flGames.setOnClickListener { viewPager.currentItem = 3 }
+        UltimateBarX.with(this)
+            .fitWindow(true)
+            .colorRes(R.color.deepSkyBlue)
+            .light(false)
+            .applyNavigationBar()
 
     }
 
     private fun initViewPager() {
+        viewPager.offscreenPageLimit = 4
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -42,22 +43,6 @@ class ViewPagerActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 setTabSelect(position)
-                when (position) {
-                    0 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .transparent()
-                        .apply(this@ViewPagerActivity)
-                    1 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .transparent()
-                        .light(true)
-                        .apply(this@ViewPagerActivity)
-                    2 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .transparent()
-                        .light(true)
-                        .apply(this@ViewPagerActivity)
-                    3 -> UltimateBarX.create(UltimateBarX.STATUS_BAR)
-                        .transparent()
-                        .apply(this@ViewPagerActivity)
-                }
             }
         })
     }

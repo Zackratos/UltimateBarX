@@ -13,4 +13,5 @@
     <color name="cyan">#00FFFF</color>
     <color name="alphaBlack">#66000000</color>
     <color name="alphaGreen">#66008000</color>
+    <color name="alphaWhite">#66FFFFFF</color>
 </resources>

@@ -2,7 +2,6 @@ package com.zackratos.ultimatebarx.library.operator
 
 import android.os.Build
 import androidx.fragment.app.Fragment
-import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.library.extension.*
 
 /**
@@ -11,9 +10,13 @@ import com.zackratos.ultimatebarx.library.extension.*
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal class FragmentOperator(val fragment: Fragment): BaseOperator() {
+internal class FragmentOperator private constructor(val fragment: Fragment): BaseOperator() {
 
-    override fun applyStatusBar(config: BarConfig) {
+    companion object {
+        internal fun newInstance(fragment: Fragment) = FragmentOperator(fragment)
+    }
+
+    override fun applyStatusBar() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         fragment.requireActivity().ultimateBarXInitialization()
         fragment.ultimateBarXInitialization()
@@ -25,7 +28,7 @@ internal class FragmentOperator(val fragment: Fragment): BaseOperator() {
         fragment.requireActivity().addObserver()
     }
 
-    override fun applyNavigationBar(config: BarConfig) {
+    override fun applyNavigationBar() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         fragment.requireActivity().ultimateBarXInitialization()
         fragment.ultimateBarXInitialization()

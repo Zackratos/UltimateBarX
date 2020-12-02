@@ -1,8 +1,8 @@
 package com.zackratos.ultimatebarx.library.operator
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.zackratos.ultimatebarx.library.UltimateBarXManager
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 
 /**
@@ -11,29 +11,24 @@ import com.zackratos.ultimatebarx.library.bean.BarConfig
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal interface Operator {
+interface Operator {
 
-    fun applyStatusBar(config: BarConfig)
+    fun applyStatusBar()
 
-    fun applyNavigationBar(config: BarConfig)
+    fun applyNavigationBar()
 
-    companion object {
-        fun get(activity: FragmentActivity): Operator {
-            var operator = UltimateBarXManager.getInstance().getOperator(activity)
-            if (operator == null) {
-                operator = ActivityOperator(activity)
-                UltimateBarXManager.getInstance().putOperator(activity, operator)
-            }
-            return operator
-        }
+    fun config(config: BarConfig): Operator
 
-        fun get(fragment: Fragment): Operator {
-            var operator = UltimateBarXManager.getInstance().getOperator(fragment)
-            if (operator == null) {
-                operator = FragmentOperator(fragment)
-                UltimateBarXManager.getInstance().putOperator(fragment, operator)
-            }
-            return operator
-        }
-    }
+    fun transparent(): Operator
+
+    fun light(light: Boolean): Operator
+
+    fun fitWindow(fitWindow: Boolean): Operator
+
+    fun drawableRes(@DrawableRes drawableRes: Int): Operator
+
+    fun colorRes(@ColorRes colorRes: Int): Operator
+
+    fun color(@ColorInt color: Int): Operator
+
 }

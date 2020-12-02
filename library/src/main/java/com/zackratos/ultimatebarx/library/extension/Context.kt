@@ -1,6 +1,9 @@
 package com.zackratos.ultimatebarx.library.extension
 
 import android.content.Context
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 
 /**
  * @Author   : zhangwenchao
@@ -15,3 +18,6 @@ private fun Context.getBarHeight(name: String): Int
 internal fun Context.getStatusBarHeight() = getBarHeight("status_bar_height")
 
 internal fun Context.getNavigationBarHeight() = getBarHeight("navigation_bar_height")
+
+@ColorInt
+internal fun Context.getColorInt(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)

@@ -28,7 +28,7 @@ class TextFragment2: TextFragment() {
     private var statusBarBlock: ((Fragment) -> Unit)? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewStatus.visibility = View.GONE
+//        viewStatus.visibility = View.GONE
         initView()
         statusBarBlock?.invoke(this)
     }

@@ -1,18 +1,18 @@
 package com.zackratos.ultimatebarx.library.extension
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.R
-import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.UltimateBarXObserver
 import com.zackratos.ultimatebarx.library.bean.BarConfig
@@ -66,35 +66,36 @@ internal fun FragmentActivity.updateNavigationBar(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun Fragment.updateStatusBar(config: BarConfig) {
-    val transparentConfig = BarConfig.Builder(UltimateBarX.STATUS_BAR)
-        .transparent().light(config.light).build()
+    val transparentConfig = BarConfig.newInstance()
+        .transparent()
+        .light(config.light)
     requireActivity().updateStatusBar(transparentConfig)
-    requireView().post { updateStatusBarView(config) }
+    updateStatusBarView(config)
     manager.putStatusBarLight(this, config.light)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun Fragment.updateNavigationBar(config: BarConfig) {
-    val transparentConfig = BarConfig.Builder(UltimateBarX.NAVIGATION_BAR)
-        .transparent().light(config.light).build()
+    val transparentConfig = BarConfig.newInstance()
+        .transparent()
+        .light(config.light)
     requireActivity().updateNavigationBar(transparentConfig)
-    requireView().post { updateNavigationBarView(config) }
+    updateNavigationBarView(config)
     manager.putNavigationBarLight(this, config.light)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultStatusBar() {
     if (manager.getStatusBarDefault(this)) return
-    updateStatusBar(BarConfig.DEFAULT_STATUS_BAR_CONFIG)
+    updateStatusBar(BarConfig.newInstance())
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultNavigationBar() {
     if (manager.getNavigationBarDefault(this)) return
-    val config = BarConfig.Builder(UltimateBarX.NAVIGATION_BAR)
-        .bgColor(manager.getOriginColor(this).navigationBarColor)
+    val config = BarConfig.newInstance()
+        .color(manager.getOriginColor(this).navigationBarColor)
         .light(manager.getNavigationBarLight(this))
-        .build()
     updateNavigationBar(config)
 }
 
@@ -119,18 +120,16 @@ private fun FragmentActivity.barInitialization() {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun FragmentActivity.updateStatusBarView(config: BarConfig?) {
-    if (config == null) return
+private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.setStatusBarPadding(this, config.fitWindow)
     val statusBar = parentView?.getCreator(ActivityTag.getInstance())?.getStatusBarView(this, config.fitWindow)
-    statusBar?.updateBackground(config)
+    statusBar?.updateBackground(config, getColorInt(R.color.colorPrimaryDark))
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun FragmentActivity.updateNavigationBarView(config: BarConfig?) {
-    if (config == null) return
+private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(this)) return
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
@@ -140,17 +139,15 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig?) {
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun Fragment.updateStatusBarView(config: BarConfig?) {
-    if (config == null) return
+private fun Fragment.updateStatusBarView(config: BarConfig) {
     val rootView = requireView() as ViewGroup
     rootView.setStatusBarPadding(requireContext(), config.fitWindow)
     val statusBar = rootView.getCreator(FragmentTag.getInstance()).getStatusBarView(requireContext(), config.fitWindow)
-    statusBar.updateBackground(config)
+    statusBar.updateBackground(config, requireContext().getColorInt(R.color.colorPrimaryDark))
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-private fun Fragment.updateNavigationBarView(config: BarConfig?) {
-    if (config == null) return
+private fun Fragment.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(requireActivity())) return
     val rootView = requireView() as ViewGroup
     rootView.setNavigationBarPadding(requireContext(), config.fitWindow)
@@ -167,33 +164,33 @@ private fun ViewGroup.getCreator(tag: Tag): Creator {
 }
 
 private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) {
-    post {
-        setPadding(
-            paddingLeft,
-            if (fitWindow) context.getStatusBarHeight() else 0,
-            paddingRight,
-            paddingBottom
-        )
-    }
+//    post {
+    setPadding(
+        paddingLeft,
+        if (fitWindow) context.getStatusBarHeight() else 0,
+        paddingRight,
+        paddingBottom
+    )
+//    }
 }
 
 private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boolean) {
-    post {
-        setPadding(
-            paddingLeft,
-            paddingTop,
-            paddingRight,
-            if (fitWindow) context.getNavigationBarHeight() else 0
-        )
-    }
+//    post {
+    setPadding(
+        paddingLeft,
+        paddingTop,
+        paddingRight,
+        if (fitWindow) context.getNavigationBarHeight() else 0
+    )
+//    }
 }
 
-private fun View.updateBackground(config: BarConfig) {
+private fun View.updateBackground(config: BarConfig, @ColorInt defaultColor: Int = Color.BLACK) {
     when {
-        config.bgRes > 0 -> setBackgroundResource(config.bgRes)
-        config.bgColor > Int.MIN_VALUE -> setBackgroundColor(config.bgColor)
-        config.bgColorRes > 0 -> setBackgroundColor(ContextCompat.getColor(context, config.bgColorRes))
-        else -> setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
+        config.drawableRes > 0 -> setBackgroundResource(config.drawableRes)
+        config.colorRes > 0 -> setBackgroundColor(context.getColorInt(config.colorRes))
+        config.color > Int.MIN_VALUE -> setBackgroundColor(config.color)
+        else -> setBackgroundColor(defaultColor)
     }
 }
 

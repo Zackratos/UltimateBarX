@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
 import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
@@ -28,8 +29,13 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
             statusBar.tag = tag.statusBarViewTag()
             frameLayout.addView(statusBar)
         }
-        statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
-            .apply { topMargin = if (fitWindow) -context.getStatusBarHeight() else 0 }
+        statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
+                    .apply { topMargin = if (fitWindow) -context.getStatusBarHeight() else 0 }
+                statusBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
+            }
+        })
         return statusBar
     }
 
@@ -45,8 +51,13 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
             navigationBar.tag = tag.navigationBarViewTag()
             frameLayout.addView(navigationBar)
         }
-        navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
-            .apply { bottomMargin = if (fitWindow) -context.getNavigationBarHeight() else 0 }
+        navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
+                    .apply { bottomMargin = if (fitWindow) -context.getNavigationBarHeight() else 0 }
+                navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
+            }
+        })
         return navigationBar
     }
 }
