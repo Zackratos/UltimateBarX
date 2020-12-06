@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.fragment.app.Fragment
 import com.zackratos.ultimatebarx.library.UltimateBarX
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.sample.extension.getColorInt
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_switch.*
  * @email    : zhangwenchao@soulapp.cn
  * @Describe :
  */
-class SwitchFragment: Fragment(R.layout.activity_switch) {
+class SwitchFragment: InnerFragment(R.layout.activity_switch) {
 
     companion object {
         fun newInstance() = SwitchFragment()
@@ -97,7 +96,7 @@ class SwitchFragment: Fragment(R.layout.activity_switch) {
         else ->Color.TRANSPARENT
     }
 
-    fun onBackPressed(): Boolean {
+    override fun onBackPressed(): Boolean {
         if (tvApply.visibility == View.VISIBLE) {
             controlVisibility(View.INVISIBLE)
             return false

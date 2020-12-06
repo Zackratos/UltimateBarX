@@ -52,31 +52,30 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                         .newInstance(R.drawable.yurisa__001, f -> {
                             UltimateBarX.with(f)
                                     .fitWindow(false)
-                                    .colorRes(R.color.alphaBlack)
+                                    .colorRes(R.color.alphaWhite)
+                                    .light(true)
                                     .applyStatusBar();
                             return null;
                         });
                 break;
             case 2:
-                fragment = TextFragment2
-                        .Companion
-//                        .newInstance(Color.YELLOW, "Camera", Color.BLACK, f -> {
-//                            return null;
-//                        });
-                        .newInstance(Color.BLUE, "Camera", Color.WHITE, f -> {
-                            UltimateBarX.with(f)
-                                    .fitWindow(true)
-                                    .color(Color.BLUE)
-                                    .applyStatusBar();
-                            return null;
-                        });
-                break;
-            case 3:
                 fragment = ImageTextFragment
                         .Companion
                         .newInstance(R.drawable.yurisa__006, f -> {
                             UltimateBarX.with(f)
                                     .transparent()
+                                    .applyStatusBar();
+                            return null;
+                        });
+                break;
+            case 3:
+                fragment = TextFragment2
+                        .Companion
+                        .newInstance(Color.YELLOW, "Camera", Color.BLACK, f -> {
+                            UltimateBarX.with(f)
+                                    .fitWindow(true)
+                                    .color(Color.YELLOW)
+                                    .light(true)
                                     .applyStatusBar();
                             return null;
                         });

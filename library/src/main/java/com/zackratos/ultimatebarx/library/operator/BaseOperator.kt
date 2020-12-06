@@ -9,12 +9,12 @@ import com.zackratos.ultimatebarx.library.bean.BarConfig
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal abstract class BaseOperator: Operator {
+internal abstract class BaseOperator(val config: BarConfig = BarConfig.newInstance()): Operator {
 
 
     protected val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
 
-    protected val config: BarConfig by lazy { BarConfig.newInstance() }
+//    protected val config: BarConfig by lazy { config }
 
     override fun config(config: BarConfig): Operator {
         this.config.update(config)

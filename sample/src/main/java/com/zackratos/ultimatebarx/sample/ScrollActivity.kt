@@ -26,28 +26,19 @@ class ScrollActivity: AppCompatActivity() {
             toolbar.layoutParams = (toolbar.layoutParams as FrameLayout.LayoutParams)
                 .apply { topMargin = getStatusBarHeight() }
         }
-//        UltimateBarX.create(UltimateBarX.STATUS_BAR).transparent().apply(this)
         UltimateBarX.with(this).transparent().applyStatusBar()
         scrollView.setOnScrollChangeListener { _: NestedScrollView?, _, scrollY: Int, _, oldScrollY: Int ->
             val height = imageView.height - getStatusBarHeight() - toolbar.height
             if (height in (oldScrollY + 1)..scrollY) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .fitWindow(false)
-//                    .bgColor(Color.WHITE)
-//                    .light(true)
-//                    .apply(this)
-                UltimateBarX.with(this)
-                    .fitWindow(false)
+                UltimateBarX.get(this)
                     .color(Color.WHITE)
                     .light(true)
                     .applyStatusBar()
                 toolbar.visibility = View.VISIBLE
             } else if (height in (scrollY + 1)..oldScrollY) {
-//                UltimateBarX.create(UltimateBarX.STATUS_BAR)
-//                    .transparent()
-//                    .apply(this)
-                UltimateBarX.with(this)
-                    .transparent()
+                UltimateBarX.get(this)
+                    .color(Color.TRANSPARENT)
+                    .light(false)
                     .applyStatusBar()
                 toolbar.visibility = View.INVISIBLE
             }

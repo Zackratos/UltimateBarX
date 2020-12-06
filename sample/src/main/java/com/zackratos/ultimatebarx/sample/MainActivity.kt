@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         btnScroll.setOnClickListener { start(ScrollActivity::class.java) }
         btnDrawer.setOnClickListener { start(DrawerActivity::class.java) }
         btnRecyclerFragment.setOnClickListener { start(RecyclerFragmentActivity::class.java) }
+        btnFragmentStack.setOnClickListener { start(FragmentStackActivity::class.java) }
     }
 
     private fun start(clazz: Class<out Activity>) {

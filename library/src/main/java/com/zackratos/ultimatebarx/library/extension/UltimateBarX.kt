@@ -45,8 +45,13 @@ internal fun Fragment.ultimateBarXInitialization() {
     rootView.clipToPadding = false
 //        putStatusBarLight(fragment, getStatusBarLight(fragment.requireActivity()))
     // 取 Activity 的 NavigationBarLight
+    // 不能取 Activity 的 originColor 然后计算 light
     // 防止 Activity 之前设置了 light ，但是被通过 originColor 计算的 light 覆盖掉
-    manager.putNavigationBarLight(this, manager.getNavigationBarLight(requireActivity()))
+//    manager.putNavigationBarLight(this, manager.getNavigationBarLight(requireActivity()))
+    val actNavConfig = manager.getNavigationBarConfig(requireActivity())
+    val navConfig = manager.getNavigationBarConfig(this)
+    navConfig.light = actNavConfig.light
+    manager.putNavigationBarConfig(this, navConfig)
     manager.putInitialization(this)
 }
 
@@ -54,14 +59,14 @@ internal fun Fragment.ultimateBarXInitialization() {
 internal fun FragmentActivity.updateStatusBar(config: BarConfig) {
     updateStatusBarView(config)
     manager.putStatusBarDefault(this)
-    manager.putStatusBarLight(this, config.light)
+    manager.putStatusBarConfig(this, config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.updateNavigationBar(config: BarConfig) {
     updateNavigationBarView(config)
     manager.putNavigationBarDefault(this)
-    manager.putNavigationBarLight(this, config.light)
+    manager.putNavigationBarConfig(this, config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -71,7 +76,8 @@ internal fun Fragment.updateStatusBar(config: BarConfig) {
         .light(config.light)
     requireActivity().updateStatusBar(transparentConfig)
     updateStatusBarView(config)
-    manager.putStatusBarLight(this, config.light)
+    manager.putStatusBarDefault(this)
+    manager.putStatusBarConfig(this, config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -81,7 +87,8 @@ internal fun Fragment.updateNavigationBar(config: BarConfig) {
         .light(config.light)
     requireActivity().updateNavigationBar(transparentConfig)
     updateNavigationBarView(config)
-    manager.putNavigationBarLight(this, config.light)
+    manager.putNavigationBarDefault(this)
+    manager.putNavigationBarConfig(this, config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -95,7 +102,7 @@ internal fun FragmentActivity.defaultNavigationBar() {
     if (manager.getNavigationBarDefault(this)) return
     val config = BarConfig.newInstance()
         .color(manager.getOriginColor(this).navigationBarColor)
-        .light(manager.getNavigationBarLight(this))
+        .light(manager.getNavigationBarConfig(this).light)
     updateNavigationBar(config)
 }
 
@@ -140,7 +147,7 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.updateStatusBarView(config: BarConfig) {
-    val rootView = requireView() as ViewGroup
+    val rootView = addFrameLayoutWrapper()
     rootView.setStatusBarPadding(requireContext(), config.fitWindow)
     val statusBar = rootView.getCreator(FragmentTag.getInstance()).getStatusBarView(requireContext(), config.fitWindow)
     statusBar.updateBackground(config, requireContext().getColorInt(R.color.colorPrimaryDark))
@@ -149,7 +156,7 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(requireActivity())) return
-    val rootView = requireView() as ViewGroup
+    val rootView = addFrameLayoutWrapper()
     rootView.setNavigationBarPadding(requireContext(), config.fitWindow)
     val navigationBar = rootView.getCreator(FragmentTag.getInstance()).getNavigationBarView(requireContext(), config.fitWindow)
     navigationBar.updateBackground(config)

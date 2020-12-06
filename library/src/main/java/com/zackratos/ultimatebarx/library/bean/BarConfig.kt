@@ -16,27 +16,26 @@ import com.zackratos.ultimatebarx.library.operator.OperatorProvider
  * @email    : zhangwenchao@soulapp.cn
  * @Describe :
  */
-class BarConfig private constructor() {
-
+data class BarConfig(
     /**
      * 是否忽略状态栏或导航栏的占位高度（相当于 [android.view.View.setFitsSystemWindows]）
      * true  : contentView 位于状态栏和导航栏之间（不占用状态栏和导航栏位置）
      * false : contentView 可以伸到状态栏和导航栏的位置（沉浸式）
      */
-    internal var fitWindow: Boolean = false
+    internal var fitWindow: Boolean = false,
     @ColorInt
-    internal var color: Int = 0
+    internal var color: Int = 0,
     @DrawableRes
-    internal var drawableRes: Int = 0
+    internal var drawableRes: Int = 0,
     @ColorRes
-    internal var colorRes: Int = 0
-
+    internal var colorRes: Int = 0,
     /**
      *  light 模式（状态栏字体颜色变灰，导航栏内部按钮颜色变灰）
      *  true  : 状态栏字体灰色，导航栏按钮灰色
      *  false : 状态栏字体白色，导航栏按钮白色
      */
     internal var light: Boolean = false
+) {
 
     @Type
     private var type: Int = UltimateBarX.STATUS_BAR
@@ -88,10 +87,10 @@ class BarConfig private constructor() {
     private fun apply(activity: FragmentActivity) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                OperatorProvider.get(activity).config(this).applyStatusBar()
+                OperatorProvider.create(activity).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                OperatorProvider.get(activity).config(this).applyNavigationBar()
+                OperatorProvider.create(activity).config(this).applyNavigationBar()
 
         }
     }
@@ -100,10 +99,10 @@ class BarConfig private constructor() {
     private fun apply(fragment: Fragment) {
         when (type) {
             UltimateBarX.STATUS_BAR ->
-                OperatorProvider.get(fragment).config(this).applyStatusBar()
+                OperatorProvider.create(fragment).config(this).applyStatusBar()
 
             UltimateBarX.NAVIGATION_BAR ->
-                OperatorProvider.get(fragment).config(this).applyNavigationBar()
+                OperatorProvider.create(fragment).config(this).applyNavigationBar()
         }
     }
 
