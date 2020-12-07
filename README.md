@@ -12,28 +12,41 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.0'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.1'
 }
 ```
 
 在 Activity 或 Fragment 中
 ```kotlin
-val config = BarConfig.newInstance()          // 创建配置对象
-    .fitWindow(true)                          // 布局是否侵入状态栏（true 不侵入，false 侵入） 
-    .color(Color.RED)                         // 状态栏背景颜色（色值）
-    .colorRes(R.color.deepSkyBlue)            // 状态栏背景颜色（资源id）
-    .drawableRes(R.drawable.bg_gradient)      // 状态栏背景 drawable
-    .light(false)                             // light模式
-                                              // true 状态栏字体灰色，false 状态栏字体白色 Android 6.0 以上支持
-                                              // true 导航栏按钮灰色，false 导航栏按钮白色 Android 8.0 以上支持
-
-UltimateBarX.with(this)                       // 对当前 Activity 或 Fragment 生效
-    .config(config)                           // 使用配置
-    .applyStatusBar()                         // 应用到状态栏
+    // 创建配置对象
+val config = BarConfig.newInstance()
+    // 布局是否侵入状态栏（true 不侵入，false 侵入）
+    .fitWindow(true)     
+    // 状态栏背景颜色（色值）                      
+    .color(Color.RED)      
+    // 状态栏背景颜色（资源id）                   
+    .colorRes(R.color.deepSkyBlue)    
+    // 状态栏背景 drawable        
+    .drawableRes(R.drawable.bg_gradient)   
+    // light模式   
+    // true 状态栏字体灰色，false 状态栏字体白色 Android 6.0 以上支持
+    // true 导航栏按钮灰色，false 导航栏按钮白色 Android 8.0 以上支持
+    .light(false)                             
+                                              
+                                              
+    // 对当前 Activity 或 Fragment 生效
+UltimateBarX.with(this)   
+    // 使用配置                    
+    .config(config)      
+    // 应用到状态栏                     
+    .applyStatusBar()                         
     
-UltimateBarX.with(this)                       // 对当前 Activity 或 Fragment 生效
-    .config(config)                           // 使用配置
-    .applyNavigationBar()                     // 应用到导航栏
+    // 对当前 Activity 或 Fragment 生效
+UltimateBarX.with(this)     
+    // 使用配置                  
+    .config(config)     
+    // 应用到导航栏                      
+    .applyNavigationBar()                     
 ```
 
 也可以直接链式调用
@@ -62,8 +75,22 @@ UltimateBarX.with(this)
     .applyStatusBar()
 ```
 
-> * 设置背景的三个方法写一个即可，如果多次设置，只有最后一次生效
-> * 如果要在 Fragment 中使用，Fragment 的根布局必须是 ViewGroup
+使用 `get` 方法可以在上一次的基础上修改
+例如，先用下面的代码实现状态栏变红色，不侵入，非 light 模式
+```kotlin
+UltimateBarX.with(this)
+    .color(Color.RED)
+    .fitWindow(true)
+    .light(false)
+    .applyStatusBar()
+```
+
+然后需要设置 light 模式，其他效果保持不变，直接用下面的方法即可
+```kotlin
+UltimateBarX.get(this)
+    .light(true)
+    .applyStatusBar()
+```
 
 ### 截图
 ![](screenshots/transparent_1.png)　![](screenshots/transparent_2.png)
