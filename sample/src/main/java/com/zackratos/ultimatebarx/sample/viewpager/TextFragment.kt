@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_text.*
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/1  4:50 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 open class TextFragment : Fragment(R.layout.fragment_text) {

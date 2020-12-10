@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/6/26  4:45 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe : Activity 的扩展方法和属性
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)

@@ -18,7 +18,7 @@ import java.util.Locale;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/12/2  8:19 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class RecyclerFragment extends InnerFragment {

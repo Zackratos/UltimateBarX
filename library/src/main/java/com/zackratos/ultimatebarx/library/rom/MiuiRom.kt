@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/11/24  8:09 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe : 小米 rom
  */
 internal class MiuiRom: Rom {

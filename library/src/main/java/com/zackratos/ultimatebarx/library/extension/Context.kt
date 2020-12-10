@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/6/28  7:09 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 

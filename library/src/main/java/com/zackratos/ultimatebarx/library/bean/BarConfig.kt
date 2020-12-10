@@ -13,7 +13,7 @@ import com.zackratos.ultimatebarx.library.operator.OperatorProvider
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/6/26  7:27 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 data class BarConfig(

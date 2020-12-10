@@ -14,7 +14,7 @@ import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerAdapter2;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/7/8  2:45 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class ViewPagerActivity2 extends AppCompatActivity {

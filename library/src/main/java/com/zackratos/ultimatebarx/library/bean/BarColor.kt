@@ -6,7 +6,7 @@ import androidx.annotation.ColorInt
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/11/23  6:15 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe : 主要用来封装 状态栏和导航栏的初始颜色
  */
 internal class BarColor(@ColorInt val statusBarColor: Int = Color.TRANSPARENT, @ColorInt val navigationBarColor: Int = Color.BLACK)

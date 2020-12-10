@@ -9,7 +9,7 @@ import androidx.lifecycle.OnLifecycleEvent
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/6/28  12:47 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 internal class UltimateBarXObserver: LifecycleObserver {

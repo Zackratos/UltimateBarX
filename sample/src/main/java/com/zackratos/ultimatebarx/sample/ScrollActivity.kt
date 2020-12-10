@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_scroll.*
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/1  10:34 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 class ScrollActivity: AppCompatActivity() {

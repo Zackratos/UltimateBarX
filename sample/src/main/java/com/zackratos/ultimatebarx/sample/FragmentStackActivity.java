@@ -13,7 +13,7 @@ import com.zackratos.ultimatebarx.library.UltimateBarX;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/12/4  9:30 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class FragmentStackActivity extends AppCompatActivity {

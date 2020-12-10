@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/11/24  8:01 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 internal class OtherRom: Rom {

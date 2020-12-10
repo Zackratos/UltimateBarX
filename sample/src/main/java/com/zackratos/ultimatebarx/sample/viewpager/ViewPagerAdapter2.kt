@@ -9,7 +9,7 @@ import com.zackratos.ultimatebarx.sample.R
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/1  1:57 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 class ViewPagerAdapter2(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {

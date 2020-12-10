@@ -5,7 +5,7 @@ import com.zackratos.ultimatebarx.library.bean.BarConfig
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/12/4  8:43 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 internal class DoubleOperator private constructor(): Operator {

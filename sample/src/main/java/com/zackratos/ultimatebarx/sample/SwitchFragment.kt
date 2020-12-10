@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_switch.*
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/8  10:22 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 class SwitchFragment: InnerFragment(R.layout.activity_switch) {

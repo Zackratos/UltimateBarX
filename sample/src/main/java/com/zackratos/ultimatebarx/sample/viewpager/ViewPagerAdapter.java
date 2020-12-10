@@ -15,7 +15,7 @@ import com.zackratos.ultimatebarx.sample.TextFragment2;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/7/8  2:57 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {

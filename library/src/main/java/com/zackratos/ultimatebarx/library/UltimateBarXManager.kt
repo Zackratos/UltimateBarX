@@ -17,7 +17,7 @@ import java.lang.reflect.Field
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/6/26  12:32 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe : 管理类，主要用于存储 Activity 和 Fragment 当前的状态
  */
 internal class UltimateBarXManager private constructor(){

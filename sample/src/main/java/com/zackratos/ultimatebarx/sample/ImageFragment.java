@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/12/4  9:36 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class ImageFragment extends Fragment {

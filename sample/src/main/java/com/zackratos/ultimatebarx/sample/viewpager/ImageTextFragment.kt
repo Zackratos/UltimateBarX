@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_image_text.*
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/8  6:57 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 class ImageTextFragment: Fragment(R.layout.fragment_image_text) {

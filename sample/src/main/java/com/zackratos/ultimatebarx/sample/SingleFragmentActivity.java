@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 /**
  * @Author : zhangwenchao
  * @Date : 2020/12/2  8:46 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public abstract class SingleFragmentActivity extends AppCompatActivity {

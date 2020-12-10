@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_text.*
 /**
  * @Author   : zhangwenchao
  * @Date     : 2020/7/8  8:03 PM
- * @email    : zhangwenchao@soulapp.cn
+ * @email    : 869649338@qq.com
  * @Describe :
  */
 class TextFragment2: TextFragment() {
