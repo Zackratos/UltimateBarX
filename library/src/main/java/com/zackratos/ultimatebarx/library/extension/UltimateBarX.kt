@@ -168,6 +168,7 @@ private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     if (view is FrameLayout || view is RelativeLayout) return view as ViewGroup
 
     val flWrapper = FrameLayout(requireContext())
+    flWrapper.setTag(androidx.fragment.R.id.fragment_container_view_tag, this)
     val parent = view.parent
     if (parent is ViewGroup) {
         val index = parent.indexOfChild(view)
