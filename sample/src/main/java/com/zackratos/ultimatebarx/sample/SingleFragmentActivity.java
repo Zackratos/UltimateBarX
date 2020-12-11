@@ -19,7 +19,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_frame_layout);
+        setContentView(R.layout.activity_fragment);
 
         FragmentManager fm = getSupportFragmentManager();
 
@@ -27,11 +27,10 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
         if (fragment == null) {
             fragment = createFragment();
+            fm.beginTransaction()
+                    .add(R.id.flContainer, fragment)
+                    .commit();
         }
-
-        fm.beginTransaction()
-                .add(R.id.flContainer, fragment)
-                .commit();
     }
 
     protected abstract InnerFragment createFragment();

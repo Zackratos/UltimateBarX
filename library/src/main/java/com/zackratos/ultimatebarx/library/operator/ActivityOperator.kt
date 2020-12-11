@@ -20,7 +20,6 @@ internal class ActivityOperator private constructor(val activity: FragmentActivi
     override fun applyStatusBar() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return
         activity.ultimateBarXInitialization()
-        val navConfig = manager.getNavigationBarConfig(activity)
         val navLight = manager.getNavigationBarConfig(activity).light
         activity.barLight(config.light, navLight)
         activity.updateStatusBar(config)
