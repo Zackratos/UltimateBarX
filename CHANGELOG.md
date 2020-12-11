@@ -1,4 +1,9 @@
 # Change Log
+#### version 0.3.2 (2020.12.11)
+* 修复 [issues 16](https://github.com/Zackratos/UltimateBarX/issues/16)
+* 修复 sample 中旋转屏幕 crash 的问题
+* appcompat 等依赖版本升级
+
 #### version 0.3.1 (2020.12.07)
 * 修改 Fragment 实现方式，Fragment 的根布局可以是任何 View
 * 增加 `get` 方法，多次调用的时候，可以直接拿到上一次的 config

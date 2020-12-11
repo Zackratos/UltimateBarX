@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 10
-        versionName "0.3.1"
+        versionCode 11
+        versionName "0.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -51,7 +51,7 @@ publish {
     userOrg = 'zackratos'
     groupId = 'com.zackratos.ultimatebarx'
     artifactId = 'ultimatebarx'
-    publishVersion = '0.3.1'
+    publishVersion = '0.3.2'
     desc = 'Make Android transparent statusbar and navigationbar easy.'
     website = 'https://github.com/Zackratos/UltimateBarX'
 }
