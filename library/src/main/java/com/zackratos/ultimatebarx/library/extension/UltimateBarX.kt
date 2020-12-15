@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import com.zackratos.ultimatebarx.library.R
 import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.UltimateBarXObserver
 import com.zackratos.ultimatebarx.library.bean.BarConfig
@@ -32,7 +30,7 @@ private val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstan
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.ultimateBarXInitialization() {
     if (manager.getInitialization(this)) return
-    manager.putOriginColor(this)
+    manager.putOriginConfig(this)
     barInitialization()
     manager.putInitialization(this)
 }
@@ -43,7 +41,10 @@ internal fun Fragment.ultimateBarXInitialization() {
     val rootView = addFrameLayoutWrapper()
 //    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
     rootView.clipToPadding = false
-//        putStatusBarLight(fragment, getStatusBarLight(fragment.requireActivity()))
+    val actStaConfig = manager.getStatusBarConfig(requireActivity())
+    val staConfig = manager.getStatusBarConfig(this)
+    staConfig.light = actStaConfig.light
+    manager.putStatusBarConfig(this, staConfig)
     // 取 Activity 的 NavigationBarLight
     // 不能取 Activity 的 originColor 然后计算 light
     // 防止 Activity 之前设置了 light ，但是被通过 originColor 计算的 light 覆盖掉
@@ -94,16 +95,13 @@ internal fun Fragment.updateNavigationBar(config: BarConfig) {
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultStatusBar() {
     if (manager.getStatusBarDefault(this)) return
-    updateStatusBar(BarConfig.newInstance())
+    updateStatusBar(manager.getStatusBarConfig(this))
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.defaultNavigationBar() {
     if (manager.getNavigationBarDefault(this)) return
-    val config = BarConfig.newInstance()
-        .color(manager.getOriginColor(this).navigationBarColor)
-        .light(manager.getNavigationBarConfig(this).light)
-    updateNavigationBar(config)
+    updateNavigationBar(manager.getNavigationBarConfig(this))
 }
 
 internal fun LifecycleOwner.addObserver() {
@@ -132,7 +130,7 @@ private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.setStatusBarPadding(this, config.fitWindow)
     val statusBar = parentView?.getCreator(ActivityTag.getInstance())?.getStatusBarView(this, config.fitWindow)
-    statusBar?.updateBackground(config, getColorInt(R.color.colorPrimaryDark))
+    statusBar?.updateBackground(config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -150,7 +148,7 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
     rootView.setStatusBarPadding(requireContext(), config.fitWindow)
     val statusBar = rootView.getCreator(FragmentTag.getInstance()).getStatusBarView(requireContext(), config.fitWindow)
-    statusBar.updateBackground(config, requireContext().getColorInt(R.color.colorPrimaryDark))
+    statusBar.updateBackground(config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -210,12 +208,12 @@ private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boole
 //    }
 }
 
-private fun View.updateBackground(config: BarConfig, @ColorInt defaultColor: Int = Color.BLACK) {
+private fun View.updateBackground(config: BarConfig) {
     when {
         config.drawableRes > 0 -> setBackgroundResource(config.drawableRes)
         config.colorRes > 0 -> setBackgroundColor(context.getColorInt(config.colorRes))
         config.color > Int.MIN_VALUE -> setBackgroundColor(config.color)
-        else -> setBackgroundColor(defaultColor)
+        else -> setBackgroundColor(Color.TRANSPARENT)
     }
 }
 
