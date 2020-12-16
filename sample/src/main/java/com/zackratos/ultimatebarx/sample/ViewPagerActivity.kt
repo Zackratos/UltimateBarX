@@ -31,7 +31,6 @@ class ViewPagerActivity : AppCompatActivity() {
     }
 
     private fun initViewPager() {
-        viewPager.offscreenPageLimit = 4
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 

@@ -23,7 +23,6 @@ import com.zackratos.ultimatebarx.library.view.*
  * @Describe :
  */
 private const val TAG_PARENT = "activity_root_view_parent"
-//private const val NO_VIEW_GROUP_MESSAGE = "Use UltimateBarX on Fragment must ensure the Fragment root View is a ViewGroup."
 
 private val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
 
@@ -38,9 +37,7 @@ internal fun FragmentActivity.ultimateBarXInitialization() {
 
 internal fun Fragment.ultimateBarXInitialization() {
     if (manager.getInitialization(this)) return
-    val rootView = addFrameLayoutWrapper()
-//    if (rootView !is ViewGroup) throw IllegalStateException(NO_VIEW_GROUP_MESSAGE)
-    rootView.clipToPadding = false
+    addFrameLayoutWrapper()
     val actStaConfig = manager.getStatusBarConfig(requireActivity())
     val staConfig = manager.getStatusBarConfig(this)
     staConfig.light = actStaConfig.light
@@ -163,9 +160,12 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
 // 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
 private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     val view = requireView()
-    if (view is FrameLayout || view is RelativeLayout) return view as ViewGroup
+    if (view is FrameLayout || view is RelativeLayout) {
+        return (view as ViewGroup).apply { clipToPadding = false }
+    }
 
     val flWrapper = FrameLayout(requireContext())
+    flWrapper.clipToPadding = false
     flWrapper.setTag(androidx.fragment.R.id.fragment_container_view_tag, this)
     val parent = view.parent
     if (parent is ViewGroup) {
