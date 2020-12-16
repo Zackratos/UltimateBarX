@@ -6,8 +6,8 @@
 > * 可以设置各种效果，透明、半透明、固定颜色、布局是否侵入等
 > * 状态栏和导航栏分开设置，互不影响
 > * 支持 Android 4.4 以上，各系统版本的现实效果高度统一
-> * 支持 Activity 和 Fragment
-> * 同一个 Activity 或 Fragment 可以多次设置不同的效果
+> * 支持 `Activity` 和 `Fragment`
+> * 同一个 `Activity` 或 `Fragment` 可以多次设置不同的效果
 > * 适配刘海屏、滴水屏、挖孔屏、全面屏
 > * 适配 miui、emui、funtouch 等 rom
 
@@ -15,11 +15,11 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.2'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.3'
 }
 ```
 
-在 Activity 或 Fragment 中
+在 `Activity` 或 `Fragment` 中
 ```kotlin
 val config = BarConfig.newInstance()          // 创建配置对象
     .fitWindow(true)                          // 布局是否侵入状态栏（true 不侵入，false 侵入）
