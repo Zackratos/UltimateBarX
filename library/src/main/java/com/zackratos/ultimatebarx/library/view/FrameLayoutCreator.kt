@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
-import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
 
 /**
  * @Author   : Zackratos
@@ -23,7 +21,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
             statusBar = View(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    context.getStatusBarHeight()
+                    manager.getStatusBarHeight(context)
                 ).apply { gravity = Gravity.TOP }
             }
             statusBar.tag = tag.statusBarViewTag()
@@ -32,7 +30,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 statusBar.layoutParams = (statusBar.layoutParams as FrameLayout.LayoutParams)
-                    .apply { topMargin = if (fitWindow) -context.getStatusBarHeight() else 0 }
+                    .apply { topMargin = if (fitWindow) -manager.getStatusBarHeight(context) else 0 }
                 statusBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }
         })
@@ -45,7 +43,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
             navigationBar = View(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    context.getNavigationBarHeight()
+                    manager.getNavigationBarHeight(context)
                 ).apply { gravity = Gravity.BOTTOM }
             }
             navigationBar.tag = tag.navigationBarViewTag()
@@ -54,7 +52,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
-                    .apply { bottomMargin = if (fitWindow) -context.getNavigationBarHeight() else 0 }
+                    .apply { bottomMargin = if (fitWindow) -manager.getNavigationBarHeight(context) else 0 }
                 navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }
         })

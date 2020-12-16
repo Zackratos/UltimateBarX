@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
-import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
 
 /**
  * @Author   : Zackratos
@@ -20,7 +18,7 @@ internal class ViewGroupCreator(private val viewGroup: ViewGroup?, tag: Tag): Ba
         if (statusBar == null) {
             statusBar = View(context)
             statusBar.tag = tag.statusBarViewTag()
-            viewGroup?.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, context.getStatusBarHeight())
+            viewGroup?.addView(statusBar, ViewGroup.LayoutParams.MATCH_PARENT, manager.getStatusBarHeight(context))
         }
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -45,7 +43,7 @@ internal class ViewGroupCreator(private val viewGroup: ViewGroup?, tag: Tag): Ba
         if (navigationBar == null) {
             navigationBar = View(context)
             navigationBar.tag = tag.navigationBarViewTag()
-            viewGroup?.addView(navigationBar, ViewGroup.LayoutParams.MATCH_PARENT, context.getNavigationBarHeight())
+            viewGroup?.addView(navigationBar, ViewGroup.LayoutParams.MATCH_PARENT, manager.getNavigationBarHeight(context))
         }
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {

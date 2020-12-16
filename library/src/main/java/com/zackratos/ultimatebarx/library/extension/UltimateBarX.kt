@@ -190,7 +190,7 @@ private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) 
 //    post {
     setPadding(
         paddingLeft,
-        if (fitWindow) context.getStatusBarHeight() else 0,
+        if (fitWindow) manager.getStatusBarHeight(context) else 0,
         paddingRight,
         paddingBottom
     )
@@ -203,7 +203,7 @@ private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boole
         paddingLeft,
         paddingTop,
         paddingRight,
-        if (fitWindow) context.getNavigationBarHeight() else 0
+        if (fitWindow) manager.getNavigationBarHeight(context) else 0
     )
 //    }
 }
