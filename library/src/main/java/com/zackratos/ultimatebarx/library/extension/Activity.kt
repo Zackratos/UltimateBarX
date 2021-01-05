@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentActivity
  * @Describe : Activity 的扩展方法和属性
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.barLight(statusBarLight: Boolean, navigationBarLight: Boolean) {
+internal fun FragmentActivity.setSystemUiFlagWithLight(statusBarLight: Boolean, navigationBarLight: Boolean) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
     window?.decorView?.systemUiVisibility = systemUiFlag(statusBarLight, navigationBarLight)
 }

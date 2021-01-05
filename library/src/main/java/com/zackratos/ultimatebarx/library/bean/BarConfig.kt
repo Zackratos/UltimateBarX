@@ -39,6 +39,7 @@ data class BarConfig(
                 colorRes = -1
                 drawableRes = -1
                 fitWindow = true
+                light = false
             }
     }
 

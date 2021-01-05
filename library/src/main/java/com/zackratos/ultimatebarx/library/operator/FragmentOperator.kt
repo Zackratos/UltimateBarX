@@ -3,6 +3,7 @@ package com.zackratos.ultimatebarx.library.operator
 import android.os.Build
 import androidx.fragment.app.Fragment
 import com.zackratos.ultimatebarx.library.bean.BarConfig
+import com.zackratos.ultimatebarx.library.core.*
 import com.zackratos.ultimatebarx.library.extension.*
 
 /**
@@ -22,7 +23,7 @@ internal class FragmentOperator private constructor(val fragment: Fragment, conf
         fragment.requireActivity().ultimateBarXInitialization()
         fragment.ultimateBarXInitialization()
         val navLight = manager.getNavigationBarConfig(fragment).light
-        fragment.requireActivity().barLight(config.light, navLight)
+        fragment.requireActivity().setSystemUiFlagWithLight(config.light, navLight)
         fragment.updateStatusBar(config)
         fragment.requireActivity().defaultNavigationBar()
         fragment.addObserver()
@@ -34,7 +35,7 @@ internal class FragmentOperator private constructor(val fragment: Fragment, conf
         fragment.requireActivity().ultimateBarXInitialization()
         fragment.ultimateBarXInitialization()
         val staLight = manager.getStatusBarConfig(fragment).light
-        fragment.requireActivity().barLight(staLight, config.light)
+        fragment.requireActivity().setSystemUiFlagWithLight(staLight, config.light)
         fragment.updateNavigationBar(config)
         fragment.requireActivity().defaultStatusBar()
         fragment.addObserver()

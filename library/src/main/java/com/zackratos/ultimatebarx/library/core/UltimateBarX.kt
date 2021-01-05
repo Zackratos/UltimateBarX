@@ -1,4 +1,4 @@
-package com.zackratos.ultimatebarx.library.extension
+package com.zackratos.ultimatebarx.library.core
 
 import android.content.Context
 import android.graphics.Color
@@ -14,6 +14,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.UltimateBarXManager
 import com.zackratos.ultimatebarx.library.UltimateBarXObserver
 import com.zackratos.ultimatebarx.library.bean.BarConfig
+import com.zackratos.ultimatebarx.library.extension.barTransparent
+import com.zackratos.ultimatebarx.library.extension.getColorInt
 import com.zackratos.ultimatebarx.library.view.*
 
 /**
@@ -160,10 +162,14 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
 // 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
 private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     val view = requireView()
-    if (view is FrameLayout || view is RelativeLayout) {
-        return (view as ViewGroup).apply { clipToPadding = false }
+    if (view is FrameLayout) {
+        view.clipToPadding = false
+        return view
     }
-
+    if (view is RelativeLayout) {
+        view.clipToPadding = false
+        return view
+    }
     val flWrapper = FrameLayout(requireContext())
     flWrapper.clipToPadding = false
     flWrapper.setTag(androidx.fragment.R.id.fragment_container_view_tag, this)
@@ -187,25 +193,21 @@ private fun ViewGroup.getCreator(tag: Tag): Creator {
 }
 
 private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) {
-//    post {
     setPadding(
         paddingLeft,
         if (fitWindow) manager.getStatusBarHeight(context) else 0,
         paddingRight,
         paddingBottom
     )
-//    }
 }
 
 private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boolean) {
-//    post {
     setPadding(
         paddingLeft,
         paddingTop,
         paddingRight,
         if (fitWindow) manager.getNavigationBarHeight(context) else 0
     )
-//    }
 }
 
 private fun View.updateBackground(config: BarConfig) {
