@@ -25,6 +25,7 @@
         <activity android:name=".DrawerActivity" />
         <activity android:name=".RecyclerFragmentActivity" />
         <activity android:name=".FragmentStackActivity" />
+        <activity android:name=".WrapViewActivity" />
     </application>
 
 </manifest>

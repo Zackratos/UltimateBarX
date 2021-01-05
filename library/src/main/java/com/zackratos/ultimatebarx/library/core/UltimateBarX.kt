@@ -219,4 +219,64 @@ private fun View.updateBackground(config: BarConfig) {
     }
 }
 
+/**
+ *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的顶部有个状态栏高度的 margin
+ *  一般在状态栏透明且可被侵入的时候使用
+ */
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun View.addStatusBarTopMarginWrapper(): FrameLayout {
+    setBackgroundColor(Color.TRANSPARENT)
+    val flWrapper = FrameLayout(context)
+    flWrapper.setPadding(0, manager.getStatusBarHeight(context), 0, 0)
+    flWrapper.id = id
+    id = -1
+    val parentView = parent
+    post {
+        val h = height
+        if (parentView is ViewGroup) {
+            val index = parentView.indexOfChild(this)
+            parentView.removeViewAt(index)
+            val lp = layoutParams
+            if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT) {
+                lp.height  = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+            parentView.addView(flWrapper, index, lp)
+        }
+        layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h)
+        flWrapper.addView(this)
+    }
+    return flWrapper
+}
 
+/**
+ *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的底部有个导航栏高度的 margin
+ *  一般在导航栏透明且可被侵入的时候使用
+ */
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun View.addNavigationBarBottomMarginWrapper(): FrameLayout? {
+    val ctx = context
+    if (ctx is FragmentActivity && !manager.rom.navigationBarExist(ctx)) {
+        return null
+    }
+    setBackgroundColor(Color.TRANSPARENT)
+    val flWrapper = FrameLayout(context)
+    flWrapper.setPadding(0, 0, 0, manager.getNavigationBarHeight(context))
+    flWrapper.id = id
+    id = -1
+    val parentView = parent
+    post {
+        val h = height
+        if (parentView is ViewGroup) {
+            val index = parentView.indexOfChild(this)
+            parentView.removeViewAt(index)
+            val lp = layoutParams
+            if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT) {
+                lp.height  = ViewGroup.LayoutParams.WRAP_CONTENT
+            }
+            parentView.addView(flWrapper, index, lp)
+        }
+        layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h)
+        flWrapper.addView(this)
+    }
+    return flWrapper
+}

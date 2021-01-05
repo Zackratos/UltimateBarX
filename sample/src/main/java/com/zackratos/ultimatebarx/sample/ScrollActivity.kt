@@ -3,11 +3,10 @@ package com.zackratos.ultimatebarx.sample
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.sample.extension.getStatusBarHeight
+import com.zackratos.ultimatebarx.library.addStatusBarTopMarginWrapper
 import kotlinx.android.synthetic.main.fragment_scroll.*
 
 /**
@@ -22,25 +21,22 @@ class ScrollActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_scroll)
         toolbar.title = "九阴真经"
-        toolbar.post {
-            toolbar.layoutParams = (toolbar.layoutParams as FrameLayout.LayoutParams)
-                .apply { topMargin = getStatusBarHeight() }
-        }
         UltimateBarX.with(this).transparent().applyStatusBar()
+        val toolbarWrapper = toolbar.addStatusBarTopMarginWrapper()
+        toolbarWrapper?.setBackgroundColor(Color.WHITE)
+        toolbarWrapper?.visibility = View.INVISIBLE
         scrollView.setOnScrollChangeListener { _: NestedScrollView?, _, scrollY: Int, _, oldScrollY: Int ->
-            val height = imageView.height - getStatusBarHeight() - toolbar.height
+            val height = imageView.height - (toolbarWrapper?.height ?: 0)
             if (height in (oldScrollY + 1)..scrollY) {
                 UltimateBarX.get(this)
-                    .color(Color.WHITE)
                     .light(true)
                     .applyStatusBar()
-                toolbar.visibility = View.VISIBLE
+                toolbarWrapper?.visibility = View.VISIBLE
             } else if (height in (scrollY + 1)..oldScrollY) {
                 UltimateBarX.get(this)
-                    .color(Color.TRANSPARENT)
                     .light(false)
                     .applyStatusBar()
-                toolbar.visibility = View.INVISIBLE
+                toolbarWrapper?.visibility = View.INVISIBLE
             }
         }
     }

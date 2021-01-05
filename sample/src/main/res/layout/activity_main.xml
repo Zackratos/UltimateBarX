@@ -76,6 +76,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="Fragment Stack"/>
+            <Button
+                android:id="@+id/btnWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="Wrap View"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

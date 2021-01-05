@@ -1,5 +1,7 @@
 package com.zackratos.ultimatebarx.library
 
+import android.view.View
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.bean.BarConfig
@@ -32,6 +34,20 @@ class UltimateBarX {
 
         @JvmStatic
         fun getNavigationBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.getInstance().getNavigationBarConfig(fragment)
+
+        /**
+         *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的顶部有个状态栏高度的 margin
+         *  一般在状态栏透明且可被侵入的时候使用
+         */
+        @JvmStatic
+        fun addStatusBarTopMarginWrapper(target: View): FrameLayout? = target.addStatusBarTopMarginWrapper()
+
+        /**
+         *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的底部有个导航栏高度的 margin
+         *  一般在导航栏透明且可被侵入的时候使用
+         */
+        @JvmStatic
+        fun addNavigationBarBottomMarginWrapper(target: View): FrameLayout? = target.addNavigationBarBottomMarginWrapper()
     }
 
 }
