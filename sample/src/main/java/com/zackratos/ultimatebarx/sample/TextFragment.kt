@@ -1,4 +1,4 @@
-package com.zackratos.ultimatebarx.sample.viewpager
+package com.zackratos.ultimatebarx.sample
 
 import android.graphics.Color
 import android.os.Bundle

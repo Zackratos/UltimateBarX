@@ -1,4 +1,4 @@
-package com.zackratos.ultimatebarx.sample.viewpager
+package com.zackratos.ultimatebarx.sample
 
 import android.util.SparseArray
 import androidx.fragment.app.Fragment

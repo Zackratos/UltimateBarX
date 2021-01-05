@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.zackratos.ultimatebarx.library.UltimateBarX;
-import com.zackratos.ultimatebarx.sample.viewpager.ViewPagerAdapter2;
 
 /**
  * @Author : zhangwenchao

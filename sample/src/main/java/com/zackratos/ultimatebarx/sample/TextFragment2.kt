@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import com.zackratos.ultimatebarx.sample.viewpager.TextFragment
-import kotlinx.android.synthetic.main.fragment_text.*
 
 /**
  * @Author   : zhangwenchao
