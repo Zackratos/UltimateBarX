@@ -1,5 +1,6 @@
 package com.zackratos.ultimatebarx.library
 
+import android.content.Context
 import android.os.Build
 import android.view.View
 import android.widget.FrameLayout
@@ -35,3 +36,7 @@ fun View.addNavigationBarBottomMarginWrapper(): FrameLayout? {
     }
     return addNavigationBarBottomMarginWrapper()
 }
+
+fun Context.getStatusBarHeight() = UltimateBarXManager.getInstance().getStatusBarHeight(this)
+
+fun Context.getNavigationBarHeight() = UltimateBarXManager.getInstance().getNavigationBarHeight(this)
