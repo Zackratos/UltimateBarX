@@ -11,11 +11,11 @@
 > * 适配刘海屏、滴水屏、挖孔屏、全面屏
 > * 适配 miui、emui、funtouch 等 rom
 
-### 使用方法
+## 使用方法
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.3'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.4.0'
 }
 ```
 
@@ -83,17 +83,33 @@ UltimateBarX.get(this)
     .applyStatusBar()
 ```
 
-### 截图
+当布局可侵入状态栏或导航栏时，如果需要给某个 `View` 增加状态栏或者导航栏的高度，可以
+```kotlin
+UltimateBarX.addStatusBarTopPadding(targetView)
+UltimateBarX.addNavigationBarBottomPadding(targetView)
+
+// 如果是 kotlin，可以直接使用扩展方法
+targetView.addStatusBarTopPadding()
+targetView.addNavigationBarBottomPadding()
+```
+
+## ProGuard
+```
+-keep class com.zackratos.ultimatebarx.library.** { *; }
+-keep public class * extends androidx.fragment.app.Fragment { *; }
+```
+
+## 截图
 ![](screenshots/transparent_1.png)　![](screenshots/transparent_2.png)
 
 ![](screenshots/effect_1.png)　![](screenshots/effect_2.png)
 
 ![](screenshots/dynamic_1.gif)　![](screenshots/dynamic_2.gif)
 
-### Change Log
+## Change Log
 [CHANGELOG](CHANGELOG.md)
 
-### License
+## License
 ```
 Copyright 2020 Zackratos
 

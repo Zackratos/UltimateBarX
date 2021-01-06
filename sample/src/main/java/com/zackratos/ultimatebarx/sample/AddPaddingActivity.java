@@ -13,7 +13,7 @@ import com.zackratos.ultimatebarx.library.UltimateBarX;
 /**
  * @Author : zhangwenchao
  * @Date : 2021/1/5  9:10 PM
- * @email : zhangwenchao@soulapp.cn
+ * @email : 869649338@qq.com
  * @Describe :
  */
 public class AddPaddingActivity extends AppCompatActivity {

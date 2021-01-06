@@ -1,4 +1,10 @@
 # Change Log
+#### version 0.4.0 (2021.01.06)
+* 删除被标为 `@Deprecated` 的方法
+* 增加 `addStatusBarTopPadding` 方法和 `addNavigationBarBottomPadding` 方法，可以给 `View` 增加高度，侵入到状态栏或导航栏
+* 暴露 `getStatusBarHeight` 方法和 `getNavigationBarHeight` 方法，可以获取状态栏和导航栏的高度
+* 优化代码细节
+
 #### version 0.3.3 (2020.12.16)
 * 优化获取初始 `statusBar` 和 `navigationBar` 颜色的方法
 * 修复 `Fragment` `View` 被回收后失效的 bug
