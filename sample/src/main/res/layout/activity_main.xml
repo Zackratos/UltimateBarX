@@ -77,11 +77,11 @@
                 android:textAllCaps="false"
                 android:text="Fragment Stack"/>
             <Button
-                android:id="@+id/btnWrapper"
+                android:id="@+id/btnPadding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:text="Wrap View"/>
+                android:text="View Add Padding"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

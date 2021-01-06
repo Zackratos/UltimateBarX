@@ -220,63 +220,43 @@ private fun View.updateBackground(config: BarConfig) {
 }
 
 /**
- *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的顶部有个状态栏高度的 margin
+ *  给 View 的顶部增加状态栏高度的 padding
  *  一般在状态栏透明且可被侵入的时候使用
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun View.addStatusBarTopMarginWrapper(): FrameLayout {
-    setBackgroundColor(Color.TRANSPARENT)
-    val flWrapper = FrameLayout(context)
-    flWrapper.setPadding(0, manager.getStatusBarHeight(context), 0, 0)
-    flWrapper.id = id
-    id = -1
-    val parentView = parent
-    post {
-        val h = height
-        if (parentView is ViewGroup) {
-            val index = parentView.indexOfChild(this)
-            parentView.removeViewAt(index)
-            val lp = layoutParams
-            if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT) {
-                lp.height  = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            parentView.addView(flWrapper, index, lp)
-        }
-        layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h)
-        flWrapper.addView(this)
+internal fun View.addStatusBarTopPadding() {
+    setPadding(paddingLeft, paddingTop + manager.getStatusBarHeight(context), paddingRight, paddingBottom)
+    val lp = layoutParams
+    if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
+        lp.height += manager.getStatusBarHeight(context)
+        layoutParams = lp
+        return
     }
-    return flWrapper
+    post {
+        lp.height = height + manager.getStatusBarHeight(context)
+        layoutParams = lp
+    }
 }
 
 /**
- *  给 View 的外层嵌套一个 FrameLayout，使被嵌套的 View 的底部有个导航栏高度的 margin
+ *  给 View 的底部增加导航栏高度的 padding
  *  一般在导航栏透明且可被侵入的时候使用
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun View.addNavigationBarBottomMarginWrapper(): FrameLayout? {
+internal fun View.addNavigationBarBottomPadding() {
     val ctx = context
     if (ctx is FragmentActivity && !manager.rom.navigationBarExist(ctx)) {
-        return null
+        return
     }
-    setBackgroundColor(Color.TRANSPARENT)
-    val flWrapper = FrameLayout(context)
-    flWrapper.setPadding(0, 0, 0, manager.getNavigationBarHeight(context))
-    flWrapper.id = id
-    id = -1
-    val parentView = parent
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + manager.getNavigationBarHeight(context))
+    val lp = layoutParams
+    if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
+        lp.height += manager.getNavigationBarHeight(context)
+        layoutParams = lp
+        return
+    }
     post {
-        val h = height
-        if (parentView is ViewGroup) {
-            val index = parentView.indexOfChild(this)
-            parentView.removeViewAt(index)
-            val lp = layoutParams
-            if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT) {
-                lp.height  = ViewGroup.LayoutParams.WRAP_CONTENT
-            }
-            parentView.addView(flWrapper, index, lp)
-        }
-        layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, h)
-        flWrapper.addView(this)
+        lp.height = height + manager.getNavigationBarHeight(context)
+        layoutParams = lp
     }
-    return flWrapper
 }
