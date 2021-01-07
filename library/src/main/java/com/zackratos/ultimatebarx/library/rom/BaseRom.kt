@@ -16,6 +16,9 @@ abstract class BaseRom: Rom {
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun navigationBarExist(activity: FragmentActivity): Boolean {
         if (fullScreenGestureOn(activity)) {
+            if (screenIndicatorOn(activity)) {
+                return true
+            }
             return false
         }
         return activity.commonNavigationBarExist()
@@ -24,5 +27,9 @@ abstract class BaseRom: Rom {
     // 是否开启了全面屏手势
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     protected abstract fun fullScreenGestureOn(activity: FragmentActivity): Boolean
+
+    // 是否开启了手势提示线
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    protected open fun screenIndicatorOn(activity: FragmentActivity): Boolean = false
 
 }

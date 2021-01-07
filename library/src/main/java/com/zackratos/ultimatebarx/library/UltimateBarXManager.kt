@@ -1,6 +1,5 @@
 package com.zackratos.ultimatebarx.library
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.annotation.ColorInt
@@ -10,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.library.bean.BarConfig
-import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
 import com.zackratos.ultimatebarx.library.extension.getRom
-import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
 import com.zackratos.ultimatebarx.library.rom.Rom
 import java.lang.reflect.Field
 
@@ -32,24 +29,6 @@ internal class UltimateBarXManager private constructor(){
     }
 
     internal val rom: Rom by lazy { getRom() }
-
-    private var statusBarHeight: Int = -1
-
-    internal fun getStatusBarHeight(context: Context): Int {
-        if (statusBarHeight < 0) {
-            statusBarHeight = context.getStatusBarHeight()
-        }
-        return statusBarHeight
-    }
-
-    private var navigationBarHeight: Int = -1
-
-    internal fun getNavigationBarHeight(context: Context): Int {
-        if (navigationBarHeight < 0) {
-            navigationBarHeight = context.getNavigationBarHeight()
-        }
-        return navigationBarHeight
-    }
 
     internal val fragmentViewFiled: Field by lazy { Fragment::class.java.getDeclaredField("mView").apply { isAccessible = true } }
     // 保存 Activity 的 StatusBar 是否设置过

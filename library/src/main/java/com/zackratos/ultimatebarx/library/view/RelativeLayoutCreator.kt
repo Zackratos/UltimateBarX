@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
+import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
+import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
 
 /**
  * @Author   : Zackratos
@@ -20,7 +22,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
             statusBar = View(context).apply {
                 layoutParams = RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    manager.getStatusBarHeight(context)
+                    context.getStatusBarHeight()
                 ).apply { addRule(RelativeLayout.ALIGN_PARENT_TOP) }
             }
             statusBar.tag = tag.statusBarViewTag()
@@ -29,7 +31,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 statusBar.layoutParams = (statusBar.layoutParams as RelativeLayout.LayoutParams)
-                    .apply { topMargin = if (fitWindow) -manager.getStatusBarHeight(context) else 0 }
+                    .apply { topMargin = if (fitWindow) -context.getStatusBarHeight() else 0 }
                 statusBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }
         })
@@ -42,7 +44,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
             navigationBar = View(context).apply {
                 layoutParams = RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
-                    manager.getNavigationBarHeight(context)
+                    context.getNavigationBarHeight()
                 ).apply { addRule(RelativeLayout.ALIGN_PARENT_BOTTOM) }
             }
             navigationBar.tag = tag.navigationBarViewTag()
@@ -51,7 +53,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 navigationBar.layoutParams = (navigationBar.layoutParams as RelativeLayout.LayoutParams)
-                    .apply { bottomMargin = if (fitWindow) -manager.getNavigationBarHeight(context) else 0 }
+                    .apply { bottomMargin = if (fitWindow) -context.getNavigationBarHeight() else 0 }
                 navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
             }
         })
