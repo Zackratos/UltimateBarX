@@ -1,4 +1,10 @@
 # Change Log
+#### version 0.4.1 (2021.01.07)
+* 修复 [issues 25](https://github.com/Zackratos/UltimateBarX/issues/25)
+* 修复 [issues 21](https://github.com/Zackratos/UltimateBarX/issues/21)
+* 优化判断导航栏是否存在的方法
+* 优化获取状态栏和导航栏高度的方法（不保存全局变量，每次重新获取）
+
 #### version 0.4.0 (2021.01.06)
 * 删除被标为 `@Deprecated` 的方法
 * 增加 `addStatusBarTopPadding` 方法和 `addNavigationBarBottomPadding` 方法，可以给 `View` 增加高度，侵入到状态栏或导航栏

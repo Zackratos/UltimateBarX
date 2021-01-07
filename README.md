@@ -15,7 +15,7 @@
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.4.0'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.4.1'
 }
 ```
 
@@ -108,6 +108,11 @@ targetView.addNavigationBarBottomPadding()
 
 ## Change Log
 [CHANGELOG](CHANGELOG.md)
+
+## 联系我
+在使用中遇到任何问题，欢迎加我微信交流
+
+![](screenshots/wechat.jpg)
 
 ## License
 ```
