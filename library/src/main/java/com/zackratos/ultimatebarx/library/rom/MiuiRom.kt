@@ -11,10 +11,10 @@ import androidx.fragment.app.FragmentActivity
  * @email    : 869649338@qq.com
  * @Describe : 小米 rom
  */
-internal class MiuiRom: Rom {
+internal class MiuiRom: BaseRom() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun navigationBarExist(activity: FragmentActivity): Boolean {
-        return Settings.Global.getInt(activity.contentResolver, "force_fsg_nav_bar", 0) == 0
+    override fun fullScreenGestureOn(activity: FragmentActivity): Boolean {
+        return Settings.Global.getInt(activity.contentResolver, "force_fsg_nav_bar", -1) > 0
     }
 }
