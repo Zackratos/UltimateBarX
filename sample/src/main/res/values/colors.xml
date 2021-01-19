@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/deepSkyBlue</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimaryDark">@color/deepSkyBlue</color>
     <color name="colorAccent">@color/deepSkyBlue</color>
     <color name="colorHalfTran">#AAFF0000</color>
 
@@ -14,4 +14,5 @@
     <color name="alphaBlack">#66000000</color>
     <color name="alphaGreen">#66008000</color>
     <color name="alphaWhite">#66FFFFFF</color>
+    <color name="defaultText">#8A000000</color>
 </resources>

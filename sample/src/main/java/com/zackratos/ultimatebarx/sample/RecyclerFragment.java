@@ -66,7 +66,7 @@ public class RecyclerFragment extends InnerFragment {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.tv.setText(String.format(Locale.getDefault(), "%d", position));
+            holder.tv.setText(String.format(Locale.getDefault(), "九阴真经 %d", position));
         }
 
         @Override

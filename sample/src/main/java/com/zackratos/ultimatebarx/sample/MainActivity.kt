@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         btnRecyclerFragment.setOnClickListener { start(RecyclerFragmentActivity::class.java) }
         btnFragmentStack.setOnClickListener { start(FragmentStackActivity::class.java) }
         btnPadding.setOnClickListener { start(AddPaddingActivity::class.java) }
+        btnCoordinator.setOnClickListener { start(CoordinatorActivity::class.java) }
     }
 
     private fun start(clazz: Class<out Activity>) {

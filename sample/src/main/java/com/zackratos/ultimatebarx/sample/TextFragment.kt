@@ -21,6 +21,14 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
         private const val COLOR = "color"
         private const val TITLE = "title"
         private const val TITLE_COLOR = "title_color"
+        private const val HIDE_TOOLBAR = "hide_toolbar"
+        private const val CONTENT = "content"
+
+        fun newInstance(content: String) = newInstance(Color.TRANSPARENT, "", Color.TRANSPARENT)
+            .apply {
+                arguments?.putBoolean(HIDE_TOOLBAR, true)
+                arguments?.putString(CONTENT, content)
+            }
 
         fun newInstance(@ColorInt color: Int, title: String, @ColorInt titleColor: Int) = TextFragment()
             .apply { initArguments(color, title, titleColor) }
@@ -29,6 +37,8 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
     private val title: String by lazy { arguments?.getString(TITLE) ?: "" }
     private val color: Int by lazy { arguments?.getInt(COLOR) ?: Color.TRANSPARENT }
     private val titleColor: Int by lazy { arguments?.getInt(TITLE_COLOR) ?: Color.TRANSPARENT }
+    private val hideToolbar: Boolean by lazy { arguments?.getBoolean(HIDE_TOOLBAR) ?: false }
+    private val content: String? by lazy { arguments?.getString(CONTENT) ?: getString(R.string.jiuyin) }
 
     protected fun initArguments(@ColorInt color: Int, title: String, @ColorInt titleColor: Int) {
         arguments = Bundle().apply {
@@ -47,6 +57,8 @@ open class TextFragment : Fragment(R.layout.fragment_text) {
         toolbar.setBackgroundColor(color)
         toolbar.title = title
         toolbar.setTitleTextColor(titleColor)
+        if (hideToolbar) toolbar.visibility = View.GONE
+        tvContent.text = content
     }
 
 }

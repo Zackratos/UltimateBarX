@@ -82,6 +82,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="View Add Padding"/>
+            <Button
+                android:id="@+id/btnCoordinator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="CoordinatorLayout"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
