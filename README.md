@@ -1,6 +1,8 @@
 # UltimateBarX
 一款方便的设置状态栏和导航栏的各种效果的框架
 
+gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
+
 详细介绍：[这就是 github 上最好用的 Android 状态栏导航栏库](https://juejin.cn/post/6903165109485436935)
 
 > * 可以设置各种效果，透明、半透明、固定颜色、布局是否侵入等
