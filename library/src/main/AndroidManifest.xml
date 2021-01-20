@@ -1,2 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zackratos.ultimatebarx.library" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.zackratos.ultimatebarx.library">
+    
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.zackratos.ultimatebarx.library.UltimateBarXInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+</manifest>

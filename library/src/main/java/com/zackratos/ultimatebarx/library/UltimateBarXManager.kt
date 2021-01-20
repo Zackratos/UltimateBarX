@@ -1,5 +1,6 @@
 package com.zackratos.ultimatebarx.library
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.annotation.ColorInt
@@ -29,6 +30,8 @@ internal class UltimateBarXManager private constructor(){
     }
 
     internal val rom: Rom by lazy { getRom() }
+
+    internal lateinit var context: Context
 
     internal val fragmentViewFiled: Field by lazy { Fragment::class.java.getDeclaredField("mView").apply { isAccessible = true } }
     // 保存 Activity 的 StatusBar 是否设置过

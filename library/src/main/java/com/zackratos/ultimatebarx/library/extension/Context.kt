@@ -19,17 +19,20 @@ import androidx.core.content.ContextCompat
 private fun Context.getBarHeight(name: String): Int
         = resources.getDimensionPixelSize(resources.getIdentifier(name, "dimen", "android"))
 
-internal fun Context.getStatusBarHeight() = getBarHeight("status_bar_height")
+internal val Context.statusBarHeight: Int
+    get() = getBarHeight("status_bar_height")
 
-internal fun Context.getNavigationBarHeight() = getBarHeight("navigation_bar_height")
+internal val Context.navigationBarHeight: Int
+    get() = getBarHeight("navigation_bar_height")
 
 @ColorInt
 internal fun Context.getColorInt(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
 
-@RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun Context.getScreenHeight(): Int {
-    val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val point = Point()
-    wm.defaultDisplay.getRealSize(point)
-    return point.y
-}
+internal val Context.screenHeight: Int
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    get() {
+        val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val point = Point()
+        wm.defaultDisplay.getRealSize(point)
+        return point.y
+    }

@@ -36,10 +36,10 @@ class UltimateBarX {
         fun getNavigationBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.getInstance().getNavigationBarConfig(fragment)
 
         @JvmStatic
-        fun getStatusBarHeight(context: Context) = context.getStatusBarHeight()
+        fun getStatusBarHeight() = statusBarHeight
 
         @JvmStatic
-        fun getNavigationBarHeight(context: Context) = context.getNavigationBarHeight()
+        fun getNavigationBarHeight() = navigationBarHeight
 
         @JvmStatic
         fun addStatusBarTopPadding(target: View) = target.addStatusBarTopPadding()

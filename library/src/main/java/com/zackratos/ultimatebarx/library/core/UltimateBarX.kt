@@ -16,8 +16,8 @@ import com.zackratos.ultimatebarx.library.UltimateBarXObserver
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.library.extension.barTransparent
 import com.zackratos.ultimatebarx.library.extension.getColorInt
-import com.zackratos.ultimatebarx.library.extension.getNavigationBarHeight
-import com.zackratos.ultimatebarx.library.extension.getStatusBarHeight
+import com.zackratos.ultimatebarx.library.navigationBarHeight
+import com.zackratos.ultimatebarx.library.statusBarHeight
 import com.zackratos.ultimatebarx.library.view.*
 
 /**
@@ -197,7 +197,7 @@ private fun ViewGroup.getCreator(tag: Tag): Creator {
 private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) {
     setPadding(
         paddingLeft,
-        if (fitWindow) context.getStatusBarHeight() else 0,
+        if (fitWindow) statusBarHeight else 0,
         paddingRight,
         paddingBottom
     )
@@ -208,7 +208,7 @@ private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boole
         paddingLeft,
         paddingTop,
         paddingRight,
-        if (fitWindow) context.getNavigationBarHeight() else 0
+        if (fitWindow) navigationBarHeight else 0
     )
 }
 
@@ -227,15 +227,15 @@ private fun View.updateBackground(config: BarConfig) {
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun View.addStatusBarTopPadding() {
-    setPadding(paddingLeft, paddingTop + context.getStatusBarHeight(), paddingRight, paddingBottom)
+    setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom)
     val lp = layoutParams
     if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
-        lp.height += context.getStatusBarHeight()
+        lp.height += statusBarHeight
         layoutParams = lp
         return
     }
     post {
-        lp.height = height + context.getStatusBarHeight()
+        lp.height = height + statusBarHeight
         layoutParams = lp
     }
 }
@@ -250,15 +250,15 @@ internal fun View.addNavigationBarBottomPadding() {
     if (ctx is FragmentActivity && !manager.rom.navigationBarExist(ctx)) {
         return
     }
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + context.getNavigationBarHeight())
+    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + navigationBarHeight)
     val lp = layoutParams
     if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
-        lp.height += context.getNavigationBarHeight()
+        lp.height += navigationBarHeight
         layoutParams = lp
         return
     }
     post {
-        lp.height = height + context.getNavigationBarHeight()
+        lp.height = height + navigationBarHeight
         layoutParams = lp
     }
 }
