@@ -20,6 +20,8 @@ internal fun getRom(): Rom {
         return EmuiRom()
     if (!TextUtils.isEmpty(getProp(Rom.KEY_VERSION_VIVO)))
         return FuntouchRom()
+    if (!TextUtils.isEmpty(getProp(Rom.KEY_VERSION_H2)))
+        return H2Rom()
     return OtherRom()
 }
 

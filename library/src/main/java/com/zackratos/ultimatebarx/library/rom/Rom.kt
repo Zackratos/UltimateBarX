@@ -18,6 +18,7 @@ internal interface Rom {
         const val KEY_VERSION_OPPO = "ro.build.version.opporom"
         const val KEY_VERSION_SMARTISAN = "ro.smartisan.version"
         const val KEY_VERSION_VIVO = "ro.vivo.os.version"
+        const val KEY_VERSION_H2 = "ro.rom.version"
     }
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
