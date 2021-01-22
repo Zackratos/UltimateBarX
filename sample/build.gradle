@@ -10,8 +10,8 @@ android {
         applicationId "com.zackratos.ultimatebarx.sample"
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 14
-        versionName "0.4.1"
+        versionCode 15
+        versionName "0.4.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

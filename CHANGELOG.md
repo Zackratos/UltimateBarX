@@ -1,4 +1,9 @@
 # Change Log
+#### version 0.4.2 (2021.01.22)
+* 使用 `AppStartup` 初始化获取全局 `Context` 对象
+* 使用扩展属性 `statusBarHeight` 和 `navigationBarHeight` 取代扩展方法 `getStatusBarHeight` 和 `getNavigationBarHeight`
+* 修改 `navigationBarHeight` 的逻辑，当导航栏不存在时 `navigationBarHeight` 为 0
+
 #### version 0.4.1 (2021.01.07)
 * 修复 [issues 25](https://github.com/Zackratos/UltimateBarX/issues/25)
 * 修复 [issues 21](https://github.com/Zackratos/UltimateBarX/issues/21)
