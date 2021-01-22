@@ -1,9 +1,9 @@
 package com.zackratos.ultimatebarx.library.rom
 
+import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zhangwenchao
@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentActivity
 internal class FuntouchRom: BaseRom() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun fullScreenGestureOn(activity: FragmentActivity): Boolean {
-        return Settings.Secure.getInt(activity.contentResolver, "navigation_gesture_on", -1) > 0
+    override fun fullScreenGestureOn(context: Context): Boolean {
+        return Settings.Secure.getInt(context.contentResolver, "navigation_gesture_on", -1) > 0
     }
 }

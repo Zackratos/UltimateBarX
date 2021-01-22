@@ -3,6 +3,7 @@ package com.zackratos.ultimatebarx.library.extension
 import android.content.Context
 import android.graphics.Point
 import android.os.Build
+import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -36,3 +37,23 @@ internal val Context.screenHeight: Int
         wm.defaultDisplay.getRealSize(point)
         return point.y
     }
+
+@RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+internal fun Context.commonNavigationBarExist(): Boolean {
+    val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val d = wm.defaultDisplay
+    val realDisplayMetrics = DisplayMetrics()
+
+    d.getRealMetrics(realDisplayMetrics)
+
+    val realHeight = realDisplayMetrics.heightPixels
+    val realWidth = realDisplayMetrics.widthPixels
+
+    val displayMetrics = DisplayMetrics()
+    d.getMetrics(displayMetrics)
+
+    val displayHeight = displayMetrics.heightPixels
+    val displayWidth = displayMetrics.widthPixels
+
+    return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
+}

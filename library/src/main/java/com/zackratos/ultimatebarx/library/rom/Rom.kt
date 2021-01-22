@@ -1,8 +1,8 @@
 package com.zackratos.ultimatebarx.library.rom
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zhangwenchao
@@ -20,7 +20,7 @@ internal interface Rom {
         const val KEY_VERSION_VIVO = "ro.vivo.os.version"
     }
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    fun navigationBarExist(activity: FragmentActivity): Boolean
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    fun navigationBarExist(context: Context): Boolean
 
 }

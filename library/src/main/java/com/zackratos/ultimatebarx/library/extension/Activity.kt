@@ -54,21 +54,21 @@ private fun systemUiFlag(statusBarLight: Boolean, navigationBarLight: Boolean): 
     return flag
 }
 
-@RequiresApi(Build.VERSION_CODES.KITKAT)
-internal fun FragmentActivity.commonNavigationBarExist(): Boolean {
-    val d = windowManager.defaultDisplay
-    val realDisplayMetrics = DisplayMetrics()
-
-    d.getRealMetrics(realDisplayMetrics)
-
-    val realHeight = realDisplayMetrics.heightPixels
-    val realWidth = realDisplayMetrics.widthPixels
-
-    val displayMetrics = DisplayMetrics()
-    d.getMetrics(displayMetrics)
-
-    val displayHeight = displayMetrics.heightPixels
-    val displayWidth = displayMetrics.widthPixels
-
-    return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
-}
+//@RequiresApi(Build.VERSION_CODES.KITKAT)
+//internal fun FragmentActivity.commonNavigationBarExist(): Boolean {
+//    val d = windowManager.defaultDisplay
+//    val realDisplayMetrics = DisplayMetrics()
+//
+//    d.getRealMetrics(realDisplayMetrics)
+//
+//    val realHeight = realDisplayMetrics.heightPixels
+//    val realWidth = realDisplayMetrics.widthPixels
+//
+//    val displayMetrics = DisplayMetrics()
+//    d.getMetrics(displayMetrics)
+//
+//    val displayHeight = displayMetrics.heightPixels
+//    val displayWidth = displayMetrics.widthPixels
+//
+//    return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
+//}

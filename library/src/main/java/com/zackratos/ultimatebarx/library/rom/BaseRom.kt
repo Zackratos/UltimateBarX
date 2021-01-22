@@ -1,8 +1,8 @@
 package com.zackratos.ultimatebarx.library.rom
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
 import com.zackratos.ultimatebarx.library.extension.commonNavigationBarExist
 
 /**
@@ -13,23 +13,23 @@ import com.zackratos.ultimatebarx.library.extension.commonNavigationBarExist
  */
 abstract class BaseRom: Rom {
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun navigationBarExist(activity: FragmentActivity): Boolean {
-        if (fullScreenGestureOn(activity)) {
-            if (screenIndicatorOn(activity)) {
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    override fun navigationBarExist(context: Context): Boolean {
+        if (fullScreenGestureOn(context)) {
+            if (screenIndicatorOn(context)) {
                 return true
             }
             return false
         }
-        return activity.commonNavigationBarExist()
+        return context.commonNavigationBarExist()
     }
 
     // 是否开启了全面屏手势
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    protected abstract fun fullScreenGestureOn(activity: FragmentActivity): Boolean
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    protected abstract fun fullScreenGestureOn(context: Context): Boolean
 
     // 是否开启了手势提示线
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    protected open fun screenIndicatorOn(activity: FragmentActivity): Boolean = false
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    protected open fun screenIndicatorOn(context: Context): Boolean = false
 
 }

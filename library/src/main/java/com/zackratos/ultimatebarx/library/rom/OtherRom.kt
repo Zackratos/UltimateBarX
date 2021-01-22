@@ -1,8 +1,8 @@
 package com.zackratos.ultimatebarx.library.rom
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zhangwenchao
@@ -13,5 +13,5 @@ import androidx.fragment.app.FragmentActivity
 internal class OtherRom: BaseRom() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun fullScreenGestureOn(activity: FragmentActivity): Boolean = false
+    override fun fullScreenGestureOn(context: Context): Boolean = false
 }

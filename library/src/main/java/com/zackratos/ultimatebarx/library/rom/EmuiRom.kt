@@ -1,9 +1,9 @@
 package com.zackratos.ultimatebarx.library.rom
 
+import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zhangwenchao
@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentActivity
  */
 internal class EmuiRom: BaseRom() {
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun fullScreenGestureOn(activity: FragmentActivity): Boolean {
-        return Settings.Global.getInt(activity.contentResolver, "navigationbar_is_min", -1) > 0
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    override fun fullScreenGestureOn(context: Context): Boolean {
+        return Settings.Global.getInt(context.contentResolver, "navigationbar_is_min", -1) > 0
     }
 }
