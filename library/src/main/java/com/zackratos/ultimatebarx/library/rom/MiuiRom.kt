@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
+import com.zackratos.ultimatebarx.library.extension.navigationBarHeight
 import com.zackratos.ultimatebarx.library.extension.screenHeight
-import com.zackratos.ultimatebarx.library.navigationBarHeight
 
 /**
  * @Author   : zhangwenchao
@@ -22,7 +22,7 @@ internal class MiuiRom: BaseRom() {
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun screenIndicatorOn(context: Context): Boolean {
-        val navHeight = navigationBarHeight
+        val navHeight = context.navigationBarHeight
         val screenHeight = context.screenHeight
         // 当屏幕高度大于状态栏高度的 30 倍时，就认为开启了手势提示线
         // 否则认为没有开启手势提示线
