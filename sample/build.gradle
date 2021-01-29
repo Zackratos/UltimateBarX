@@ -10,8 +10,8 @@ android {
         applicationId "com.zackratos.ultimatebarx.sample"
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 15
-        versionName "0.4.2"
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,9 +41,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-//    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.3.3'
+//    implementation "com.zackratos.ultimatebarx:ultimatebarx:$rootProject.ultimatebarx_version"
     implementation project(path: ':library')
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
-//    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
 }
