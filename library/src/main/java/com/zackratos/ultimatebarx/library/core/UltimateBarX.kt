@@ -16,6 +16,7 @@ import com.zackratos.ultimatebarx.library.UltimateBarXObserver
 import com.zackratos.ultimatebarx.library.bean.BarConfig
 import com.zackratos.ultimatebarx.library.extension.barTransparent
 import com.zackratos.ultimatebarx.library.extension.getColorInt
+import com.zackratos.ultimatebarx.library.extension.landscape
 import com.zackratos.ultimatebarx.library.navigationBarHeight
 import com.zackratos.ultimatebarx.library.statusBarHeight
 import com.zackratos.ultimatebarx.library.view.*
@@ -130,7 +131,8 @@ private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.setStatusBarPadding(this, config.fitWindow)
-    val statusBar = parentView?.getCreator(ActivityTag.getInstance())?.getStatusBarView(this, config.fitWindow)
+    val landscape = manager.context.landscape
+    val statusBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getStatusBarView(this, config.fitWindow)
     statusBar?.updateBackground(config)
 }
 
@@ -139,8 +141,9 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(this)) return
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
-    parentView?.setNavigationBarPadding(this, config.fitWindow)
-    val navigationBar = parentView?.getCreator(ActivityTag.getInstance())?.getNavigationBarView(this, config.fitWindow)
+    val landscape = manager.context.landscape
+    parentView?.setNavigationBarPadding(landscape, config.fitWindow)
+    val navigationBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getNavigationBarView(this, config.fitWindow)
     navigationBar?.updateBackground(config)
 }
 
@@ -148,7 +151,8 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
 private fun Fragment.updateStatusBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
     rootView.setStatusBarPadding(requireContext(), config.fitWindow)
-    val statusBar = rootView.getCreator(FragmentTag.getInstance()).getStatusBarView(requireContext(), config.fitWindow)
+    val landscape = manager.context.landscape
+    val statusBar = rootView.getCreator(FragmentTag.getInstance(), landscape).getStatusBarView(requireContext(), config.fitWindow)
     statusBar.updateBackground(config)
 }
 
@@ -156,8 +160,9 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
 private fun Fragment.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(requireActivity())) return
     val rootView = addFrameLayoutWrapper()
-    rootView.setNavigationBarPadding(requireContext(), config.fitWindow)
-    val navigationBar = rootView.getCreator(FragmentTag.getInstance()).getNavigationBarView(requireContext(), config.fitWindow)
+    val landscape = manager.context.landscape
+    rootView.setNavigationBarPadding(landscape, config.fitWindow)
+    val navigationBar = rootView.getCreator(FragmentTag.getInstance(), landscape).getNavigationBarView(requireContext(), config.fitWindow)
     navigationBar.updateBackground(config)
 }
 
@@ -186,10 +191,10 @@ private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     return flWrapper
 }
 
-private fun ViewGroup.getCreator(tag: Tag): Creator {
+private fun ViewGroup.getCreator(tag: Tag, landscape: Boolean): Creator {
     return when (this) {
-        is FrameLayout -> FrameLayoutCreator(this, tag)
-        is RelativeLayout -> RelativeLayoutCreator(this, tag)
+        is FrameLayout -> FrameLayoutCreator(this, tag, landscape)
+        is RelativeLayout -> RelativeLayoutCreator(this, tag, landscape)
         else -> ViewGroupCreator(this, tag)
     }
 }
@@ -203,13 +208,22 @@ private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) 
     )
 }
 
-private fun ViewGroup.setNavigationBarPadding(context: Context, fitWindow: Boolean) {
-    setPadding(
-        paddingLeft,
-        paddingTop,
-        paddingRight,
-        if (fitWindow) navigationBarHeight else 0
-    )
+private fun ViewGroup.setNavigationBarPadding(landscape: Boolean, fitWindow: Boolean) {
+    if (landscape) {
+        setPadding(
+            paddingLeft,
+            paddingTop,
+            if (fitWindow) navigationBarHeight else 0,
+            paddingBottom
+        )
+    } else {
+        setPadding(
+            paddingLeft,
+            paddingTop,
+            paddingRight,
+            if (fitWindow) navigationBarHeight else 0
+        )
+    }
 }
 
 private fun View.updateBackground(config: BarConfig) {

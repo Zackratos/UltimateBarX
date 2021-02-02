@@ -1,6 +1,7 @@
 package com.zackratos.ultimatebarx.library.extension
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
 import android.util.DisplayMetrics
@@ -25,6 +26,9 @@ internal val Context.statusBarHeight: Int
 
 internal val Context.navigationBarHeight: Int
     get() = getBarHeight("navigation_bar_height")
+
+internal val Context.landscape: Boolean
+    get() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 @ColorInt
 internal fun Context.getColorInt(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
