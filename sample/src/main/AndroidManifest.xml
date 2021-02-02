@@ -26,7 +26,8 @@
         <activity android:name=".RecyclerFragmentActivity" />
         <activity android:name=".FragmentStackActivity" />
         <activity android:name=".AddPaddingActivity" />
-        <activity android:name=".CoordinatorActivity"/>
+        <activity android:name=".CoordinatorActivity"
+            android:theme="@style/CoordinatorTheme"/>
     </application>
 
 </manifest>

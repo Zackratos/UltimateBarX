@@ -1,6 +1,5 @@
 package com.zackratos.ultimatebarx.library.core
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -130,7 +129,7 @@ private fun FragmentActivity.barInitialization() {
 private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     val decorView = window.decorView as FrameLayout?
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
-    parentView?.setStatusBarPadding(this, config.fitWindow)
+    parentView?.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
     val statusBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getStatusBarView(this, config.fitWindow)
     statusBar?.updateBackground(config)
@@ -150,10 +149,10 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.updateStatusBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
-    rootView.setStatusBarPadding(requireContext(), config.fitWindow)
+    rootView.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
-    val statusBar = rootView.getCreator(FragmentTag.getInstance(), landscape).getStatusBarView(requireContext(), config.fitWindow)
-    statusBar.updateBackground(config)
+    val statusBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getStatusBarView(requireContext(), config.fitWindow)
+    statusBar?.updateBackground(config)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -162,8 +161,8 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
     val landscape = manager.context.landscape
     rootView.setNavigationBarPadding(landscape, config.fitWindow)
-    val navigationBar = rootView.getCreator(FragmentTag.getInstance(), landscape).getNavigationBarView(requireContext(), config.fitWindow)
-    navigationBar.updateBackground(config)
+    val navigationBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getNavigationBarView(requireContext(), config.fitWindow)
+    navigationBar?.updateBackground(config)
 }
 
 // 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
@@ -191,15 +190,15 @@ private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     return flWrapper
 }
 
-private fun ViewGroup.getCreator(tag: Tag, landscape: Boolean): Creator {
+private fun ViewGroup.getCreator(tag: Tag, landscape: Boolean): Creator? {
     return when (this) {
         is FrameLayout -> FrameLayoutCreator(this, tag, landscape)
         is RelativeLayout -> RelativeLayoutCreator(this, tag, landscape)
-        else -> ViewGroupCreator(this, tag)
+        else -> null
     }
 }
 
-private fun ViewGroup.setStatusBarPadding(context: Context, fitWindow: Boolean) {
+private fun ViewGroup.setStatusBarPadding(fitWindow: Boolean) {
     setPadding(
         paddingLeft,
         if (fitWindow) statusBarHeight else 0,
