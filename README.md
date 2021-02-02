@@ -12,12 +12,13 @@ gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 > * 同一个 `Activity` 或 `Fragment` 可以多次设置不同的效果
 > * 适配刘海屏、滴水屏、挖孔屏、全面屏
 > * 适配 miui、emui、funtouch 等 rom
+> * 适配横屏、竖屏
 
 ## 使用方法
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.4.3'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.5.0'
 }
 ```
 
