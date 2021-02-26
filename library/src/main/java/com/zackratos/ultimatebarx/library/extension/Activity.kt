@@ -23,6 +23,12 @@ internal fun FragmentActivity.setSystemUiFlagWithLight(statusBarLight: Boolean, 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.barTransparent() {
     when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+            window.isStatusBarContrastEnforced = false
+            window.isNavigationBarContrastEnforced = false
+        }
+    }
+    when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
             window.statusBarColor = Color.TRANSPARENT
             window.navigationBarColor = Color.TRANSPARENT
