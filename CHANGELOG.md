@@ -1,4 +1,7 @@
 # Change Log
+#### version 0.5.1 (2021.02.26)
+* 修复 [issues 5](https://github.com/Zackratos/UltimateBarX/issues/5)
+
 #### version 0.5.0 (2021.02.02)
 * 适配横屏
 * 优化代码

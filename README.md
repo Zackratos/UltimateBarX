@@ -18,7 +18,7 @@ gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 在 gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.5.0'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.5.1'
 }
 ```
 
