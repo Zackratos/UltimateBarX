@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.zackratos.ultimatebarx.library.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
 
 /**
  * @Author : zhangwenchao

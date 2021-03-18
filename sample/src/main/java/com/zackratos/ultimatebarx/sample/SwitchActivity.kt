@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
-import com.zackratos.ultimatebarx.library.UltimateBarX
-import com.zackratos.ultimatebarx.library.bean.BarConfig
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zackratos.ultimatebarx.sample.extension.getColorInt
 import kotlinx.android.synthetic.main.activity_switch.*
 

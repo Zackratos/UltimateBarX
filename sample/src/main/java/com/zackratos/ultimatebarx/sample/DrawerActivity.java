@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.library.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
 
 
 /**

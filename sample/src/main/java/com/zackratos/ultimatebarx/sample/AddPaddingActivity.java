@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.zackratos.ultimatebarx.library.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
 
 
 /**

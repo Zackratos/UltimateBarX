@@ -98,7 +98,7 @@ targetView.addNavigationBarBottomPadding()
 
 ## ProGuard
 ```
--keep class com.zackratos.ultimatebarx.library.** { *; }
+-keep class com.zackratos.ultimatebarx.ultimatebarx.** { *; }
 -keep public class * extends androidx.fragment.app.Fragment { *; }
 ```
 

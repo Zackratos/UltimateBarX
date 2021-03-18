@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zackratos.ultimatebarx.library.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
 
 import java.util.Locale;
 

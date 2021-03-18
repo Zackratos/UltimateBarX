@@ -3,7 +3,7 @@ package com.zackratos.ultimatebarx.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.zackratos.ultimatebarx.library.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : AppCompatActivity() {

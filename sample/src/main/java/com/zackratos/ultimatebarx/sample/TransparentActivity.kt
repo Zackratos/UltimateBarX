@@ -2,7 +2,7 @@ package com.zackratos.ultimatebarx.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.zackratos.ultimatebarx.library.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 
 class TransparentActivity : AppCompatActivity() {
 

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.library.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
 
 /**
  * @Author : Zackratos
