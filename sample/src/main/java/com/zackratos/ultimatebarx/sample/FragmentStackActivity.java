@@ -73,6 +73,7 @@ public class FragmentStackActivity extends AppCompatActivity {
                         UltimateBarX.with(f)
                                 .transparent()
                                 .light(true)
+                                .lvLightColorRes(R.color.alphaBlack)
                                 .applyStatusBar();
             case 2:
                 return f ->
@@ -93,6 +94,7 @@ public class FragmentStackActivity extends AppCompatActivity {
                                 .fitWindow(false)
                                 .colorRes(R.color.alphaWhite)
                                 .light(true)
+                                .lvLightColorRes(R.color.alphaGreen)
                                 .applyStatusBar();
             default:
                 return f -> {

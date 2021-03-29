@@ -96,10 +96,10 @@ internal class UltimateBarXManager private constructor(){
             navigationBarColor = activity.window?.navigationBarColor ?: Color.TRANSPARENT
         }
         val staConfig = getStatusBarConfig(activity)
-        staConfig.color = statusBarColor
+        staConfig.background.color = statusBarColor
         putStatusBarConfig(activity, staConfig)
         val navConfig = getNavigationBarConfig(activity)
-        navConfig.color = navigationBarColor
+        navConfig.background.color = navigationBarColor
         navConfig.light = calculateLight(navigationBarColor)
         putNavigationBarConfig(activity, navConfig)
     }

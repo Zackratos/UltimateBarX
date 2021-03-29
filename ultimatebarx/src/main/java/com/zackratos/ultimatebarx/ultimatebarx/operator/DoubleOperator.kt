@@ -1,5 +1,6 @@
 package com.zackratos.ultimatebarx.ultimatebarx.operator
 
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 
 /**
@@ -90,6 +91,36 @@ internal class DoubleOperator private constructor(): Operator {
     override fun color(color: Int): Operator {
         newStaConfig.color(color)
         newNavConfig.color(color)
+        return this
+    }
+
+    override fun background(background: BarBackground): Operator {
+        newStaConfig.background(background)
+        newNavConfig.background(background)
+        return this
+    }
+
+    override fun lvLightBackground(background: BarBackground): Operator {
+        newStaConfig.lvLightBackground(background)
+        newNavConfig.lvLightBackground(background)
+        return this
+    }
+
+    override fun lvLightColor(color: Int): Operator {
+        newStaConfig.lvLightColor(color)
+        newNavConfig.lvLightColor(color)
+        return this
+    }
+
+    override fun lvLightColorRes(colorRes: Int): Operator {
+        newStaConfig.lvLightColorRes(colorRes)
+        newNavConfig.lvLightColorRes(colorRes)
+        return this
+    }
+
+    override fun lvLightDrawableRes(drawableRes: Int): Operator {
+        newStaConfig.lvLightDrawableRes(drawableRes)
+        newNavConfig.lvLightDrawableRes(drawableRes)
         return this
     }
 

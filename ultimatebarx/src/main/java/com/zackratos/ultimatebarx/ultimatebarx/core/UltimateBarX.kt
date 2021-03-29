@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXObserver
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zackratos.ultimatebarx.ultimatebarx.extension.barTransparent
 import com.zackratos.ultimatebarx.ultimatebarx.extension.getColorInt
@@ -132,7 +133,7 @@ private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     parentView?.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
     val statusBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getStatusBarView(this, config.fitWindow)
-    statusBar?.updateBackground(config)
+    statusBar?.updateBackground(config, Build.VERSION_CODES.M)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -143,7 +144,7 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
     val landscape = manager.context.landscape
     parentView?.setNavigationBarPadding(landscape, config.fitWindow)
     val navigationBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getNavigationBarView(this, config.fitWindow)
-    navigationBar?.updateBackground(config)
+    navigationBar?.updateBackground(config, Build.VERSION_CODES.O)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -152,7 +153,7 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
     rootView.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
     val statusBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getStatusBarView(requireContext(), config.fitWindow)
-    statusBar?.updateBackground(config)
+    statusBar?.updateBackground(config, Build.VERSION_CODES.M)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
@@ -162,7 +163,7 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
     val landscape = manager.context.landscape
     rootView.setNavigationBarPadding(landscape, config.fitWindow)
     val navigationBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getNavigationBarView(requireContext(), config.fitWindow)
-    navigationBar?.updateBackground(config)
+    navigationBar?.updateBackground(config, Build.VERSION_CODES.O)
 }
 
 // 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
@@ -225,13 +226,33 @@ private fun ViewGroup.setNavigationBarPadding(landscape: Boolean, fitWindow: Boo
     }
 }
 
-private fun View.updateBackground(config: BarConfig) {
+private fun View.updateBackground(config: BarConfig, endVersion: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+        && Build.VERSION.SDK_INT < endVersion
+        && config.light
+        && updateBackground(config.lvLightBackground)) {
+        return
+    }
+    updateBackground(config.background)
+}
+
+private fun View.updateBackground(background: BarBackground): Boolean {
     when {
-        config.drawableRes > 0 -> setBackgroundResource(config.drawableRes)
-        config.colorRes > 0 -> setBackgroundColor(context.getColorInt(config.colorRes))
-        config.color > Int.MIN_VALUE -> setBackgroundColor(config.color)
+        background.drawableRes > 0 -> {
+            setBackgroundResource(background.drawableRes)
+            return true
+        }
+        background.colorRes > 0 -> {
+            setBackgroundColor(context.getColorInt(background.colorRes))
+            return true
+        }
+        background.color > Int.MIN_VALUE -> {
+            setBackgroundColor(background.color)
+            return true
+        }
         else -> setBackgroundColor(Color.TRANSPARENT)
     }
+    return false
 }
 
 /**

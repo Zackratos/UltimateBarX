@@ -1,6 +1,5 @@
 package com.zackratos.ultimatebarx.ultimatebarx.bean
 
-import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -18,26 +17,26 @@ data class BarConfig(
      * false : contentView 可以伸到状态栏和导航栏的位置（沉浸式）
      */
     internal var fitWindow: Boolean = false,
-    @ColorInt
-    internal var color: Int = 0,
-    @DrawableRes
-    internal var drawableRes: Int = 0,
-    @ColorRes
-    internal var colorRes: Int = 0,
+    internal var background: BarBackground = BarBackground.newInstance(),
     /**
      *  light 模式（状态栏字体颜色变灰，导航栏内部按钮颜色变灰）
      *  true  : 状态栏字体灰色，导航栏按钮灰色
      *  false : 状态栏字体白色，导航栏按钮白色
      */
-    internal var light: Boolean = false
+    internal var light: Boolean = false,
+    /**
+     *  低版本 light 模式下，状态栏或导航栏重新设置背景
+     *  因为低版本不支持 Light 模式，为了防止状态栏文字和导航栏按钮看不到
+     *  只在 light 模式下使用，非 light 模式使用无效
+     */
+    internal var lvLightBackground: BarBackground = BarBackground.newInstance()
 ) {
 
     companion object {
         fun newInstance(): BarConfig =
             BarConfig().apply {
-                color = Int.MIN_VALUE
-                colorRes = -1
-                drawableRes = -1
+                background.default()
+                lvLightBackground.default()
                 fitWindow = true
                 light = false
             }
@@ -45,25 +44,24 @@ data class BarConfig(
 
     fun fitWindow(fitWindow: Boolean): BarConfig = apply { this.fitWindow = fitWindow }
 
+    fun background(background: BarBackground): BarConfig =
+        apply {
+            this.background.update(background)
+        }
+
     fun color(@ColorInt color: Int): BarConfig =
         apply {
-            drawableRes = -1
-            colorRes = -1
-            this.color = color
+            background.color(color)
         }
 
     fun colorRes(@ColorRes colorRes: Int): BarConfig =
         apply {
-            drawableRes = -1
-            color = Int.MIN_VALUE
-            this.colorRes = colorRes
+            background.colorRes(colorRes)
         }
 
     fun drawableRes(@DrawableRes drawableRes: Int): BarConfig =
         apply {
-            color = Int.MIN_VALUE
-            colorRes = -1
-            this.drawableRes = drawableRes
+            background.drawableRes(drawableRes)
         }
 
     fun light(light: Boolean): BarConfig = apply { this.light = light }
@@ -71,18 +69,35 @@ data class BarConfig(
     fun transparent(): BarConfig =
         apply {
             fitWindow = false
-            color = Color.TRANSPARENT
-            colorRes = -1
-            drawableRes = -1
+            background.transparent()
+        }
+
+    fun lvLightBackground(background: BarBackground): BarConfig =
+        apply {
+            lvLightBackground.update(background)
+        }
+
+    fun lvLightColor(@ColorInt color: Int): BarConfig =
+        apply {
+            lvLightBackground.color(color)
+        }
+
+    fun lvLightColorRes(@ColorRes colorRes: Int): BarConfig =
+        apply {
+            lvLightBackground.colorRes(colorRes)
+        }
+
+    fun lvLightDrawableRes(@DrawableRes drawableRes: Int): BarConfig =
+        apply {
+            lvLightBackground.drawableRes(drawableRes)
         }
 
 
     internal fun update(config: BarConfig) {
         if (config == this) return
         this.fitWindow = config.fitWindow
-        this.color = config.color
-        this.drawableRes = config.drawableRes
-        this.colorRes = config.colorRes
+        this.background.update(config.background)
+        this.lvLightBackground.update(config.lvLightBackground)
         this.light = config.light
     }
 

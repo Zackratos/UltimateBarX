@@ -1,5 +1,6 @@
 package com.zackratos.ultimatebarx.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -94,6 +95,7 @@ public class ViewPagerActivity2 extends AppCompatActivity {
                         .fitWindow(false)
                         .colorRes(R.color.alphaWhite)
                         .light(true)
+                        .lvLightColor(Color.TRANSPARENT)
                         .applyStatusBar();
                 break;
             case 2:
@@ -107,6 +109,7 @@ public class ViewPagerActivity2 extends AppCompatActivity {
                 UltimateBarX.with(this)
                         .transparent()
                         .light(true)
+                        .lvLightColorRes(R.color.alphaGreen)
                         .applyStatusBar();
                 break;
         }

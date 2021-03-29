@@ -3,6 +3,7 @@ package com.zackratos.ultimatebarx.ultimatebarx.operator
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 
 /**
@@ -30,5 +31,15 @@ interface Operator {
     fun colorRes(@ColorRes colorRes: Int): Operator
 
     fun color(@ColorInt color: Int): Operator
+
+    fun background(background: BarBackground): Operator
+
+    fun lvLightBackground(background: BarBackground): Operator
+
+    fun lvLightDrawableRes(@DrawableRes drawableRes: Int): Operator
+
+    fun lvLightColorRes(@ColorRes colorRes: Int): Operator
+
+    fun lvLightColor(@ColorInt color: Int): Operator
 
 }

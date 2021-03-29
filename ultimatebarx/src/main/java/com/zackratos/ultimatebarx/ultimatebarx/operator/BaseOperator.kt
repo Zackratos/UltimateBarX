@@ -1,6 +1,7 @@
 package com.zackratos.ultimatebarx.ultimatebarx.operator
 
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 
 /**
@@ -48,6 +49,31 @@ internal abstract class BaseOperator(val config: BarConfig = BarConfig.newInstan
 
     override fun color(color: Int): Operator {
         config.color(color)
+        return this
+    }
+
+    override fun background(background: BarBackground): Operator {
+        config.background(background)
+        return this
+    }
+
+    override fun lvLightBackground(background: BarBackground): Operator {
+        config.lvLightBackground(background)
+        return this
+    }
+
+    override fun lvLightColor(color: Int): Operator {
+        config.lvLightColor(color)
+        return this
+    }
+
+    override fun lvLightColorRes(colorRes: Int): Operator {
+        config.lvLightColorRes(colorRes)
+        return this
+    }
+
+    override fun lvLightDrawableRes(drawableRes: Int): Operator {
+        config.lvLightDrawableRes(drawableRes)
         return this
     }
 

@@ -52,6 +52,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                                     .fitWindow(false)
                                     .colorRes(R.color.alphaWhite)
                                     .light(true)
+                                    .lvLightColorRes(R.color.alphaBlack)
                                     .applyStatusBar();
                             return null;
                         });
@@ -74,6 +75,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                                     .fitWindow(true)
                                     .color(Color.YELLOW)
                                     .light(true)
+                                    .lvLightDrawableRes(R.drawable.bg_yellow_alpha_black)
                                     .applyStatusBar();
                             return null;
                         });
