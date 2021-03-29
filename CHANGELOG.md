@@ -1,4 +1,9 @@
 # Change Log
+#### version 0.6.0 (2021.03.29)
+* 修改 Module 名称（library 改为 ultimatebarx）
+* 支持低版本（不支持状态栏字体或导航栏按钮变灰）重新设置状态栏和导航栏背景
+* 修复 [issues 28](https://github.com/Zackratos/UltimateBarX/issues/28)
+
 #### version 0.5.1 (2021.02.26)
 * 修复 [issues 5](https://github.com/Zackratos/UltimateBarX/issues/5)
 
