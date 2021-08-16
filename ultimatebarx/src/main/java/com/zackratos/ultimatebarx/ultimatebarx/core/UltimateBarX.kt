@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.zackratos.ultimatebarx.ultimatebarx.*
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXObserver
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
@@ -18,8 +19,6 @@ import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zackratos.ultimatebarx.ultimatebarx.extension.barTransparent
 import com.zackratos.ultimatebarx.ultimatebarx.extension.getColorInt
 import com.zackratos.ultimatebarx.ultimatebarx.extension.landscape
-import com.zackratos.ultimatebarx.ultimatebarx.navigationBarHeight
-import com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight
 import com.zackratos.ultimatebarx.ultimatebarx.view.*
 
 /**
@@ -28,7 +27,9 @@ import com.zackratos.ultimatebarx.ultimatebarx.view.*
  * @email    : 869649338@qq.com
  * @Describe :
  */
-private const val TAG_PARENT = "activity_root_view_parent"
+private const val TAG_PARENT = "${BuildConfig.LIBRARY_PACKAGE_NAME}_activity_root_view_parent"
+
+private const val TAG_WRAPPER = "${BuildConfig.LIBRARY_PACKAGE_NAME}_fragment_wrapper"
 
 private val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
 
@@ -170,16 +171,13 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
 // 给 Fragment 的根 View 外面套一层 FrameLayout(用反射拿到根 View)
 private fun Fragment.addFrameLayoutWrapper(): ViewGroup {
     val view = requireView()
-    if (view is FrameLayout) {
-        view.clipToPadding = false
-        return view
-    }
-    if (view is RelativeLayout) {
+    if (view is FrameLayout && view.tag == TAG_WRAPPER) {
         view.clipToPadding = false
         return view
     }
     val flWrapper = FrameLayout(requireContext())
     flWrapper.clipToPadding = false
+    flWrapper.tag = TAG_WRAPPER
     flWrapper.setTag(androidx.fragment.R.id.fragment_container_view_tag, this)
     val parent = view.parent
     if (parent is ViewGroup) {
