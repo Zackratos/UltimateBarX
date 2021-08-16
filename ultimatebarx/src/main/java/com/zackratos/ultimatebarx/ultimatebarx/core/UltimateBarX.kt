@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
@@ -263,14 +264,37 @@ private fun View.updateBackground(background: BarBackground): Boolean {
 internal fun View.addStatusBarTopPadding() {
     setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom)
     val lp = layoutParams
-    if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
-        lp.height += statusBarHeight
-        layoutParams = lp
-        return
-    }
-    post {
-        lp.height = height + statusBarHeight
-        layoutParams = lp
+    when (this) {
+        is Toolbar -> {
+            when (lp.height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    post {
+                        lp.height = height + statusBarHeight
+                        layoutParams = lp
+                    }
+                }
+                else -> {
+                    lp.height += statusBarHeight
+                    layoutParams = lp
+                }
+            }
+        }
+        else -> {
+            when (lp.height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT -> return
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    post {
+                        lp.height = height + statusBarHeight
+                        layoutParams = lp
+                    }
+                }
+                else -> {
+                    lp.height += statusBarHeight
+                    layoutParams = lp
+                }
+            }
+        }
     }
 }
 
@@ -286,13 +310,36 @@ internal fun View.addNavigationBarBottomPadding() {
     }
     setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + navigationBarHeight)
     val lp = layoutParams
-    if (lp.height != ViewGroup.LayoutParams.MATCH_PARENT && lp.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
-        lp.height += navigationBarHeight
-        layoutParams = lp
-        return
-    }
-    post {
-        lp.height = height + navigationBarHeight
-        layoutParams = lp
+    when (this) {
+        is Toolbar -> {
+            when (lp.height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    post {
+                        lp.height = height + navigationBarHeight
+                        layoutParams = lp
+                    }
+                }
+                else -> {
+                    lp.height += navigationBarHeight
+                    layoutParams = lp
+                }
+            }
+        }
+        else -> {
+            when (lp.height) {
+                ViewGroup.LayoutParams.WRAP_CONTENT -> return
+                ViewGroup.LayoutParams.MATCH_PARENT -> {
+                    post {
+                        lp.height = height + navigationBarHeight
+                        layoutParams = lp
+                    }
+                }
+                else -> {
+                    lp.height += navigationBarHeight
+                    layoutParams = lp
+                }
+            }
+        }
     }
 }
