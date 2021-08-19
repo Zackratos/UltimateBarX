@@ -15,16 +15,16 @@ import com.zackratos.ultimatebarx.ultimatebarx.extension.statusBarHeight
  */
 
 val statusBarHeight: Int
-    get() = UltimateBarXManager.getInstance().context.statusBarHeight
+    get() = UltimateBarXManager.instance.context.statusBarHeight
 
 val navigationBarHeight: Int
     get() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
             return 0
-        val rom = UltimateBarXManager.getInstance().rom
-        val context = UltimateBarXManager.getInstance().context
+        val rom = UltimateBarXManager.instance.rom
+        val context = UltimateBarXManager.instance.context
         if (!rom.navigationBarExist(context)) return 0
-        return UltimateBarXManager.getInstance().context.navigationBarHeight
+        return UltimateBarXManager.instance.context.navigationBarHeight
     }
 
 fun View.addStatusBarTopPadding() {

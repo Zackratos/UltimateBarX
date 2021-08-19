@@ -18,7 +18,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight
 internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag, landscape: Boolean): BaseCreator(tag, landscape) {
 
     override fun getStatusBarView(context: Context, fitWindow: Boolean): View {
-        var statusBar: View? = frameLayout.findViewWithTag(tag.statusBarViewTag())
+        var statusBar: View? = frameLayout.findViewWithTag(tag.statusBarViewTag)
         if (statusBar == null) {
             statusBar = View(context).apply {
                 layoutParams = FrameLayout.LayoutParams(
@@ -26,7 +26,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
                     statusBarHeight
                 ).apply { gravity = Gravity.TOP }
             }
-            statusBar.tag = tag.statusBarViewTag()
+            statusBar.tag = tag.statusBarViewTag
             frameLayout.addView(statusBar)
         }
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -40,7 +40,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
     }
 
     override fun getNavigationBarView(context: Context, fitWindow: Boolean): View {
-        var navigationBar: View? = frameLayout.findViewWithTag(tag.navigationBarViewTag())
+        var navigationBar: View? = frameLayout.findViewWithTag(tag.navigationBarViewTag)
         val width: Int
         val height: Int
         val gravity: Int
@@ -57,7 +57,7 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
             navigationBar = View(context).apply {
                 layoutParams = FrameLayout.LayoutParams(width, height).apply { this.gravity = gravity }
             }
-            navigationBar.tag = tag.navigationBarViewTag()
+            navigationBar.tag = tag.navigationBarViewTag
             frameLayout.addView(navigationBar)
         }
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

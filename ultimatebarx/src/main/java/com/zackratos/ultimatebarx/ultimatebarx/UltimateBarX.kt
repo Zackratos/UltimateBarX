@@ -23,16 +23,16 @@ class UltimateBarX {
         fun get(fragment: Fragment): Operator = OperatorProvider.get(fragment)
 
         @JvmStatic
-        fun getStatusBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.getInstance().getStatusBarConfig(activity)
+        fun getStatusBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.instance.getStatusBarConfig(activity)
 
         @JvmStatic
-        fun getNavigationBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.getInstance().getNavigationBarConfig(activity)
+        fun getNavigationBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.instance.getNavigationBarConfig(activity)
 
         @JvmStatic
-        fun getStatusBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.getInstance().getStatusBarConfig(fragment)
+        fun getStatusBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.instance.getStatusBarConfig(fragment)
 
         @JvmStatic
-        fun getNavigationBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.getInstance().getNavigationBarConfig(fragment)
+        fun getNavigationBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.instance.getNavigationBarConfig(fragment)
 
         @JvmStatic
         fun getStatusBarHeight() = statusBarHeight

@@ -22,7 +22,8 @@ import java.lang.reflect.Field
  */
 internal class UltimateBarXManager private constructor(){
     companion object {
-        fun getInstance() = Holder.INSTANCE
+        val instance: UltimateBarXManager
+            get() = Holder.INSTANCE
     }
 
     private object Holder {

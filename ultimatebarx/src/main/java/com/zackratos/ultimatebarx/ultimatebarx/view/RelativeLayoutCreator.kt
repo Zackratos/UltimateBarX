@@ -17,7 +17,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight
 internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout, tag: Tag, landscape: Boolean) : BaseCreator(tag, landscape) {
 
     override fun getStatusBarView(context: Context, fitWindow: Boolean): View {
-        var statusBar: View? = relativeLayout.findViewWithTag(tag.statusBarViewTag())
+        var statusBar: View? = relativeLayout.findViewWithTag(tag.statusBarViewTag)
         if (statusBar == null) {
             statusBar = View(context).apply {
                 layoutParams = RelativeLayout.LayoutParams(
@@ -25,7 +25,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
                     statusBarHeight
                 ).apply { addRule(RelativeLayout.ALIGN_PARENT_TOP) }
             }
-            statusBar.tag = tag.statusBarViewTag()
+            statusBar.tag = tag.statusBarViewTag
             relativeLayout.addView(statusBar)
         }
         statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -39,7 +39,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
     }
 
     override fun getNavigationBarView(context: Context, fitWindow: Boolean): View {
-        var navigationBar: View? = relativeLayout.findViewWithTag(tag.navigationBarViewTag())
+        var navigationBar: View? = relativeLayout.findViewWithTag(tag.navigationBarViewTag)
         val width: Int
         val height: Int
         val rule: Int
@@ -56,7 +56,7 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
             navigationBar = View(context).apply {
                 layoutParams = RelativeLayout.LayoutParams(width, height).apply { addRule(rule) }
             }
-            navigationBar.tag = tag.navigationBarViewTag()
+            navigationBar.tag = tag.navigationBarViewTag
             relativeLayout.addView(navigationBar)
         }
         navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

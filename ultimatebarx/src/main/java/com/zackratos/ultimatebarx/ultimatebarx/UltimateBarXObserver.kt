@@ -16,14 +16,14 @@ internal class UltimateBarXObserver: LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
-        UltimateBarXManager.getInstance().removeAllData(owner)
+        UltimateBarXManager.instance.removeAllData(owner)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume(owner: LifecycleOwner) {
         if (owner is Fragment) {
-            val staDefault = UltimateBarXManager.getInstance().getStatusBarDefault(owner)
-            val navDefault = UltimateBarXManager.getInstance().getNavigationBarDefault(owner)
+            val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
+            val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(owner)
             if (staDefault) {
                 UltimateBarX.get(owner).applyStatusBar()
             }

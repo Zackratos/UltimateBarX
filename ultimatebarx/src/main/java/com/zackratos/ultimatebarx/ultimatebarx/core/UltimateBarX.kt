@@ -31,7 +31,7 @@ private const val TAG_PARENT = "${BuildConfig.LIBRARY_PACKAGE_NAME}_activity_roo
 
 private const val TAG_WRAPPER = "${BuildConfig.LIBRARY_PACKAGE_NAME}_fragment_wrapper"
 
-private val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
+private val manager: UltimateBarXManager by lazy { UltimateBarXManager.instance }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.ultimateBarXInitialization() {
@@ -134,7 +134,7 @@ private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     parentView?.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
-    val statusBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getStatusBarView(this, config.fitWindow)
+    val statusBar = parentView?.getCreator(ActivityTag.instance, landscape)?.getStatusBarView(this, config.fitWindow)
     statusBar?.updateBackground(config, Build.VERSION_CODES.M)
 }
 
@@ -145,7 +145,7 @@ private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
     val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     val landscape = manager.context.landscape
     parentView?.setNavigationBarPadding(landscape, config.fitWindow)
-    val navigationBar = parentView?.getCreator(ActivityTag.getInstance(), landscape)?.getNavigationBarView(this, config.fitWindow)
+    val navigationBar = parentView?.getCreator(ActivityTag.instance, landscape)?.getNavigationBarView(this, config.fitWindow)
     navigationBar?.updateBackground(config, Build.VERSION_CODES.O)
 }
 
@@ -154,7 +154,7 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
     rootView.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
-    val statusBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getStatusBarView(requireContext(), config.fitWindow)
+    val statusBar = rootView.getCreator(FragmentTag.instance, landscape)?.getStatusBarView(requireContext(), config.fitWindow)
     statusBar?.updateBackground(config, Build.VERSION_CODES.M)
 }
 
@@ -164,7 +164,7 @@ private fun Fragment.updateNavigationBarView(config: BarConfig) {
     val rootView = addFrameLayoutWrapper()
     val landscape = manager.context.landscape
     rootView.setNavigationBarPadding(landscape, config.fitWindow)
-    val navigationBar = rootView.getCreator(FragmentTag.getInstance(), landscape)?.getNavigationBarView(requireContext(), config.fitWindow)
+    val navigationBar = rootView.getCreator(FragmentTag.instance, landscape)?.getNavigationBarView(requireContext(), config.fitWindow)
     navigationBar?.updateBackground(config, Build.VERSION_CODES.O)
 }
 

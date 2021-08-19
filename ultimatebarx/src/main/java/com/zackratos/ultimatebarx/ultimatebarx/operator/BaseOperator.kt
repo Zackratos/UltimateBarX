@@ -13,7 +13,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 internal abstract class BaseOperator(val config: BarConfig = BarConfig.newInstance()): Operator {
 
 
-    protected val manager: UltimateBarXManager by lazy { UltimateBarXManager.getInstance() }
+    protected val manager: UltimateBarXManager by lazy { UltimateBarXManager.instance }
 
 //    protected val config: BarConfig by lazy { config }
 

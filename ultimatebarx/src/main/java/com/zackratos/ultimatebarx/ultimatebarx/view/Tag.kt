@@ -8,8 +8,8 @@ package com.zackratos.ultimatebarx.ultimatebarx.view
  */
 internal interface Tag {
 
-    fun statusBarViewTag(): String
+    val statusBarViewTag: String
 
-    fun navigationBarViewTag(): String
+    val navigationBarViewTag: String
 
 }

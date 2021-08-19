@@ -11,7 +11,7 @@ import androidx.startup.Initializer
  */
 class UltimateBarXInitializer: Initializer<Unit> {
     override fun create(context: Context) {
-        UltimateBarXManager.getInstance().context = context
+        UltimateBarXManager.instance.context = context
     }
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> = mutableListOf()

@@ -1,5 +1,7 @@
 package com.zackratos.ultimatebarx.ultimatebarx.view
 
+import com.zackratos.ultimatebarx.ultimatebarx.BuildConfig
+
 /**
  * @Author   : Zackratos
  * @Date     : 2020/11/28 21:18
@@ -9,14 +11,15 @@ package com.zackratos.ultimatebarx.ultimatebarx.view
 internal class ActivityTag private constructor(): Tag {
 
     companion object {
-        fun getInstance() = Holder.INSTANCE
+        val instance: ActivityTag
+            get() = Holder.INSTANCE
     }
 
     private object Holder {
         val INSTANCE = ActivityTag()
     }
 
-    override fun statusBarViewTag(): String = "activity_status_bar"
+    override val statusBarViewTag: String = "${BuildConfig.LIBRARY_PACKAGE_NAME}_activity_status_bar"
 
-    override fun navigationBarViewTag(): String = "activity_navigation_bar"
+    override val navigationBarViewTag: String = "${BuildConfig.LIBRARY_PACKAGE_NAME}_activity_navigation_bar"
 }
