@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.zackratos.ultimatebarx.sample.adjustresize.AdjustResizeActivity
 import com.zackratos.ultimatebarx.sample.bottomnav.BottomNavActivity
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         btnPadding.setOnClickListener { start(AddPaddingActivity::class.java) }
         btnCoordinator.setOnClickListener { start(CoordinatorActivity::class.java) }
         btnBottonNav.setOnClickListener { start(BottomNavActivity::class.java) }
+        btnAdjustResize.setOnClickListener { start(AdjustResizeActivity::class.java) }
     }
 
     private fun start(clazz: Class<out Activity>) {

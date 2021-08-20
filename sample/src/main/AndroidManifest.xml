@@ -29,6 +29,8 @@
         <activity android:name=".CoordinatorActivity"
             android:theme="@style/CoordinatorTheme"/>
         <activity android:name=".bottomnav.BottomNavActivity" />
+        <activity android:name=".adjustresize.AdjustResizeActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

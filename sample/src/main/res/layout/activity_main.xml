@@ -94,6 +94,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="BottomNavigationView"/>
+            <Button
+                android:id="@+id/btnAdjustResize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="AdjustResize"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

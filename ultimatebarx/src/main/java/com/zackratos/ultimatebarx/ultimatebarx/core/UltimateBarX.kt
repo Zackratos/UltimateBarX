@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.zackratos.kblistener.kblistener.onKeyboardClose
+import com.zackratos.kblistener.kblistener.onKeyboardOpen
 import com.zackratos.ultimatebarx.ultimatebarx.*
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXObserver
@@ -40,6 +43,7 @@ internal fun FragmentActivity.ultimateBarXInitialization() {
     manager.putOriginConfig(this)
     barInitialization()
     fixBottomNavigationViewPadding()
+    addKeyboardListener()
     manager.putInitialization(this)
 }
 
@@ -348,6 +352,25 @@ private fun View.fixBottomNavigationViewPadding() {
         if (view is BottomNavigationView) {
             val originBottomPadding = view.paddingBottom
             view.post { view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, originBottomPadding) }
+        }
+    }
+}
+
+internal fun FragmentActivity.addKeyboardListener() {
+    rootView?.run {
+        onKeyboardOpen {
+            if (window?.attributes?.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) {
+                val lp = layoutParams ?: return@onKeyboardOpen
+                lp.height = height - it
+                layoutParams = lp
+            }
+        }
+        onKeyboardClose {
+            if (window?.attributes?.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) {
+                val lp = layoutParams ?: return@onKeyboardClose
+                lp.height = it
+                layoutParams = lp
+            }
         }
     }
 }
