@@ -31,6 +31,10 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
+    viewBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {

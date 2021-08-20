@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_album"
+        android:icon="@drawable/ic_album_sliver_24dp"
+        android:title="album" />
+    <item
+        android:id="@+id/item_android"
+        android:icon="@drawable/ic_android_sliver_24dp"
+        android:title="android" />
+    <item
+        android:id="@+id/item_camera"
+        android:icon="@drawable/ic_camera_sliver_24dp"
+        android:title="camera" />
+    <item
+        android:id="@+id/item_games"
+        android:icon="@drawable/ic_games_sliver_24dp"
+        android:title="game" />
+</menu>

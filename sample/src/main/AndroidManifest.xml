@@ -28,6 +28,7 @@
         <activity android:name=".AddPaddingActivity" />
         <activity android:name=".CoordinatorActivity"
             android:theme="@style/CoordinatorTheme"/>
+        <activity android:name=".bottomnav.BottomNavActivity" />
     </application>
 
 </manifest>

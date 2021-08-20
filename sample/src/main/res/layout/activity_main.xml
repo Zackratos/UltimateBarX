@@ -88,6 +88,12 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="CoordinatorLayout"/>
+            <Button
+                android:id="@+id/btnBottonNav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="BottomNavigationView"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

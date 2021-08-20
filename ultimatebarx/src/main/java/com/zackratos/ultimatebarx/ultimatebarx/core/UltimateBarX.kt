@@ -11,12 +11,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zackratos.ultimatebarx.ultimatebarx.*
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXObserver
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
+import com.zackratos.ultimatebarx.ultimatebarx.extension.*
 import com.zackratos.ultimatebarx.ultimatebarx.extension.barTransparent
+import com.zackratos.ultimatebarx.ultimatebarx.extension.children
 import com.zackratos.ultimatebarx.ultimatebarx.extension.getColorInt
 import com.zackratos.ultimatebarx.ultimatebarx.extension.landscape
 import com.zackratos.ultimatebarx.ultimatebarx.view.*
@@ -27,8 +30,6 @@ import com.zackratos.ultimatebarx.ultimatebarx.view.*
  * @email    : 869649338@qq.com
  * @Describe :
  */
-private const val TAG_PARENT = "${BuildConfig.LIBRARY_PACKAGE_NAME}_activity_root_view_parent"
-
 private const val TAG_WRAPPER = "${BuildConfig.LIBRARY_PACKAGE_NAME}_fragment_wrapper"
 
 private val manager: UltimateBarXManager by lazy { UltimateBarXManager.instance }
@@ -38,6 +39,7 @@ internal fun FragmentActivity.ultimateBarXInitialization() {
     if (manager.getInitialization(this)) return
     manager.putOriginConfig(this)
     barInitialization()
+    fixBottomNavigationViewPadding()
     manager.putInitialization(this)
 }
 
@@ -57,6 +59,7 @@ internal fun Fragment.ultimateBarXInitialization() {
     val navConfig = manager.getNavigationBarConfig(this)
     navConfig.light = actNavConfig.light
     manager.putNavigationBarConfig(this, navConfig)
+    fixBottomNavigationViewPadding()
     manager.putInitialization(this)
 }
 
@@ -117,35 +120,25 @@ internal fun LifecycleOwner.addObserver() {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun FragmentActivity.barInitialization() {
-    val decorView = window?.decorView
-    var parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
-    if (parentView == null) {
-        parentView = findViewById(android.R.id.content)
-        parentView?.tag = TAG_PARENT
-        parentView?.clipToPadding = false
-    }
-    parentView?.getChildAt(0)?.fitsSystemWindows = false
+    contentView?.clipToPadding = false
+    rootView?.fitsSystemWindows = false
     barTransparent()
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
-    val decorView = window.decorView as FrameLayout?
-    val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
-    parentView?.setStatusBarPadding(config.fitWindow)
+    contentView?.setStatusBarPadding(config.fitWindow)
     val landscape = manager.context.landscape
-    val statusBar = parentView?.getCreator(ActivityTag.instance, landscape)?.getStatusBarView(this, config.fitWindow)
+    val statusBar = contentView?.getCreator(ActivityTag.instance, landscape)?.getStatusBarView(this, config.fitWindow)
     statusBar?.updateBackground(config, Build.VERSION_CODES.M)
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
     if (!manager.rom.navigationBarExist(this)) return
-    val decorView = window.decorView as FrameLayout?
-    val parentView: ViewGroup? = decorView?.findViewWithTag(TAG_PARENT)
     val landscape = manager.context.landscape
-    parentView?.setNavigationBarPadding(landscape, config.fitWindow)
-    val navigationBar = parentView?.getCreator(ActivityTag.instance, landscape)?.getNavigationBarView(this, config.fitWindow)
+    contentView?.setNavigationBarPadding(landscape, config.fitWindow)
+    val navigationBar = contentView?.getCreator(ActivityTag.instance, landscape)?.getNavigationBarView(this, config.fitWindow)
     navigationBar?.updateBackground(config, Build.VERSION_CODES.O)
 }
 
@@ -338,6 +331,23 @@ internal fun View.addNavigationBarBottomPadding() {
                     layoutParams = lp
                 }
             }
+        }
+    }
+}
+
+private fun FragmentActivity.fixBottomNavigationViewPadding() {
+    rootView?.fixBottomNavigationViewPadding()
+}
+
+private fun Fragment.fixBottomNavigationViewPadding() {
+    view?.fixBottomNavigationViewPadding()
+}
+
+private fun View.fixBottomNavigationViewPadding() {
+    for (view in children) {
+        if (view is BottomNavigationView) {
+            val originBottomPadding = view.paddingBottom
+            view.post { view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, originBottomPadding) }
         }
     }
 }

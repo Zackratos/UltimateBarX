@@ -3,6 +3,7 @@ package com.zackratos.ultimatebarx.ultimatebarx.extension
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentActivity
@@ -59,21 +60,8 @@ private fun systemUiFlag(statusBarLight: Boolean, navigationBarLight: Boolean): 
     return flag
 }
 
-//@RequiresApi(Build.VERSION_CODES.KITKAT)
-//internal fun FragmentActivity.commonNavigationBarExist(): Boolean {
-//    val d = windowManager.defaultDisplay
-//    val realDisplayMetrics = DisplayMetrics()
-//
-//    d.getRealMetrics(realDisplayMetrics)
-//
-//    val realHeight = realDisplayMetrics.heightPixels
-//    val realWidth = realDisplayMetrics.widthPixels
-//
-//    val displayMetrics = DisplayMetrics()
-//    d.getMetrics(displayMetrics)
-//
-//    val displayHeight = displayMetrics.heightPixels
-//    val displayWidth = displayMetrics.widthPixels
-//
-//    return realWidth - displayWidth > 0 || realHeight - displayHeight > 0
-//}
+internal val FragmentActivity.contentView: ViewGroup?
+    get() = window?.decorView?.findViewById(android.R.id.content)
+
+internal val FragmentActivity.rootView: View?
+    get() = contentView?.getChildAt(0)
