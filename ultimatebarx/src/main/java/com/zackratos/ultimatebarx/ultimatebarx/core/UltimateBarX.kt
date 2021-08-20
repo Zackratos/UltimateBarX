@@ -359,14 +359,14 @@ private fun View.fixBottomNavigationViewPadding() {
 internal fun FragmentActivity.addKeyboardListener() {
     rootView?.run {
         onKeyboardOpen {
-            if (window?.attributes?.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) {
+            if (window?.attributes?.softInputMode?.contain(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) == true) {
                 val lp = layoutParams ?: return@onKeyboardOpen
                 lp.height = height - it
                 layoutParams = lp
             }
         }
         onKeyboardClose {
-            if (window?.attributes?.softInputMode == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) {
+            if (window?.attributes?.softInputMode?.contain(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) == true) {
                 val lp = layoutParams ?: return@onKeyboardClose
                 lp.height = it
                 layoutParams = lp

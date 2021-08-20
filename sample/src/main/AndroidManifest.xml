@@ -30,7 +30,7 @@
             android:theme="@style/CoordinatorTheme"/>
         <activity android:name=".bottomnav.BottomNavActivity" />
         <activity android:name=".adjustresize.AdjustResizeActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
     </application>
 
 </manifest>
