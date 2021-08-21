@@ -1,4 +1,13 @@
 # Change Log
+#### version 0.6.1 (2021.08.21)
+* 修复 [issues 32](https://github.com/Zackratos/UltimateBarX/issues/32)、
+[issues 19](https://github.com/Zackratos/UltimateBarX/issues/19)、
+[issues 18](https://github.com/Zackratos/UltimateBarX/issues/18)、
+[issues 30](https://github.com/Zackratos/UltimateBarX/issues/30)
+* 仓库从 `jcenter`迁移到 `jitpack`
+* `Fragment` 实现方式优化(全部采用在外面嵌套一层 `FrameLayout` 的方式)
+* 优化代码细节
+
 #### version 0.6.0 (2021.03.29)
 * 修改 Module 名称（library 改为 ultimatebarx）
 * 支持低版本（不支持状态栏字体或导航栏按钮变灰）重新设置状态栏和导航栏背景

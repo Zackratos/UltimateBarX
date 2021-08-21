@@ -18,10 +18,19 @@ gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 > * 适配横屏、竖屏
 
 ## 使用方法
-在 gradle 中添加
+在根目录的 build.gradle 里面添加
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+在子目录的 build.gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.6.0'
+    implementation 'com.gitee.zackratos:UltimateBarX:0.6.1'
 }
 ```
 
