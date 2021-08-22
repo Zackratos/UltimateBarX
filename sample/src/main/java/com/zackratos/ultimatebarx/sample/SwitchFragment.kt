@@ -26,6 +26,7 @@ class SwitchFragment: InnerFragment(R.layout.activity_switch) {
         imageView.setImageResource(R.drawable.yurisa_03)
         setRootClick()
         setApply()
+        tvApply.performClick()
     }
 
     private fun setApply() {

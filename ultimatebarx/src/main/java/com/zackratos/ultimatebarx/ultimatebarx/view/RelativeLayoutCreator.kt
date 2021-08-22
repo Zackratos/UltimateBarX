@@ -3,7 +3,6 @@ package com.zackratos.ultimatebarx.ultimatebarx.view
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.RelativeLayout
 import com.zackratos.ultimatebarx.ultimatebarx.navigationBarHeight
 import com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight
@@ -28,13 +27,8 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
             statusBar.tag = tag.statusBarViewTag
             relativeLayout.addView(statusBar)
         }
-        statusBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                statusBar.layoutParams = (statusBar.layoutParams as RelativeLayout.LayoutParams)
-                    .apply { topMargin = if (fitWindow) -statusBarHeight else 0 }
-                statusBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
-            }
-        })
+        statusBar.layoutParams = (statusBar.layoutParams as RelativeLayout.LayoutParams)
+            .apply { topMargin = if (fitWindow) -statusBarHeight else 0 }
         return statusBar
     }
 
@@ -59,19 +53,14 @@ internal class RelativeLayoutCreator(private val relativeLayout: RelativeLayout,
             navigationBar.tag = tag.navigationBarViewTag
             relativeLayout.addView(navigationBar)
         }
-        navigationBar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                navigationBar.layoutParams = (navigationBar.layoutParams as RelativeLayout.LayoutParams)
-                    .apply {
-                        if (landscape) {
-                            rightMargin = if (fitWindow) -navigationBarHeight else 0
-                        } else {
-                            bottomMargin = if (fitWindow) -navigationBarHeight else 0
-                        }
-                    }
-                navigationBar.viewTreeObserver.removeGlobalOnLayoutListener(this)
+        navigationBar.layoutParams = (navigationBar.layoutParams as RelativeLayout.LayoutParams)
+            .apply {
+                if (landscape) {
+                    rightMargin = if (fitWindow) -navigationBarHeight else 0
+                } else {
+                    bottomMargin = if (fitWindow) -navigationBarHeight else 0
+                }
             }
-        })
         return navigationBar
     }
 }

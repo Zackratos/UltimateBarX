@@ -60,8 +60,11 @@ private fun systemUiFlag(statusBarLight: Boolean, navigationBarLight: Boolean): 
     return flag
 }
 
+internal val FragmentActivity.decorView: ViewGroup?
+    get() = window?.decorView as ViewGroup?
+
 internal val FragmentActivity.contentView: ViewGroup?
-    get() = window?.decorView?.findViewById(android.R.id.content)
+    get() = decorView?.findViewById(android.R.id.content)
 
 internal val FragmentActivity.rootView: View?
     get() = contentView?.getChildAt(0)

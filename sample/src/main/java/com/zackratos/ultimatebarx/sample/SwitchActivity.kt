@@ -17,6 +17,7 @@ class SwitchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_switch)
         setRootClick()
         setApply()
+        tvApply.performClick()
     }
 
     private var time = 0L
