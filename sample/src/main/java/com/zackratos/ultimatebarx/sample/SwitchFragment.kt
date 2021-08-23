@@ -4,9 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
+import com.zackratos.ultimatebarx.sample.extension.getResColor
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
-import com.zackratos.ultimatebarx.sample.extension.getColorInt
 import kotlinx.android.synthetic.main.activity_switch.*
 
 /**
@@ -90,10 +90,10 @@ class SwitchFragment: InnerFragment(R.layout.activity_switch) {
     @ColorInt
     private fun getColor(): Int = when (rgColor.checkedRadioButtonId) {
         R.id.rbRed -> Color.RED
-        R.id.rbCyan -> getColorInt(R.color.cyan)
+        R.id.rbCyan -> getResColor(R.color.cyan)
         R.id.rbTransparent -> Color.TRANSPARENT
-        R.id.rbAlphaBlack -> getColorInt(R.color.alphaBlack)
-        R.id.rbAlphaGreen -> getColorInt(R.color.alphaGreen)
+        R.id.rbAlphaBlack -> getResColor(R.color.alphaBlack)
+        R.id.rbAlphaGreen -> getResColor(R.color.alphaGreen)
         else ->Color.TRANSPARENT
     }
 
