@@ -14,45 +14,101 @@ import com.zackratos.ultimatebarx.ultimatebarx.operator.FragmentOperator
 import com.zackratos.ultimatebarx.ultimatebarx.operator.Operator
 import com.zackratos.ultimatebarx.ultimatebarx.operator.OperatorProvider
 
+/**
+ * please use
+ * [FragmentActivity.statusBar]
+ * [FragmentActivity.navigationBar]
+ * [Fragment.statusBar]
+ * [Fragment.navigationBar]
+ */
+@Deprecated("")
 class UltimateBarX {
     companion object {
 
+        /**
+         * please use [FragmentActivity.statusBar] and [FragmentActivity.navigationBar]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun with(activity: FragmentActivity): Operator = OperatorProvider.create(activity)
 
+        /**
+         * please use [Fragment.statusBar] and [Fragment.navigationBar]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun with(fragment: Fragment): Operator = OperatorProvider.create(fragment)
 
+        /**
+         * please use [FragmentActivity.getStatusBar] and [FragmentActivity.getNavigationBar]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun get(activity: FragmentActivity): Operator = OperatorProvider.get(activity)
 
+        /**
+         * please use [Fragment.getStatusBar] and [Fragment.getNavigationBar]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun get(fragment: Fragment): Operator = OperatorProvider.get(fragment)
 
+        /**
+         * please use [FragmentActivity.statusBarConfig]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getStatusBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.instance.getStatusBarConfig(activity)
 
+        /**
+         * please use [FragmentActivity.navigationBarConfig]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getNavigationBarConfig(activity: FragmentActivity): BarConfig = UltimateBarXManager.instance.getNavigationBarConfig(activity)
 
+        /**
+         * please use [Fragment.statusBarConfig]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getStatusBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.instance.getStatusBarConfig(fragment)
 
+        /**
+         * please use [Fragment.navigationBarConfig]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getNavigationBarConfig(fragment: Fragment): BarConfig = UltimateBarXManager.instance.getNavigationBarConfig(fragment)
 
+        /**
+         * please use [com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getStatusBarHeight() = statusBarHeight
 
+        /**
+         * please use [com.zackratos.ultimatebarx.ultimatebarx.navigationBarHeight]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun getNavigationBarHeight() = navigationBarHeight
 
+        /**
+         * please use [com.zackratos.ultimatebarx.ultimatebarx.addStatusBarTopPadding]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun addStatusBarTopPadding(target: View) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
                 target.addStatusBarTopPadding()
         }
 
+        /**
+         * please use [com.zackratos.ultimatebarx.ultimatebarx.addNavigationBarBottomPadding]
+         */
+        @Deprecated("", ReplaceWith(""))
         @JvmStatic
         fun addNavigationBarBottomPadding(target: View) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)

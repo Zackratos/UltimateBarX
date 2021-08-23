@@ -226,7 +226,7 @@ private fun View.updateBackground(config: BarConfig, endVersion: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
         && Build.VERSION.SDK_INT < endVersion
         && config.light
-        && updateBackground(config.lvLightBackground)) {
+        && updateBackground(config.lvlBackground)) {
         return
     }
     updateBackground(config.background)
