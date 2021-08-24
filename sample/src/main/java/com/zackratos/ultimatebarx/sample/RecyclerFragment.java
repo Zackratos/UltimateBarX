@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
 
 import java.util.Locale;
 
@@ -44,16 +44,18 @@ public class RecyclerFragment extends InnerFragment {
     }
 
     private void initUltimateBarX() {
-        UltimateBarX.with(this)
-                .fitWindow(false)
-                .light(false)
-                .colorRes(R.color.alphaGreen)
-                .applyStatusBar();
-        UltimateBarX.with(this)
-                .fitWindow(false)
-                .light(false)
-                .colorRes(R.color.alphaBlack)
-                .applyNavigationBar();
+        UltimateBarXKt.statusBar(this, barConfig -> {
+            barConfig.setFitWindow(false);
+            barConfig.setLight(false);
+            barConfig.setColorRes(R.color.alphaGreen);
+            return null;
+        });
+        UltimateBarXKt.navigationBar(this, barConfig -> {
+            barConfig.setFitWindow(false);
+            barConfig.setLight(false);
+            barConfig.setColorRes(R.color.alphaBlack);
+            return null;
+        });
     }
 
     private static class Adapter extends RecyclerView.Adapter<RecyclerFragment.ViewHolder> {

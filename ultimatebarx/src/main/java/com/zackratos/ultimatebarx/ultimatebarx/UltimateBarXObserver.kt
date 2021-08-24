@@ -25,10 +25,10 @@ internal class UltimateBarXObserver: LifecycleObserver {
             val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
             val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(owner)
             if (staDefault) {
-                UltimateBarX.get(owner).applyStatusBar()
+                owner.getStatusBar()
             }
             if (navDefault) {
-                UltimateBarX.get(owner).applyNavigationBar()
+                owner.getNavigationBar()
             }
         }
     }

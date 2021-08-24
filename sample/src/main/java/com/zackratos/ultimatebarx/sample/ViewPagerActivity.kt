@@ -3,7 +3,7 @@ package com.zackratos.ultimatebarx.sample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import kotlinx.android.synthetic.main.activity_view_pager.*
 
 class ViewPagerActivity : AppCompatActivity() {
@@ -21,11 +21,11 @@ class ViewPagerActivity : AppCompatActivity() {
         flAlbum.setOnClickListener { viewPager.currentItem = 1 }
         flCamera.setOnClickListener { viewPager.currentItem = 2 }
         flGames.setOnClickListener { viewPager.currentItem = 3 }
-        UltimateBarX.with(this)
-            .fitWindow(true)
-            .colorRes(R.color.deepSkyBlue)
-            .light(false)
-            .applyNavigationBar()
+        navigationBar {
+            fitWindow = true
+            colorRes = R.color.deepSkyBlue
+            light = false
+        }
 
     }
 

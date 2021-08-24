@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zackratos.ultimatebarx.sample.adjustresize.AdjustResizeActivity
 import com.zackratos.ultimatebarx.sample.bottomnav.BottomNavActivity
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
-import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,15 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        val config = BarConfig.newInstance()
-            .fitWindow(true)
-            .colorRes(R.color.deepSkyBlue)
-        UltimateBarX.with(this)
-            .config(config)
-            .apply {
-                applyStatusBar()
-                applyNavigationBar()
-            }
+        statusBar {
+            fitWindow = true
+            colorRes = R.color.deepSkyBlue
+        }
+        navigationBar {
+            fitWindow = true
+            colorRes = R.color.deepSkyBlue
+        }
 
         btnTransparent.setOnClickListener { start(TransparentActivity::class.java) }
         btnSwitch.setOnClickListener { start(SwitchActivity::class.java) }

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
 
 /**
  * @Author : zhangwenchao
@@ -62,40 +62,45 @@ public class FragmentStackActivity extends AppCompatActivity {
         switch (cursor) {
             case 0:
                 return f ->
-                        UltimateBarX.with(f)
-                                .fitWindow(false)
-                                .colorRes(R.color.alphaBlack)
-                                .light(false)
-                                .applyStatusBar();
+                        UltimateBarXKt.statusBar(f, barConfig -> {
+                            barConfig.setFitWindow(false);
+                            barConfig.setColorRes(R.color.alphaBlack);
+                            barConfig.setLight(false);
+                            return null;
+                        });
             case 1:
             case 5:
                 return f ->
-                        UltimateBarX.with(f)
-                                .transparent()
-                                .light(true)
-                                .lvLightColorRes(R.color.alphaBlack)
-                                .applyStatusBar();
+                        UltimateBarXKt.statusBar(f, barConfig -> {
+                            barConfig.transparent();
+                            barConfig.setLight(true);
+                            barConfig.setLvlColorRes(R.color.alphaBlack);
+                            return null;
+                        });
             case 2:
                 return f ->
-                        UltimateBarX.with(f)
-                                .fitWindow(false)
-                                .colorRes(R.color.alphaGreen)
-                                .light(false)
-                                .applyStatusBar();
+                        UltimateBarXKt.statusBar(f, barConfig -> {
+                            barConfig.setFitWindow(false);
+                            barConfig.setColorRes(R.color.alphaGreen);
+                            barConfig.setLight(false);
+                            return null;
+                        });
             case 3:
                 return f ->
-                        UltimateBarX.with(f)
-                                .transparent()
-                                .light(false)
-                                .applyStatusBar();
+                        UltimateBarXKt.statusBar(f, barConfig -> {
+                            barConfig.transparent();
+                            barConfig.setLight(false);
+                            return null;
+                        });
             case 4:
                 return f ->
-                        UltimateBarX.with(f)
-                                .fitWindow(false)
-                                .colorRes(R.color.alphaWhite)
-                                .light(true)
-                                .lvLightColorRes(R.color.alphaGreen)
-                                .applyStatusBar();
+                        UltimateBarXKt.statusBar(f, barConfig -> {
+                            barConfig.setFitWindow(false);
+                            barConfig.setColorRes(R.color.alphaWhite);
+                            barConfig.setLight(true);
+                            barConfig.setLvlColorRes(R.color.alphaGreen);
+                            return null;
+                        });
             default:
                 return f -> {
                 };

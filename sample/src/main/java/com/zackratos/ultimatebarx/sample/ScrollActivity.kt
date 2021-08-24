@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
 import com.zackratos.ultimatebarx.ultimatebarx.addStatusBarTopPadding
+import com.zackratos.ultimatebarx.ultimatebarx.getStatusBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 import kotlinx.android.synthetic.main.fragment_scroll.*
 
 /**
@@ -21,20 +22,20 @@ class ScrollActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_scroll)
         toolbar.title = "九阴真经"
-        UltimateBarX.with(this).transparent().applyStatusBar()
+        statusBar { transparent() }
         toolbar.addStatusBarTopPadding()
         scrollView.setOnScrollChangeListener { _: NestedScrollView?, _, scrollY: Int, _, oldScrollY: Int ->
             val height = imageView.height - toolbar.height
             if (height in (oldScrollY + 1)..scrollY) {
-                UltimateBarX.get(this)
-                    .light(true)
-                    .lvLightColor(Color.GRAY)
-                    .applyStatusBar()
+                getStatusBar {
+                    light = true
+                    lvlColor = Color.GRAY
+                }
                 toolbar.visibility = View.VISIBLE
             } else if (height in (scrollY + 1)..oldScrollY) {
-                UltimateBarX.get(this)
-                    .light(false)
-                    .applyStatusBar()
+                getStatusBar {
+                    light = false
+                }
                 toolbar.visibility = View.INVISIBLE
             }
         }

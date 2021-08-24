@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
 
 /**
  * @Author : zhangwenchao
@@ -37,10 +37,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = TextFragment2
                         .Companion
                         .newInstance(Color.RED, "Android", Color.WHITE, f -> {
-                            UltimateBarX.with(f)
-                                    .fitWindow(true)
-                                    .color(Color.RED)
-                                    .applyStatusBar();
+                            UltimateBarXKt.statusBar(f, barConfig -> {
+                                barConfig.setFitWindow(true);
+                                barConfig.setColor(Color.RED);
+                                return null;
+                            });
                             return null;
                         });
                 break;
@@ -48,12 +49,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = ImageTextFragment
                         .Companion
                         .newInstance(R.drawable.yurisa__001, f -> {
-                            UltimateBarX.with(f)
-                                    .fitWindow(false)
-                                    .colorRes(R.color.alphaWhite)
-                                    .light(true)
-                                    .lvLightColorRes(R.color.alphaBlack)
-                                    .applyStatusBar();
+                            UltimateBarXKt.statusBar(f, barConfig -> {
+                                barConfig.setFitWindow(false);
+                                barConfig.setColorRes(R.color.alphaWhite);
+                                barConfig.setLight(true);
+                                barConfig.setLvlColorRes(R.color.alphaBlack);
+                                return null;
+                            });
                             return null;
                         });
                 break;
@@ -61,9 +63,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = ImageTextFragment
                         .Companion
                         .newInstance(R.drawable.yurisa__006, f -> {
-                            UltimateBarX.with(f)
-                                    .transparent()
-                                    .applyStatusBar();
+                            UltimateBarXKt.statusBar(f, barConfig -> {
+                                barConfig.transparent();
+                                return null;
+                            });
                             return null;
                         });
                 break;
@@ -71,12 +74,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = TextFragment2
                         .Companion
                         .newInstance(Color.YELLOW, "Camera", Color.BLACK, f -> {
-                            UltimateBarX.with(f)
-                                    .fitWindow(true)
-                                    .color(Color.YELLOW)
-                                    .light(true)
-                                    .lvLightDrawableRes(R.drawable.bg_yellow_alpha_black)
-                                    .applyStatusBar();
+                            UltimateBarXKt.statusBar(f, barConfig -> {
+                                barConfig.setFitWindow(true);
+                                barConfig.setColor(Color.YELLOW);
+                                barConfig.setLight(true);
+                                barConfig.setLvlDrawableRes(R.drawable.bg_yellow_alpha_black);
+                                return null;
+                            });
                             return null;
                         });
                 break;

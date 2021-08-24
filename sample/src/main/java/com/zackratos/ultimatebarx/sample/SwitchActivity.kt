@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
 import com.zackratos.ultimatebarx.sample.extension.getResColor
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.bean.BarBackground
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 import kotlinx.android.synthetic.main.activity_switch.*
 
 class SwitchActivity : AppCompatActivity() {
@@ -38,22 +40,9 @@ class SwitchActivity : AppCompatActivity() {
 
     private fun setApply() {
         tvApply.setOnClickListener {
-            val config = when (rgColor.checkedRadioButtonId) {
-                R.id.rbGradient ->
-                    BarConfig.newInstance()
-                        .fitWindow(getFitWindow())
-                        .drawableRes(R.drawable.bg_gradient)
-                        .light(getLight())
-                else ->
-                    BarConfig.newInstance()
-                        .fitWindow(getFitWindow())
-                        .color(getColor())
-                        .light(getLight())
-            }
-            val operator = UltimateBarX.with(this).config(config)
             when (rgType.checkedRadioButtonId) {
-                R.id.rbStatus -> operator.applyStatusBar()
-                R.id.rbNavigation -> operator.applyNavigationBar()
+                R.id.rbStatus -> statusBar(::setConfig)
+                R.id.rbNavigation -> navigationBar(::setConfig)
             }
         }
     }
@@ -65,6 +54,22 @@ class SwitchActivity : AppCompatActivity() {
         rgColor.visibility = visibility
         tvApply.visibility = visibility
     }
+
+    private fun setConfig(config: BarConfig) {
+        config.run {
+            fitWindow = getFitWindow()
+            light = getLight()
+            background = getBackground()
+        }
+    }
+
+    private fun getBackground(): BarBackground =
+        BarBackground.newInstance().apply {
+            when (rgColor.checkedRadioButtonId) {
+                R.id.rbGradient -> drawableRes = R.drawable.bg_gradient
+                else -> color = this@SwitchActivity.getColor()
+            }
+        }
 
     private fun getLight(): Boolean = when (rgLight.checkedRadioButtonId) {
         R.id.rbLight -> true

@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.zackratos.ultimatebarx.sample.R
 import com.zackratos.ultimatebarx.sample.ViewBindingActivity
 import com.zackratos.ultimatebarx.sample.databinding.ActivityBottomNavBinding
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 
 /**
  * @Author   : zackratos
@@ -16,7 +16,10 @@ class BottomNavActivity: ViewBindingActivity<ActivityBottomNavBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UltimateBarX.with(this).transparent().light(true).applyStatusBar()
+        statusBar {
+            transparent()
+            light = true
+        }
         binding.ivYurisa.setImageResource(R.drawable.yurisa__001)
         binding.bottomNav.setOnNavigationItemSelectedListener {
             val image = when (it.itemId) {

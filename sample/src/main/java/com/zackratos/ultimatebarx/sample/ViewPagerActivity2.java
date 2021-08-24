@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarX;
+import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
 
 /**
  * @Author : zhangwenchao
@@ -29,11 +29,12 @@ public class ViewPagerActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager_2);
         initView();
         setStatusBar(0);
-        UltimateBarX.with(this)
-                .fitWindow(true)
-                .colorRes(R.color.deepSkyBlue)
-                .light(false)
-                .applyNavigationBar();
+        UltimateBarXKt.navigationBar(this, barConfig -> {
+            barConfig.setFitWindow(true);
+            barConfig.setColorRes(R.color.deepSkyBlue);
+            barConfig.setLight(false);
+            return null;
+        });
     }
 
     private void initView() {
@@ -85,32 +86,36 @@ public class ViewPagerActivity2 extends AppCompatActivity {
     private void setStatusBar(int index) {
         switch (index) {
             case 0:
-                UltimateBarX.with(this)
-                        .transparent()
-                        .light(false)
-                        .applyStatusBar();
+                UltimateBarXKt.statusBar(this, barConfig -> {
+                    barConfig.transparent();
+                    barConfig.setLight(false);
+                    return null;
+                });
                 break;
             case 1:
-                UltimateBarX.with(this)
-                        .fitWindow(false)
-                        .colorRes(R.color.alphaWhite)
-                        .light(true)
-                        .lvLightColor(Color.TRANSPARENT)
-                        .applyStatusBar();
+                UltimateBarXKt.statusBar(this, barConfig -> {
+                    barConfig.setFitWindow(false);
+                    barConfig.setColorRes(R.color.alphaWhite);
+                    barConfig.setLight(true);
+                    barConfig.setLvlColor(Color.TRANSPARENT);
+                    return null;
+                });
                 break;
             case 2:
-                UltimateBarX.with(this)
-                        .fitWindow(false)
-                        .colorRes(R.color.alphaBlack)
-                        .light(false)
-                        .applyStatusBar();
+                UltimateBarXKt.statusBar(this, barConfig -> {
+                    barConfig.setFitWindow(false);
+                    barConfig.setColorRes(R.color.alphaBlack);
+                    barConfig.setLight(false);
+                    return null;
+                });
                 break;
             case 3:
-                UltimateBarX.with(this)
-                        .transparent()
-                        .light(true)
-                        .lvLightColorRes(R.color.alphaGreen)
-                        .applyStatusBar();
+                UltimateBarXKt.statusBar(this, barConfig -> {
+                    barConfig.transparent();
+                    barConfig.setLight(true);
+                    barConfig.setLvlColorRes(R.color.alphaGreen);
+                    return null;
+                });
                 break;
         }
     }
