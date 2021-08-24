@@ -1,8 +1,10 @@
 package com.zackratos.ultimatebarx.ultimatebarx.bean
 
+import android.os.Build
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import java.util.Objects
 
 /**
  * @Author   : zhangwenchao
@@ -187,10 +189,20 @@ class BarConfig {
         if (other !is BarConfig) {
             return false
         }
+        if (this === other) {
+            return true
+        }
         return light == other.light
                 && background == other.background
                 && lvlBackground == other.lvlBackground
                 && fitWindow == other.fitWindow
+    }
+
+    override fun hashCode(): Int {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return Objects.hash(light, fitWindow, background, lvlBackground)
+        }
+        return super.hashCode()
     }
 
 }

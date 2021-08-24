@@ -242,7 +242,7 @@ private fun View.updateBackground(background: BarBackground): Boolean {
             setBackgroundColor(context.getColorInt(background.colorRes))
             return true
         }
-        background.color > Int.MIN_VALUE -> {
+        background.color > Color.BLACK - 1 -> {
             setBackgroundColor(background.color)
             return true
         }
