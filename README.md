@@ -1,6 +1,8 @@
 # UltimateBarX
 一款方便的设置状态栏和导航栏的各种效果的框架
 
+github 地址：[UltimateBarX](https://github.com/Zackratos/UltimateBarX)
+
 gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 
 详细介绍：[这就是 github 上最好用的 Android 状态栏导航栏库](https://juejin.cn/post/6903165109485436935)
@@ -22,6 +24,8 @@ gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 | 导航栏修改 | ✅ | ❌ | ❌ | ✅ |
 | 状态栏和导航栏<br/>独立设置互不影响 | ✅ | ❌ | ❌ | ❌ |
 | light 模式 | ✅ | ✅ | ✅ | ✅ |
+| light 模式兼容低版本 | ✅ | ❌ | ❌ | ✅ |
+| 支持 Fragment | ✅ | ❌ | ❌ | ✅ |
 | 布局侵入 | ✅ | ✅ | ✅ | ✅ |
 | 布局不侵入 | ✅ | ✅ | ✅ | ✅ |
 | 侵入和不侵入无缝切换 | ✅ | ❌ | ❌ | ❌ |
