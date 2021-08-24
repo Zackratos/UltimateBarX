@@ -28,7 +28,7 @@ allprojects {
 在子目录的 build.gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.gitee.zackratos:UltimateBarX:0.6.1'
+    implementation 'com.gitee.zackratos:UltimateBarX:0.7.0'
 }
 ```
 
@@ -52,15 +52,15 @@ statusBar {
     // lvl 系列方法仅在低版本（不支持 light 模式的版本）下开启 light 模式生效
     lvlColor = Color.BLACK
     lvlColorRes = R.color.cyan
-    lvlDrawalbeRes = R.drawable.bg_lvl
-    // 以上三个设置 lvl 方法用一个即可，如多次设置，后面的会把前面的覆盖掉
+    lvlDrawableRes = R.drawable.bg_lvl
+    // 以上三个 lvl 方法用一个即可，如多次设置，后面的会把前面的覆盖掉
 }
 
 // 设置导航栏
 navigationBar {
     // 布局是否侵入导航栏（true 不侵入，false 侵入）
     fitWindow = true
-    ···
+    // ···
     // 其他方法与 statusBar 中的方法一致
 }
 ```
@@ -115,7 +115,7 @@ UltimateBarXKt.statusBar(this, barConfig -> {
 });
 ```
 
-老版本的使用方法见 [INSTRUCTION.old](INSTRUCTION.old.md)
+0.7.0 以下版本的使用方法见 [INSTRUCTION.old](INSTRUCTION.old.md)
 
 ## ProGuard
 ```

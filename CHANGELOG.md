@@ -1,4 +1,8 @@
 # Change Log
+#### version 0.7.0 (2021.08.25)
+* 使用方法大改，充分使用 `kotlin` 的 `DSL` 语法，原方法暂时标为 `@Deprecated`
+* 优化代码细节
+
 #### version 0.6.1 (2021.08.21)
 * 修复 [issues 32](https://github.com/Zackratos/UltimateBarX/issues/32)、
 [issues 19](https://github.com/Zackratos/UltimateBarX/issues/19)、
