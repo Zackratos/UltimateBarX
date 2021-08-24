@@ -15,6 +15,22 @@ gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
 > * 适配 miui、emui、funtouch 等 rom
 > * 适配横屏、竖屏
 
+## 同类型框架对比
+|  | [UltimateBarX](https://github.com/Zackratos/UltimateBarX) | [StatusBarCompat](https://github.com/niorgai/StatusBarCompat) | [StatusBarUtil](https://github.com/laobie/StatusBarUtil) | [ImmersionBar](https://github.com/gyf-dev/ImmersionBar) |
+| ------ | :------: | :------: | :------: | :------: |
+| 状态栏修改 | ✅ | ✅ | ✅ | ✅ |
+| 导航栏修改 | ✅ | ❌ | ❌ | ✅ |
+| 状态栏和导航栏<br/>独立设置互不影响 | ✅ | ❌ | ❌ | ❌ |
+| light 模式 | ✅ | ✅ | ✅ | ✅ |
+| 布局侵入 | ✅ | ✅ | ✅ | ✅ |
+| 布局不侵入 | ✅ | ✅ | ✅ | ✅ |
+| 侵入和不侵入无缝切换 | ✅ | ❌ | ❌ | ❌ |
+| 多次设置 | ✅ | ✅ | ✅ | ✅ |
+| 适配全面屏 | ✅ | ❌ | ❌ | ✅ |
+| 国产 rom 导航栏适配 | ✅ | ❌ | ❌ | ⭕️ |
+| BottomNavigationView 兼容 | ✅ | ❌ | ❌ | ❌ |
+| 软键盘 adjustResize 兼容 | ✅ | ❌ | ❌ | ❌ |
+
 ## 使用方法
 在根目录的 build.gradle 里面添加
 ```groovy
