@@ -10,6 +10,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
  * @email    : 869649338@qq.com
  * @Describe :
  */
+@Deprecated("")
 internal object OperatorProvider {
 
     internal fun create(activity: FragmentActivity): Operator = ActivityOperator.newInstance(activity)

@@ -9,6 +9,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
  * @email    : 869649338@qq.com
  * @Describe :
  */
+@Deprecated("")
 internal class DoubleOperator private constructor(): Operator {
 
     companion object {

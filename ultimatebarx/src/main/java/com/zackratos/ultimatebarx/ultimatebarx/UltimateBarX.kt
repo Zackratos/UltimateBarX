@@ -1,5 +1,6 @@
 package com.zackratos.ultimatebarx.ultimatebarx
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,8 +10,6 @@ import com.zackratos.ultimatebarx.ultimatebarx.core.addNavigationBarBottomPaddin
 import com.zackratos.ultimatebarx.ultimatebarx.core.addStatusBarTopPadding
 import com.zackratos.ultimatebarx.ultimatebarx.extension.navigationBarHeight
 import com.zackratos.ultimatebarx.ultimatebarx.extension.statusBarHeight
-import com.zackratos.ultimatebarx.ultimatebarx.operator.ActivityOperator
-import com.zackratos.ultimatebarx.ultimatebarx.operator.FragmentOperator
 import com.zackratos.ultimatebarx.ultimatebarx.operator.Operator
 import com.zackratos.ultimatebarx.ultimatebarx.operator.OperatorProvider
 
@@ -118,68 +117,84 @@ class UltimateBarX {
 
 }
 
+@SuppressLint("NewApi")
 fun FragmentActivity.statusBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = BarConfig.newInstance()
     if (block != null) {
         config.block()
     }
-    ActivityOperator.newInstance(this, config).applyStatusBar()
+    applyStatusBar(config)
 }
 
+@SuppressLint("NewApi")
 fun FragmentActivity.navigationBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = BarConfig.newInstance()
     if (block != null) {
         config.block()
     }
-    ActivityOperator.newInstance(this, config).applyNavigationBar()
+    applyNavigationBar(config)
 }
 
+@SuppressLint("NewApi")
 fun FragmentActivity.getStatusBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = statusBarConfig
     if (block != null) {
         config.block()
     }
-    ActivityOperator.newInstance(this, config).applyStatusBar()
+    applyStatusBar(config)
 }
 
+@SuppressLint("NewApi")
 fun FragmentActivity.getNavigationBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = navigationBarConfig
     if (block != null) {
         config.block()
     }
-    ActivityOperator.newInstance(this, config).applyNavigationBar()
+    applyNavigationBar(config)
 }
 
+@SuppressLint("NewApi")
 fun Fragment.statusBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = BarConfig.newInstance()
     if (block != null) {
         config.block()
     }
-    FragmentOperator.newInstance(this, config).applyStatusBar()
+    applyStatusBar(config)
 }
 
+@SuppressLint("NewApi")
 fun Fragment.navigationBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = BarConfig.newInstance()
     if (block != null) {
         config.block()
     }
-    FragmentOperator.newInstance(this, config).applyNavigationBar()
+    applyNavigationBar(config)
 }
 
+@SuppressLint("NewApi")
 fun Fragment.getStatusBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = statusBarConfig
     if (block != null) {
         config.block()
     }
-    FragmentOperator.newInstance(this, config).applyStatusBar()
+    applyStatusBar(config)
 }
 
+@SuppressLint("NewApi")
 fun Fragment.getNavigationBar(block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
     val config = navigationBarConfig
     if (block != null) {
         config.block()
     }
-    FragmentOperator.newInstance(this, config).applyNavigationBar()
+    applyNavigationBar(config)
 }
 
 val FragmentActivity.statusBarConfig: BarConfig

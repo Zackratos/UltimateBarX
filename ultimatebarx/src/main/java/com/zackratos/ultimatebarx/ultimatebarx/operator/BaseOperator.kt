@@ -10,6 +10,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
  * @email    : 869649338@qq.com
  * @Describe :
  */
+@Deprecated("")
 internal abstract class BaseOperator(val config: BarConfig = BarConfig.newInstance()): Operator {
 
 

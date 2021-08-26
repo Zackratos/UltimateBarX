@@ -12,6 +12,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.extension.*
  * @email    : 869649338@qq.com
  * @Describe :
  */
+@Deprecated("")
 internal class FragmentOperator private constructor(val fragment: Fragment, config: BarConfig): BaseOperator(config) {
 
     companion object {
