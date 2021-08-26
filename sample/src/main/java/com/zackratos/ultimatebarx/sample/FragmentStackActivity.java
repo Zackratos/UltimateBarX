@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX;
 
 /**
  * @Author : zhangwenchao
@@ -62,45 +62,40 @@ public class FragmentStackActivity extends AppCompatActivity {
         switch (cursor) {
             case 0:
                 return f ->
-                        UltimateBarXKt.statusBar(f, barConfig -> {
-                            barConfig.setFitWindow(false);
-                            barConfig.setColorRes(R.color.alphaBlack);
-                            barConfig.setLight(false);
-                            return null;
-                        });
+                        UltimateBarX.statusBar(f)
+                                .fitWindow(false)
+                                .colorRes(R.color.alphaBlack)
+                                .light(false)
+                                .apply();
             case 1:
             case 5:
                 return f ->
-                        UltimateBarXKt.statusBar(f, barConfig -> {
-                            barConfig.transparent();
-                            barConfig.setLight(true);
-                            barConfig.setLvlColorRes(R.color.alphaBlack);
-                            return null;
-                        });
+                        UltimateBarX.statusBar(f)
+                                .transparent()
+                                .light(true)
+                                .lvlColorRes(R.color.alphaBlack)
+                                .apply();
             case 2:
                 return f ->
-                        UltimateBarXKt.statusBar(f, barConfig -> {
-                            barConfig.setFitWindow(false);
-                            barConfig.setColorRes(R.color.alphaGreen);
-                            barConfig.setLight(false);
-                            return null;
-                        });
+                        UltimateBarX.statusBar(f)
+                                .fitWindow(false)
+                                .colorRes(R.color.alphaGreen)
+                                .light(false)
+                                .apply();
             case 3:
                 return f ->
-                        UltimateBarXKt.statusBar(f, barConfig -> {
-                            barConfig.transparent();
-                            barConfig.setLight(false);
-                            return null;
-                        });
+                        UltimateBarX.statusBar(f)
+                                .transparent()
+                                .light(false)
+                                .apply();
             case 4:
                 return f ->
-                        UltimateBarXKt.statusBar(f, barConfig -> {
-                            barConfig.setFitWindow(false);
-                            barConfig.setColorRes(R.color.alphaWhite);
-                            barConfig.setLight(true);
-                            barConfig.setLvlColorRes(R.color.alphaGreen);
-                            return null;
-                        });
+                        UltimateBarX.statusBar(f)
+                                .fitWindow(false)
+                                .colorRes(R.color.alphaWhite)
+                                .light(true)
+                                .lvlDrawableRes(R.color.alphaGreen)
+                                .apply();
             default:
                 return f -> {
                 };

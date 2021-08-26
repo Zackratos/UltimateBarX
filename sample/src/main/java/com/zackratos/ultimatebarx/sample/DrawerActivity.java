@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX;
 
 
 /**
@@ -27,11 +27,10 @@ public class DrawerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        UltimateBarXKt.statusBar(this, barConfig -> {
-            barConfig.setFitWindow(true);
-            barConfig.setColor(Color.RED);
-            return null;
-        });
+        UltimateBarX.statusBar(this)
+                .fitWindow(true)
+                .color(Color.RED)
+                .apply();
         initMainFragment();
         addFragment();
     }
@@ -39,11 +38,10 @@ public class DrawerActivity extends AppCompatActivity {
     private void initMainFragment() {
         mainFragment = TextFragment2.Companion.newInstance(Color.RED, "九阴真经", Color.WHITE,
                 fragment -> {
-                    UltimateBarXKt.statusBar(fragment, barConfig -> {
-                        barConfig.setColor(Color.RED);
-                        barConfig.setFitWindow(true);
-                        return null;
-                    });
+                    UltimateBarX.statusBar(fragment)
+                            .color(Color.RED)
+                            .fitWindow(true)
+                            .apply();
                     initToolbar(fragment);
                     return null;
                 });

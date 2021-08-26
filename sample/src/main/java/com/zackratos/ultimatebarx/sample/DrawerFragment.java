@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX;
 
 /**
  * @Author : Zackratos
@@ -28,9 +28,8 @@ public class DrawerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UltimateBarXKt.statusBar(this, barConfig -> {
-            barConfig.transparent();
-            return null;
-        });
+        UltimateBarX.statusBar(this)
+                .transparent()
+                .apply();
     }
 }

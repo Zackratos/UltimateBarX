@@ -177,7 +177,7 @@ class BarConfig {
         }
 
 
-    internal fun update(config: BarConfig) {
+    fun update(config: BarConfig) {
         if (config == this) return
         this.fitWindow = config.fitWindow
         this.background.update(config.background)

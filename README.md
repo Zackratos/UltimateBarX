@@ -124,7 +124,16 @@ targetView.addStatusBarTopPadding()
 targetView.addNavigationBarBottomPadding()
 ```
 
-`java` 中使用（调用 kotlin 的扩展方法）
+`java` 中使用
+```java
+UltimateBarX.statusBar(this)
+        .fitWindow(true)
+        .colorRes(R.color.deepSkyBlue)
+        .light(true)
+        .lvlColorRes(R.color.cyan)
+        .apply();
+```
+如果项目中引入了 `kotlin`，也可以直接调用 `kotlin` 的扩展方法
 ```java
 UltimateBarXKt.statusBar(this, barConfig -> {
     barConfig.setFitWindow(true);

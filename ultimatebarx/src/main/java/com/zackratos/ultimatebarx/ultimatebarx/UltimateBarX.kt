@@ -117,85 +117,21 @@ class UltimateBarX {
 
 }
 
-@SuppressLint("NewApi")
-fun FragmentActivity.statusBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = BarConfig.newInstance()
-    if (block != null) {
-        config.block()
-    }
-    applyStatusBar(config)
-}
+fun FragmentActivity.statusBar(block: (BarConfig.() -> Unit)? = null) = statusBar(BarConfig.newInstance(), block)
 
-@SuppressLint("NewApi")
-fun FragmentActivity.navigationBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = BarConfig.newInstance()
-    if (block != null) {
-        config.block()
-    }
-    applyNavigationBar(config)
-}
+fun FragmentActivity.navigationBar(block: (BarConfig.() -> Unit)? = null) = navigationBar(BarConfig.newInstance(), block)
 
-@SuppressLint("NewApi")
-fun FragmentActivity.getStatusBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = statusBarConfig
-    if (block != null) {
-        config.block()
-    }
-    applyStatusBar(config)
-}
+fun FragmentActivity.getStatusBar(block: (BarConfig.() -> Unit)? = null) = statusBar(statusBarConfig, block)
 
-@SuppressLint("NewApi")
-fun FragmentActivity.getNavigationBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = navigationBarConfig
-    if (block != null) {
-        config.block()
-    }
-    applyNavigationBar(config)
-}
+fun FragmentActivity.getNavigationBar(block: (BarConfig.() -> Unit)? = null) = navigationBar(navigationBarConfig, block)
 
-@SuppressLint("NewApi")
-fun Fragment.statusBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = BarConfig.newInstance()
-    if (block != null) {
-        config.block()
-    }
-    applyStatusBar(config)
-}
+fun Fragment.statusBar(block: (BarConfig.() -> Unit)? = null) = statusBar(BarConfig.newInstance(), block)
 
-@SuppressLint("NewApi")
-fun Fragment.navigationBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = BarConfig.newInstance()
-    if (block != null) {
-        config.block()
-    }
-    applyNavigationBar(config)
-}
+fun Fragment.navigationBar(block: (BarConfig.() -> Unit)? = null) = navigationBar(BarConfig.newInstance(), block)
 
-@SuppressLint("NewApi")
-fun Fragment.getStatusBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = statusBarConfig
-    if (block != null) {
-        config.block()
-    }
-    applyStatusBar(config)
-}
+fun Fragment.getStatusBar(block: (BarConfig.() -> Unit)? = null) = statusBar(statusBarConfig, block)
 
-@SuppressLint("NewApi")
-fun Fragment.getNavigationBar(block: (BarConfig.() -> Unit)? = null) {
-    if (!needApply) return
-    val config = navigationBarConfig
-    if (block != null) {
-        config.block()
-    }
-    applyNavigationBar(config)
-}
+fun Fragment.getNavigationBar(block: (BarConfig.() -> Unit)? = null) = navigationBar(navigationBarConfig, block)
 
 val FragmentActivity.statusBarConfig: BarConfig
     get() = manager.getStatusBarConfig(this)
@@ -228,4 +164,40 @@ fun View.addStatusBarTopPadding() {
 
 fun View.addNavigationBarBottomPadding() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) addNavigationBarBottomPadding()
+}
+
+@SuppressLint("NewApi")
+internal fun FragmentActivity.statusBar(config: BarConfig, block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
+    if (block != null) {
+        config.block()
+    }
+    applyStatusBar(config)
+}
+
+@SuppressLint("NewApi")
+internal fun FragmentActivity.navigationBar(config: BarConfig, block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
+    if (block != null) {
+        config.block()
+    }
+    applyNavigationBar(config)
+}
+
+@SuppressLint("NewApi")
+internal fun Fragment.statusBar(config: BarConfig, block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
+    if (block != null) {
+        config.block()
+    }
+    applyStatusBar(config)
+}
+
+@SuppressLint("NewApi")
+internal fun Fragment.navigationBar(config: BarConfig, block: (BarConfig.() -> Unit)? = null) {
+    if (!needApply) return
+    if (block != null) {
+        config.block()
+    }
+    applyNavigationBar(config)
 }

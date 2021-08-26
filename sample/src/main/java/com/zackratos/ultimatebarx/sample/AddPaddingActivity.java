@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX;
 
 
 /**
@@ -26,15 +26,15 @@ public class AddPaddingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("九阴真经");
         TextView tvBottom = findViewById(R.id.tvBottom);
-        UltimateBarXKt.statusBar(this, barConfig -> {
-            barConfig.transparent();
-            return null;
-        });
-        UltimateBarXKt.navigationBar(this, barConfig -> {
-            barConfig.transparent();
-            return null;
-        });
-        UltimateBarXKt.addStatusBarTopPadding(toolbar);
-        UltimateBarXKt.addNavigationBarBottomPadding(tvBottom);
+        UltimateBarX.statusBar(this)
+                .transparent()
+                .apply();
+
+        UltimateBarX.navigationBar(this)
+                .transparent()
+                .apply();
+
+        UltimateBarX.addStatusBarTopPadding(toolbar);
+        UltimateBarX.addNavigationBarBottomPadding(tvBottom);
     }
 }

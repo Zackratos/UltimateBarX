@@ -16,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXKt;
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX;
 
 /**
  * @Author : zhangwenchao
@@ -30,10 +30,9 @@ public class CoordinatorActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinator);
-        UltimateBarXKt.statusBar(this, barConfig -> {
-            barConfig.transparent();
-            return null;
-        });
+        UltimateBarX.statusBar(this)
+                .transparent()
+                .apply();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
