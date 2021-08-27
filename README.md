@@ -1,6 +1,8 @@
 # UltimateBarX
 一款方便的设置状态栏和导航栏的各种效果的框架
 
+[![](https://jitpack.io/v/com.gitee.zackratos/UltimateBarX.svg)](https://jitpack.io/#com.gitee.zackratos/UltimateBarX)
+
 github 地址：[UltimateBarX](https://github.com/Zackratos/UltimateBarX)
 
 gitee 地址：[UltimateBarX](https://gitee.com/zackratos/UltimateBarX)
@@ -48,7 +50,8 @@ allprojects {
 在子目录的 build.gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.gitee.zackratos:UltimateBarX:0.7.0'
+    implementation 'com.gitee.zackratos:UltimateBarX:$lastVersion'
+    // 将 $lastVersion 替换成上图中的版本号
 }
 ```
 
