@@ -1,9 +1,6 @@
 package com.zackratos.ultimatebarx.ultimatebarx.bean
 
 import android.os.Build
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
 import java.util.Objects
 
 /**
@@ -86,94 +83,11 @@ class BarConfig {
             lvlBackground.drawableRes = value
         }
 
-    /**
-     * please use [BarConfig.fitWindow]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun fitWindow(fitWindow: Boolean): BarConfig = apply { this.fitWindow = fitWindow }
-
-    /**
-     * please use [BarConfig.background]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun background(background: BarBackground): BarConfig =
-        apply {
-            this.background.update(background)
-        }
-
-    /**
-     * please use [BarConfig.color]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun color(@ColorInt color: Int): BarConfig =
-        apply {
-            background.color = color
-        }
-
-    /**
-     * please use [BarConfig.colorRes]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun colorRes(@ColorRes colorRes: Int): BarConfig =
-        apply {
-            background.colorRes = colorRes
-        }
-
-    /**
-     * please use [BarConfig.drawableRes]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun drawableRes(@DrawableRes drawableRes: Int): BarConfig =
-        apply {
-            background.drawableRes = drawableRes
-        }
-
-    /**
-     * please use [BarConfig.light]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun light(light: Boolean): BarConfig = apply { this.light = light }
 
     fun transparent(): BarConfig =
         apply {
             fitWindow = false
             background.transparent()
-        }
-
-    /**
-     * please use [BarConfig.lvlBackground]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun lvLightBackground(background: BarBackground): BarConfig =
-        apply {
-            lvlBackground.update(background)
-        }
-
-    /**
-     * please use [BarConfig.lvlColor]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun lvLightColor(@ColorInt color: Int): BarConfig =
-        apply {
-            lvlBackground.color = color
-        }
-
-    /**
-     * please use [BarConfig.lvlColorRes]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun lvLightColorRes(@ColorRes colorRes: Int): BarConfig =
-        apply {
-            lvlBackground.colorRes = colorRes
-        }
-
-    /**
-     * please use [BarConfig.lvlDrawableRes]
-     */
-    @Deprecated("", ReplaceWith(""))
-    fun lvLightDrawableRes(@DrawableRes drawableRes: Int): BarConfig =
-        apply {
-            lvlBackground.drawableRes = drawableRes
         }
 
 

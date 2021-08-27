@@ -83,9 +83,10 @@ internal fun FragmentActivity.updateNavigationBar(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun Fragment.updateStatusBar(config: BarConfig) {
-    val transparentConfig = BarConfig.newInstance()
-        .transparent()
-        .light(config.light)
+    val transparentConfig = BarConfig.newInstance().apply {
+        transparent()
+        light = config.light
+    }
     requireActivity().updateStatusBar(transparentConfig)
     updateStatusBarView(config)
     manager.putStatusBarDefault(this)
@@ -94,9 +95,10 @@ internal fun Fragment.updateStatusBar(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun Fragment.updateNavigationBar(config: BarConfig) {
-    val transparentConfig = BarConfig.newInstance()
-        .transparent()
-        .light(config.light)
+    val transparentConfig = BarConfig.newInstance().apply {
+        transparent()
+        light = config.light
+    }
     requireActivity().updateNavigationBar(transparentConfig)
     updateNavigationBarView(config)
     manager.putNavigationBarDefault(this)
