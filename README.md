@@ -50,8 +50,12 @@ allprojects {
 在子目录的 build.gradle 中添加
 ```groovy
 dependencies {
-    implementation 'com.gitee.zackratos:UltimateBarX:$lastVersion'
+    // release 版本
     // 将 $lastVersion 替换成上图中的版本号
+    implementation 'com.gitee.zackratos:UltimateBarX:$lastVersion'
+    
+    // snapshot 版本
+    implementation 'com.gitee.zackratos:UltimateBarX:dev-SNAPSHOT'
 }
 ```
 
