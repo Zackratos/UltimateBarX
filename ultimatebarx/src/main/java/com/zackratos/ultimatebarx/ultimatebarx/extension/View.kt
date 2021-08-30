@@ -1,7 +1,9 @@
 package com.zackratos.ultimatebarx.ultimatebarx.extension
 
+import android.content.ContextWrapper
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zackratos
@@ -20,4 +22,16 @@ internal val View.children: List<View>
             }
         }
         return views
+    }
+
+internal val View.fragmentActivity: FragmentActivity?
+    get() {
+        var ctx = context
+        while (ctx is ContextWrapper) {
+            if (ctx is FragmentActivity) {
+                return ctx
+            }
+            ctx = ctx.baseContext
+        }
+        return null
     }

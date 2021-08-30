@@ -15,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zackratos.kblistener.kblistener.onKeyboardClose
 import com.zackratos.kblistener.kblistener.onKeyboardOpen
+import com.zackratos.navbarexist.navbarexist.navBarExist
 import com.zackratos.ultimatebarx.ultimatebarx.*
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXManager
 import com.zackratos.ultimatebarx.ultimatebarx.UltimateBarXObserver
@@ -166,7 +167,8 @@ private fun FragmentActivity.updateStatusBarView(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun FragmentActivity.updateNavigationBarView(config: BarConfig) {
-    if (!manager.rom.navigationBarExist(this)) return
+//    if (!manager.rom.navigationBarExist(this)) return
+    if (!navBarExist) return
     val landscape = manager.context.landscape
     contentView?.setNavigationBarPadding(landscape, config.fitWindow)
     val navigationBar = contentView?.getCreator(ActivityTag.instance, landscape)?.getNavigationBarView(this, config.fitWindow)
@@ -184,7 +186,8 @@ private fun Fragment.updateStatusBarView(config: BarConfig) {
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 private fun Fragment.updateNavigationBarView(config: BarConfig) {
-    if (!manager.rom.navigationBarExist(requireActivity())) return
+//    if (!manager.rom.navigationBarExist(requireActivity())) return
+    if (!requireActivity().navBarExist) return
     val rootView = addFrameLayoutWrapper()
     val landscape = manager.context.landscape
     rootView.setNavigationBarPadding(landscape, config.fitWindow)
@@ -232,11 +235,16 @@ private fun ViewGroup.setStatusBarPadding(fitWindow: Boolean) {
 }
 
 private fun ViewGroup.setNavigationBarPadding(landscape: Boolean, fitWindow: Boolean) {
+    val activity = fragmentActivity
+    val navBarHeight = when (activity?.navBarExist) {
+        true -> activity.navigationBarHeight
+        else -> 0
+    }
     if (landscape) {
         setPadding(
             paddingLeft,
             paddingTop,
-            if (fitWindow) navigationBarHeight else 0,
+            if (fitWindow) navBarHeight else 0,
             paddingBottom
         )
     } else {
@@ -244,7 +252,7 @@ private fun ViewGroup.setNavigationBarPadding(landscape: Boolean, fitWindow: Boo
             paddingLeft,
             paddingTop,
             paddingRight,
-            if (fitWindow) navigationBarHeight else 0
+            if (fitWindow) navBarHeight else 0
         )
     }
 }
@@ -284,37 +292,20 @@ private fun View.updateBackground(background: BarBackground): Boolean {
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun View.addStatusBarTopPadding() {
-    setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom)
     val lp = layoutParams
+    if (lp.height == ViewGroup.LayoutParams.MATCH_PARENT) return
+    setPadding(paddingLeft, paddingTop + statusBarHeight, paddingRight, paddingBottom)
     when (this) {
         is Toolbar -> {
             when (lp.height) {
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT -> {
-                    post {
-                        lp.height = height + statusBarHeight
-                        layoutParams = lp
-                    }
-                }
-                else -> {
-                    lp.height += statusBarHeight
-                    layoutParams = lp
-                }
+                ViewGroup.LayoutParams.WRAP_CONTENT -> addHeightWithPost(statusBarHeight)
+                else -> addHeightLp(statusBarHeight)
             }
         }
         else -> {
             when (lp.height) {
                 ViewGroup.LayoutParams.WRAP_CONTENT -> return
-                ViewGroup.LayoutParams.MATCH_PARENT -> {
-                    post {
-                        lp.height = height + statusBarHeight
-                        layoutParams = lp
-                    }
-                }
-                else -> {
-                    lp.height += statusBarHeight
-                    layoutParams = lp
-                }
+                else -> addHeightLp(statusBarHeight)
             }
         }
     }
@@ -326,44 +317,46 @@ internal fun View.addStatusBarTopPadding() {
  */
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun View.addNavigationBarBottomPadding() {
-    val ctx = context
-    if (ctx is FragmentActivity && !manager.rom.navigationBarExist(ctx)) {
+    val lp = layoutParams
+    if (lp.height == ViewGroup.LayoutParams.MATCH_PARENT) return
+    fragmentActivity?.navigationBarHeight {
+        if (it <= 0) return@navigationBarHeight
+        setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + it)
+        when (this) {
+            is Toolbar -> {
+                when (lp.height) {
+                    ViewGroup.LayoutParams.WRAP_CONTENT -> addHeightWithPost(it)
+                    else -> addHeightLp(it)
+                }
+            }
+            else -> {
+                when (lp.height) {
+                    ViewGroup.LayoutParams.WRAP_CONTENT -> return@navigationBarHeight
+                    else -> addHeightLp(it)
+                }
+            }
+        }
+    }
+}
+
+private fun View.addHeightWithPost(h: Int) {
+    if (height > 0) {
+        addHeight(h)
         return
     }
-    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + navigationBarHeight)
+    post { addHeight(h) }
+}
+
+private fun View.addHeight(h: Int) {
     val lp = layoutParams
-    when (this) {
-        is Toolbar -> {
-            when (lp.height) {
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT -> {
-                    post {
-                        lp.height = height + navigationBarHeight
-                        layoutParams = lp
-                    }
-                }
-                else -> {
-                    lp.height += navigationBarHeight
-                    layoutParams = lp
-                }
-            }
-        }
-        else -> {
-            when (lp.height) {
-                ViewGroup.LayoutParams.WRAP_CONTENT -> return
-                ViewGroup.LayoutParams.MATCH_PARENT -> {
-                    post {
-                        lp.height = height + navigationBarHeight
-                        layoutParams = lp
-                    }
-                }
-                else -> {
-                    lp.height += navigationBarHeight
-                    layoutParams = lp
-                }
-            }
-        }
-    }
+    lp.height = height + h
+    layoutParams = lp
+}
+
+private fun View.addHeightLp(h: Int) {
+    val lp = layoutParams
+    lp.height += h
+    layoutParams = lp
 }
 
 private fun FragmentActivity.fixBottomNavigationViewPadding() {

@@ -1,6 +1,7 @@
 package com.zackratos.ultimatebarx.ultimatebarx.extension
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
@@ -10,6 +11,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 
 /**
  * @Author   : zhangwenchao
@@ -32,6 +34,18 @@ internal val Context.landscape: Boolean
 
 @ColorInt
 internal fun Context.getColorInt(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
+
+internal val Context.fragmentActivity: FragmentActivity?
+    get() {
+        var ctx = this
+        while (ctx is ContextWrapper) {
+            if (ctx is FragmentActivity) {
+                return ctx
+            }
+            ctx = ctx.baseContext
+        }
+        return null
+    }
 
 internal val Context.screenHeight: Int
     @RequiresApi(Build.VERSION_CODES.KITKAT)

@@ -92,8 +92,18 @@ public class UltimateBarX {
         return UltimateBarXKt.getStatusBarHeight();
     }
 
-    public static int getNavigationBarHeight() {
-        return UltimateBarXKt.getNavigationBarHeight();
+
+    public static void getNavigationBarHeight(FragmentActivity activity, OnNavigationBarHeightListener listener) {
+        UltimateBarXKt.navigationBarHeight(activity, integer -> {
+            if (listener != null) {
+                listener.onNavigationBarHeight(integer);
+            }
+            return null;
+        });
+    }
+
+    public interface OnNavigationBarHeightListener {
+        void onNavigationBarHeight(int height);
     }
 
 }

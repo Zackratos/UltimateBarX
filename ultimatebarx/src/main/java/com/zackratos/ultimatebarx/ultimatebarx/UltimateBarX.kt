@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.zackratos.navbarexist.navbarexist.navBarExist
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zackratos.ultimatebarx.ultimatebarx.core.addNavigationBarBottomPadding
 import com.zackratos.ultimatebarx.ultimatebarx.core.addStatusBarTopPadding
@@ -51,15 +52,12 @@ val Fragment.navigationBarConfig: BarConfig
 val statusBarHeight: Int
     get() = manager.context.statusBarHeight
 
-val navigationBarHeight: Int
-    get() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1)
-            return 0
-        val rom = manager.rom
-        val context = manager.context
-        if (!rom.navigationBarExist(context)) return 0
-        return manager.context.navigationBarHeight
+fun FragmentActivity.navigationBarHeight(block: ((Int) -> Unit)?) {
+    navBarExist {
+        val height = if (it) navigationBarHeight else 0
+        block?.invoke(height)
     }
+}
 
 fun View.addStatusBarTopPadding() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) addStatusBarTopPadding()

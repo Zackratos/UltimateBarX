@@ -5,7 +5,9 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.zackratos.ultimatebarx.ultimatebarx.navigationBarHeight
+import com.zackratos.navbarexist.navbarexist.navBarExist
+import com.zackratos.ultimatebarx.ultimatebarx.extension.fragmentActivity
+import com.zackratos.ultimatebarx.ultimatebarx.extension.navigationBarHeight
 import com.zackratos.ultimatebarx.ultimatebarx.statusBarHeight
 
 /**
@@ -35,16 +37,21 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
 
     override fun getNavigationBarView(context: Context, fitWindow: Boolean): View {
         var navigationBar: View? = frameLayout.findViewWithTag(tag.navigationBarViewTag)
+        val activity = context.fragmentActivity
+        val navBarHeight = when (activity?.navBarExist) {
+            true -> activity.navigationBarHeight
+            else -> 0
+        }
         val width: Int
         val height: Int
         val gravity: Int
         if (landscape) {
-            width = navigationBarHeight
+            width = navBarHeight
             height = ViewGroup.LayoutParams.MATCH_PARENT
             gravity = Gravity.RIGHT
         } else {
             width = ViewGroup.LayoutParams.MATCH_PARENT
-            height = navigationBarHeight
+            height = navBarHeight
             gravity = Gravity.BOTTOM
         }
         if (navigationBar == null) {
@@ -57,9 +64,9 @@ internal class FrameLayoutCreator(private val frameLayout: FrameLayout, tag: Tag
         navigationBar.layoutParams = (navigationBar.layoutParams as FrameLayout.LayoutParams)
             .apply {
                 if (landscape) {
-                    rightMargin = if (fitWindow) -navigationBarHeight else 0
+                    rightMargin = if (fitWindow) -navBarHeight else 0
                 } else {
-                    bottomMargin = if (fitWindow) -navigationBarHeight else 0
+                    bottomMargin = if (fitWindow) -navBarHeight else 0
                 }
             }
         return navigationBar
