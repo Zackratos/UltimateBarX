@@ -68,3 +68,9 @@ internal val FragmentActivity.contentView: ViewGroup?
 
 internal val FragmentActivity.rootView: View?
     get() = contentView?.getChildAt(0)
+
+internal val FragmentActivity.originStatusBarColor: Int
+    get() = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) Color.BLACK else window?.statusBarColor ?: Color.TRANSPARENT
+
+internal val FragmentActivity.originNavigationBarColor: Int
+    get() = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) Color.BLACK else window?.navigationBarColor ?: Color.TRANSPARENT

@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import com.zackratos.ultimatebarx.ultimatebarx.bean.BarConfig
 import com.zackratos.ultimatebarx.ultimatebarx.extension.getRom
+import com.zackratos.ultimatebarx.ultimatebarx.extension.originNavigationBarColor
+import com.zackratos.ultimatebarx.ultimatebarx.extension.originStatusBarColor
 import com.zackratos.ultimatebarx.ultimatebarx.rom.Rom
 import java.lang.reflect.Field
 
@@ -87,21 +89,12 @@ internal class UltimateBarXManager private constructor(){
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     internal fun putOriginConfig(activity: FragmentActivity) {
-        @ColorInt val statusBarColor: Int
-        @ColorInt val navigationBarColor: Int
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            statusBarColor = Color.BLACK
-            navigationBarColor = Color.BLACK
-        } else {
-            statusBarColor = activity.window?.statusBarColor ?: Color.TRANSPARENT
-            navigationBarColor = activity.window?.navigationBarColor ?: Color.TRANSPARENT
-        }
         val staConfig = getStatusBarConfig(activity)
-        staConfig.background.color = statusBarColor
+        staConfig.background.color = activity.originStatusBarColor
         putStatusBarConfig(activity, staConfig)
         val navConfig = getNavigationBarConfig(activity)
-        navConfig.background.color = navigationBarColor
-        navConfig.light = calculateLight(navigationBarColor)
+        navConfig.background.color = activity.originNavigationBarColor
+        navConfig.light = calculateLight(navConfig.background.color)
         putNavigationBarConfig(activity, navConfig)
     }
 
