@@ -10,6 +10,7 @@ import com.zackratos.ultimatebarx.ultimatebarx.core.addObserver
 import com.zackratos.ultimatebarx.ultimatebarx.core.defaultNavigationBar
 import com.zackratos.ultimatebarx.ultimatebarx.core.ultimateBarXInitialization
 import com.zackratos.ultimatebarx.ultimatebarx.core.updateStatusBar
+import com.zackratos.ultimatebarx.ultimatebarx.extension.setStatusBarSystemUiFlagWithLight
 import com.zackratos.ultimatebarx.ultimatebarx.extension.setSystemUiFlagWithLight
 
 /**
@@ -62,3 +63,20 @@ internal fun Fragment.applyNavigationBar(config: BarConfig) {
     requireActivity().addObserver()
 }
 
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.applyStatusBarOnly(config: BarConfig) {
+    statusBarOnlyInitialization()
+    setStatusBarSystemUiFlagWithLight(config.light)
+    updateStatusBar(config)
+    addObserver(true)
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun Fragment.applyStatusBarOnly(config: BarConfig) {
+    requireActivity().statusBarOnlyInitialization()
+    statusBarOnlyInitialization()
+    requireActivity().setStatusBarSystemUiFlagWithLight(config.light)
+    updateStatusBar(config)
+    addObserver(true)
+    requireActivity().addObserver(true)
+}

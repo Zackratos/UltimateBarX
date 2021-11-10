@@ -47,6 +47,14 @@ internal fun FragmentActivity.ultimateBarXInitialization() {
     manager.putInitialization(this)
 }
 
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.statusBarOnlyInitialization() {
+    if (manager.getInitialization(this)) return
+    manager.putOriginStatusBarConfig(this)
+    statusBarInitialization()
+    addKeyboardListener()
+    manager.putInitialization(this)
+}
 
 internal fun Fragment.ultimateBarXInitialization() {
     if (manager.getInitialization(this)) return
@@ -64,6 +72,16 @@ internal fun Fragment.ultimateBarXInitialization() {
     navConfig.light = actNavConfig.light
     manager.putNavigationBarConfig(this, navConfig)
     fixBottomNavigationViewPadding()
+    manager.putInitialization(this)
+}
+
+internal fun Fragment.statusBarOnlyInitialization() {
+    if (manager.getInitialization(this)) return
+    addFrameLayoutWrapper()
+    val actStaConfig = manager.getStatusBarConfig(requireActivity())
+    val staConfig = manager.getStatusBarConfig(this)
+    staConfig.light = actStaConfig.light
+    manager.putStatusBarConfig(this, staConfig)
     manager.putInitialization(this)
 }
 
@@ -117,9 +135,9 @@ internal fun FragmentActivity.defaultNavigationBar() {
     updateNavigationBar(manager.getNavigationBarConfig(this))
 }
 
-internal fun LifecycleOwner.addObserver() {
+internal fun LifecycleOwner.addObserver(only: Boolean = false) {
     if (manager.getAddObserver(this)) return
-    lifecycle.addObserver(UltimateBarXObserver())
+    lifecycle.addObserver(UltimateBarXObserver(only))
     manager.putAddObserver(this)
 }
 
@@ -129,6 +147,13 @@ private fun FragmentActivity.barInitialization() {
     contentView?.clipToPadding = false
     rootView?.fitsSystemWindows = false
     barTransparent()
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+private fun FragmentActivity.statusBarInitialization() {
+    contentView?.clipToPadding = false
+    rootView?.fitsSystemWindows = false
+    statusBarTransparent()
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)

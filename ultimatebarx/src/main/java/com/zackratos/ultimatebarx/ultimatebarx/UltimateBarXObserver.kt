@@ -12,7 +12,7 @@ import androidx.lifecycle.OnLifecycleEvent
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal class UltimateBarXObserver: LifecycleObserver {
+internal class UltimateBarXObserver(val only: Boolean): LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
@@ -21,15 +21,21 @@ internal class UltimateBarXObserver: LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume(owner: LifecycleOwner) {
-        if (owner is Fragment) {
+        if (owner !is Fragment) return
+        if (only) {
             val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
-            val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(owner)
             if (staDefault) {
-                owner.getStatusBar()
+                owner.getStatusBarOnly()
             }
-            if (navDefault) {
-                owner.getNavigationBar()
-            }
+            return
+        }
+        val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
+        val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(owner)
+        if (staDefault) {
+            owner.getStatusBar()
+        }
+        if (navDefault) {
+            owner.getNavigationBar()
         }
     }
 }

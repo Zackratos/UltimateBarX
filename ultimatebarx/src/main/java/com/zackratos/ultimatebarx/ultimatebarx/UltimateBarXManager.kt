@@ -89,9 +89,19 @@ internal class UltimateBarXManager private constructor(){
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     internal fun putOriginConfig(activity: FragmentActivity) {
+        putOriginStatusBarConfig(activity)
+        putOriginNavigationBarConfig(activity)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    internal fun putOriginStatusBarConfig(activity: FragmentActivity) {
         val staConfig = getStatusBarConfig(activity)
         staConfig.background.color = activity.originStatusBarColor
         putStatusBarConfig(activity, staConfig)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
+    internal fun putOriginNavigationBarConfig(activity: FragmentActivity) {
         val navConfig = getNavigationBarConfig(activity)
         navConfig.background.color = activity.originNavigationBarColor
         navConfig.light = calculateLight(navConfig.background.color)

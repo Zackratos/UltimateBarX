@@ -21,21 +21,47 @@ internal fun FragmentActivity.setSystemUiFlagWithLight(statusBarLight: Boolean, 
 }
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.setStatusBarSystemUiFlagWithLight(light: Boolean) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
+    window?.decorView?.systemUiVisibility = statusBarSystemUiFlag(light)
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
 internal fun FragmentActivity.barTransparent() {
+    statusBarTransparent()
+    navigationBarTransparent()
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.statusBarTransparent() {
     when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
             window.isStatusBarContrastEnforced = false
-            window.isNavigationBarContrastEnforced = false
         }
     }
     when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
             window.statusBarColor = Color.TRANSPARENT
-            window.navigationBarColor = Color.TRANSPARENT
         }
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
             if (window.attributes.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS == 0)
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+internal fun FragmentActivity.navigationBarTransparent() {
+    when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+            window.isNavigationBarContrastEnforced = false
+        }
+    }
+    when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
+            window.navigationBarColor = Color.TRANSPARENT
+        }
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
             if (window.attributes.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION == 0)
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         }
@@ -55,6 +81,18 @@ private fun systemUiFlag(statusBarLight: Boolean, navigationBarLight: Boolean): 
         }
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
             if (statusBarLight) flag = flag or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+    }
+    return flag
+}
+
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+private fun statusBarSystemUiFlag(light: Boolean): Int {
+
+    var flag = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+            if (light) flag = flag or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
     return flag
