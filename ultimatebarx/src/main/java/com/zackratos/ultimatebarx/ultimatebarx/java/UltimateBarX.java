@@ -32,6 +32,14 @@ public class UltimateBarX {
         return new NavigationBarOperator(activity, getNavigationBarConfig(activity));
     }
 
+    public static Operator statusBarOnly(FragmentActivity activity) {
+        return new StatusBarOnlyOperator(activity);
+    }
+
+    public static Operator getStatusBarOnly(FragmentActivity activity) {
+        return new StatusBarOnlyOperator(activity, getStatusBarConfig(activity));
+    }
+
     public static Operator statusBar(Fragment fragment) {
         return new StatusBarOperator(fragment);
     }
@@ -46,6 +54,14 @@ public class UltimateBarX {
 
     public static Operator getNavigationBar(Fragment fragment) {
         return new NavigationBarOperator(fragment, getNavigationBarConfig(fragment));
+    }
+
+    public static Operator statusBarOnly(Fragment fragment) {
+        return new StatusBarOnlyOperator(fragment);
+    }
+
+    public static Operator getStatusBarOnly(Fragment fragment) {
+        return new StatusBarOnlyOperator(fragment, getStatusBarConfig(fragment));
     }
 
     public static void addStatusBarTopPadding(View view) {
