@@ -59,10 +59,10 @@ dependencies {
 }
 ```
 
-在 `Activity` 或 `Fragment` 中
+`UltimateBarX` 中提供了三个方法，分别是
 ```kotlin
-// 设置状态栏
-statusBar {
+// 只需要设置状态栏，不需要设置导航栏
+statusBarOnly {
     // 布局是否侵入状态栏（true 不侵入，false 侵入）
     fitWindow = true
     // 状态栏背景颜色（色值）
@@ -83,35 +83,44 @@ statusBar {
     // 以上三个 lvl 方法用一个即可，如多次设置，后面的会把前面的覆盖掉
 }
 
+// 设置状态栏
+statusBar {
+    fitWindow = true
+    // ...
+}
+
 // 设置导航栏
 navigationBar {
-    // 布局是否侵入导航栏（true 不侵入，false 侵入）
     fitWindow = true
-    // ···
-    // 其他方法与 statusBar 中的方法一致
+    // ...
 }
 ```
+这三个方法都可以在 `Activity` 和 `Fragment` 中使用  
+如果当前 `Activity` 或 `Fragment` **只需要设置状态栏不需要设置导航栏**建议使用 `statusBarOnly` 方法（使用 `statusBar` 方法也可以，但是在某些极端的情况下可能会出现异常效果）  
+其实国内的大部分（99%）需求都不需要设置导航栏，所以一般情况下，可以直接使用 `statusBarOnly` 方法  
+**`statusBarOnly` 方法不可与 `statusBar` 方法同时使用，也不可与 `navigationBar` 方法同时使用，切记！！！** 同时使用会出现异常效果（`statusBar` 方法和 `navigationBar` 方法可以同时使用）  
+也就是说，**如果只需要设置状态栏，直接使用 `statusBarOnly` 方法， 如果需要同时设置状态栏和导航栏，使用 `statusBar` 方法和 `navigationBar` 方法组合实现需要的效果**（如果只需要设置导航栏，那就使用 `navigationBar` 方法，不过这种需求几乎不存在）
 
 使用 `transparent` 方法可以快速设置透明效果
 ```kotlin
-statusBar {
+statusBarOnly {
     transparent()
 }
 ```
 
 跟下面的写法效果是一样的
 ```kotlin
-statusBar {
+statusBarOnly {
     fitWindow = false
     color = Color.TRANSLUCENT
 }
 ```
 
-使用 `getStatusBar` 方法和 `getNavigationBar` 方法可以在上一次的基础上修改  
+使用 `get` 系列方法可以在上一次的基础上修改  
 
 例如，先用下面的代码实现状态栏变红色，不侵入，非 light 模式
 ```kotlin
-statusBar {
+statusBarOnly {
     color = Color.RED
     fitWindow = true
     light = false
@@ -120,10 +129,11 @@ statusBar {
 
 然后需要设置 light 模式，其他效果保持不变，直接用下面的方法即可
 ```kotlin
-getStatusBar {
+getStatusBarOnly {
     light = true
 }
 ```
+`get` 系列方法包括 `getStatusBarOnly`、`getStatusBar`、`getNavigationBar`
 
 当布局可侵入状态栏或导航栏时，如果需要给某个 `View` 增加状态栏或者导航栏的高度，可以
 ```kotlin
@@ -133,7 +143,7 @@ targetView.addNavigationBarBottomPadding()
 
 `java` 中使用
 ```java
-UltimateBarX.statusBar(this)
+UltimateBarX.statusBarOnly(this)
         .fitWindow(true)
         .colorRes(R.color.deepSkyBlue)
         .light(true)
@@ -142,7 +152,7 @@ UltimateBarX.statusBar(this)
 ```
 如果项目中引入了 `kotlin`，也可以直接调用 `kotlin` 的扩展方法
 ```java
-UltimateBarXKt.statusBar(this, barConfig -> {
+UltimateBarXKt.statusBarOnly(this, barConfig -> {
     barConfig.setFitWindow(true);
     barConfig.setColorRes(R.color.deepSkyBlue);
     barConfig.setLight(true);
