@@ -99,7 +99,8 @@ navigationBar {
 如果当前 `Activity` 或 `Fragment` **只需要设置状态栏不需要设置导航栏**建议使用 `statusBarOnly` 方法（使用 `statusBar` 方法也可以，但是在某些极端的情况下可能会出现异常效果）  
 其实国内的大部分（99%）需求都不需要设置导航栏，所以一般情况下，可以直接使用 `statusBarOnly` 方法  
 **`statusBarOnly` 方法不可与 `statusBar` 方法同时使用，也不可与 `navigationBar` 方法同时使用，切记！！！** 同时使用会出现异常效果（`statusBar` 方法和 `navigationBar` 方法可以同时使用）  
-也就是说，**如果只需要设置状态栏，直接使用 `statusBarOnly` 方法， 如果需要同时设置状态栏和导航栏，使用 `statusBar` 方法和 `navigationBar` 方法组合实现需要的效果**（如果只需要设置导航栏，那就使用 `navigationBar` 方法，不过这种需求几乎不存在）
+也就是说，**如果只需要设置状态栏，直接使用 `statusBarOnly` 方法， 如果需要同时设置状态栏和导航栏，使用 `statusBar` 方法和 `navigationBar` 方法组合实现需要的效果**（如果只需要设置导航栏，那就使用 `navigationBar` 方法，不过这种需求几乎不存在）  
+**使用 `statusBarOnly` 方法可以解决一切导航栏异常的问题**，可以查看 [issues44](https://github.com/Zackratos/UltimateBarX/issues/44#issuecomment-970164111) 里面的解释
 
 使用 `transparent` 方法可以快速设置透明效果
 ```kotlin
