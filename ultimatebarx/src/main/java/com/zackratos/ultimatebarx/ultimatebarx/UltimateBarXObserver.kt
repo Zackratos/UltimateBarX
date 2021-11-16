@@ -12,7 +12,7 @@ import androidx.lifecycle.OnLifecycleEvent
  * @email    : 869649338@qq.com
  * @Describe :
  */
-internal class UltimateBarXObserver(val only: Boolean): LifecycleObserver {
+internal class UltimateBarXObserver(private val only: Boolean): LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
@@ -23,19 +23,39 @@ internal class UltimateBarXObserver(val only: Boolean): LifecycleObserver {
     fun onResume(owner: LifecycleOwner) {
         if (owner !is Fragment) return
         if (only) {
-            val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
-            if (staDefault) {
-                owner.getStatusBarOnly()
-            }
+            owner.resetStatusBarOnlyLight()
             return
         }
-        val staDefault = UltimateBarXManager.instance.getStatusBarDefault(owner)
-        val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(owner)
+        owner.resetLight()
+    }
+
+    private fun Fragment.resetStatusBarOnlyLight() {
+        val staDefault = UltimateBarXManager.instance.getStatusBarDefault(this)
         if (staDefault) {
-            owner.getStatusBar()
+            val staConfig = statusBarConfig
+            val parentStaConfig = requireActivity().statusBarConfig
+            if (staConfig.light != parentStaConfig.light) {
+                getStatusBarOnly()
+            }
+        }
+    }
+
+    private fun Fragment.resetLight() {
+        val staDefault = UltimateBarXManager.instance.getStatusBarDefault(this)
+        val navDefault = UltimateBarXManager.instance.getNavigationBarDefault(this)
+        if (staDefault) {
+            val staConfig = statusBarConfig
+            val parentStaConfig = requireActivity().statusBarConfig
+            if (staConfig.light != parentStaConfig.light) {
+                getStatusBar()
+            }
         }
         if (navDefault) {
-            owner.getNavigationBar()
+            val navConfig = navigationBarConfig
+            val parentNavConfig = requireActivity().navigationBarConfig
+            if (navConfig.light != parentNavConfig.light) {
+                getNavigationBar()
+            }
         }
     }
 }
