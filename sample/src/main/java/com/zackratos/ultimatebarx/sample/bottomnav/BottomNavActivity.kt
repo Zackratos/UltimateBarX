@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.zackratos.ultimatebarx.sample.R
 import com.zackratos.ultimatebarx.sample.ViewBindingActivity
 import com.zackratos.ultimatebarx.sample.databinding.ActivityBottomNavBinding
-import com.zackratos.ultimatebarx.ultimatebarx.statusBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBarOnly
 
 /**
  * @Author   : zackratos
@@ -16,7 +16,7 @@ class BottomNavActivity: ViewBindingActivity<ActivityBottomNavBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        statusBar {
+        statusBarOnly {
             transparent()
             light = true
         }

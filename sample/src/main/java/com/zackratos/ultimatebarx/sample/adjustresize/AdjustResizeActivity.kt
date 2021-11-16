@@ -3,7 +3,7 @@ package com.zackratos.ultimatebarx.sample.adjustresize
 import android.os.Bundle
 import com.zackratos.ultimatebarx.sample.ViewBindingActivity
 import com.zackratos.ultimatebarx.sample.databinding.ActivityAdjustResizeBinding
-import com.zackratos.ultimatebarx.ultimatebarx.statusBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBarOnly
 
 /**
  * @Author   : zackratos
@@ -15,7 +15,7 @@ class AdjustResizeActivity: ViewBindingActivity<ActivityAdjustResizeBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        statusBar { transparent() }
+        statusBarOnly { transparent() }
     }
 
 }

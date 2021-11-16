@@ -30,7 +30,7 @@ public class CoordinatorActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinator);
-        UltimateBarX.statusBar(this)
+        UltimateBarX.statusBarOnly(this)
                 .transparent()
                 .apply();
         Toolbar toolbar = findViewById(R.id.toolbar);

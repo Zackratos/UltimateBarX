@@ -27,7 +27,7 @@ public class DrawerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        UltimateBarX.statusBar(this)
+        UltimateBarX.statusBarOnly(this)
                 .fitWindow(true)
                 .color(Color.RED)
                 .apply();
@@ -38,7 +38,7 @@ public class DrawerActivity extends AppCompatActivity {
     private void initMainFragment() {
         mainFragment = TextFragment2.Companion.newInstance(Color.RED, "九阴真经", Color.WHITE,
                 fragment -> {
-                    UltimateBarX.statusBar(fragment)
+                    UltimateBarX.statusBarOnly(fragment)
                             .color(Color.RED)
                             .fitWindow(true)
                             .apply();

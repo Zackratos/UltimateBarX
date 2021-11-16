@@ -28,7 +28,7 @@ public class DrawerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UltimateBarX.statusBar(this)
+        UltimateBarX.statusBarOnly(this)
                 .transparent()
                 .apply();
     }

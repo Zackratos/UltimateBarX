@@ -62,7 +62,7 @@ public class FragmentStackActivity extends AppCompatActivity {
         switch (cursor) {
             case 0:
                 return f ->
-                        UltimateBarX.statusBar(f)
+                        UltimateBarX.statusBarOnly(f)
                                 .fitWindow(false)
                                 .colorRes(R.color.alphaBlack)
                                 .light(false)
@@ -70,27 +70,27 @@ public class FragmentStackActivity extends AppCompatActivity {
             case 1:
             case 5:
                 return f ->
-                        UltimateBarX.statusBar(f)
+                        UltimateBarX.statusBarOnly(f)
                                 .transparent()
                                 .light(true)
                                 .lvlColorRes(R.color.alphaBlack)
                                 .apply();
             case 2:
                 return f ->
-                        UltimateBarX.statusBar(f)
+                        UltimateBarX.statusBarOnly(f)
                                 .fitWindow(false)
                                 .colorRes(R.color.alphaGreen)
                                 .light(false)
                                 .apply();
             case 3:
                 return f ->
-                        UltimateBarX.statusBar(f)
+                        UltimateBarX.statusBarOnly(f)
                                 .transparent()
                                 .light(false)
                                 .apply();
             case 4:
                 return f ->
-                        UltimateBarX.statusBar(f)
+                        UltimateBarX.statusBarOnly(f)
                                 .fitWindow(false)
                                 .colorRes(R.color.alphaWhite)
                                 .light(true)
